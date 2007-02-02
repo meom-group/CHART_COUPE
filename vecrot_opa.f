@@ -98,11 +98,11 @@ PROGRAM vecrot_opa
      istatus=NF90_INQ_VARID(ncid2,'vomecrty',id_v )
      !   create a grid file associated WITH this cdf file
      !   ... uses u v etc as temporary arrays, released after...
-     istatus=NF90_INQ_VARID(ncid1,'nav_lat',id_latin)
-     istatus=NF90_GET_VAR(ncid1,id_latin,v, start=(/1,1/), count=(/ni,nj/) )
+     istatus=NF90_INQ_VARID(ncid1,'nav_lat',id_latin) ; 
+     istatus=NF90_GET_VAR(ncid1,id_latin,v(1:ni,1:nj), start=(/1,1/), count=(/ni,nj/) ) ; 
 
-     istatus=NF90_INQ_VARID(ncid2,'nav_lon',id_lonin)
-     istatus=NF90_GET_VAR(ncid2,id_lonin,urot,start=(/1,1/), count=(/ni,nj/) )
+     istatus=NF90_INQ_VARID(ncid2,'nav_lon',id_lonin) ; 
+     istatus=NF90_GET_VAR(ncid2,id_lonin,urot(1:ni,1:nj),start=(/1,1/), count=(/ni,nj/) ) ; 
      !   ... now estimate the lon, lat of T point , in ua, va
      !  ...    T lon is mean V_lon
      DO ji = 1, ni
@@ -181,20 +181,20 @@ PROGRAM vecrot_opa
   ELSEIF ( ctype .EQ. 'cdf' ) THEN
      !  create output file
      PRINT *,' Output file is vecrot.nc '
-     istatus=NF90_CREATE('vecrot.nc',NF90_CLOBBER,ncout)
+     istatus=NF90_CREATE('vecrot.nc',NF90_CLOBBER,ncout) ; 
      !define dims just as in input file
-     istatus=NF90_DEF_DIM(ncout,'x',ni,id_x)
-     istatus=NF90_DEF_DIM(ncout,'y',nj,id_y)
-     istatus=NF90_DEF_DIM(ncout,'deptht',nk,id_z)
-     istatus=NF90_DEF_DIM(ncout,'time_counter',NF90_UNLIMITED,id_t)
+     istatus=NF90_DEF_DIM(ncout,'x',ni,id_x) ; 
+     istatus=NF90_DEF_DIM(ncout,'y',nj,id_y) ; 
+     istatus=NF90_DEF_DIM(ncout,'deptht',nk,id_z) ; 
+     istatus=NF90_DEF_DIM(ncout,'time_counter',NF90_UNLIMITED,id_t) ; 
      ! define variables
-     istatus=NF90_DEF_VAR(ncout,'nav_lon',NF90_FLOAT,(/id_x,id_y/),id_lon)
-     istatus=NF90_DEF_VAR(ncout,'nav_lat',NF90_FLOAT,(/id_x,id_y/),id_lat)
-     istatus=NF90_DEF_VAR(ncout,'deptht',NF90_FLOAT,(/id_z/),id_dep)
-     istatus=NF90_DEF_VAR(ncout,'time_counter',NF90_FLOAT,(/id_t/),id_tim)
+     istatus=NF90_DEF_VAR(ncout,'nav_lon',NF90_FLOAT,(/id_x,id_y/),id_lon) ; 
+     istatus=NF90_DEF_VAR(ncout,'nav_lat',NF90_FLOAT,(/id_x,id_y/),id_lat) ; 
+     istatus=NF90_DEF_VAR(ncout,'deptht',NF90_FLOAT,(/id_z/),id_dep) ; 
+     istatus=NF90_DEF_VAR(ncout,'time_counter',NF90_FLOAT,(/id_t/),id_tim) ; 
 
-     istatus=NF90_DEF_VAR(ncout,'vtang',NF90_FLOAT,(/id_x,id_y,id_z,id_t/),id_tang)
-     istatus=NF90_DEF_VAR(ncout,'vnorm',NF90_FLOAT,(/id_x,id_y,id_z,id_t/),id_norm)
+     istatus=NF90_DEF_VAR(ncout,'vtang',NF90_FLOAT,(/id_x,id_y,id_z,id_t/),id_tang) ; 
+     istatus=NF90_DEF_VAR(ncout,'vnorm',NF90_FLOAT,(/id_x,id_y,id_z,id_t/),id_norm) ; 
 
      ! define attributes
      ! copy them for dim variables
@@ -251,12 +251,12 @@ PROGRAM vecrot_opa
      END DO
      x1= 1 ; y1 = 1; dx=1; dy=1; spval=0.
 
-     istatus=NF90_GET_VAR(ncid1,id_dep1,h1d,start=(/1/), count=(/nk/) )
+     istatus=NF90_GET_VAR(ncid1,id_dep1,h1d(1:nk),start=(/1/), count=(/nk/) ) ; 
 
-     istatus=NF90_PUT_VAR(ncout,id_lon,ua,start=(/1,1/),count=(/ni,nj/) )
-     istatus=NF90_PUT_VAR(ncout,id_lat,va,start=(/1,1/),count=(/ni,nj/) )
-     istatus=NF90_PUT_VAR(ncout,id_dep,h1d,start=(/1/),count=(/nk/) )
-     istatus=NF90_PUT_VAR(ncout,id_tim,time,start=(/1/),count=(/nt/) )
+     istatus=NF90_PUT_VAR(ncout,id_lon,ua(1:ni,1:nj),start=(/1,1/),count=(/ni,nj/) ) ; 
+     istatus=NF90_PUT_VAR(ncout,id_lat,va(1:ni,1:nj),start=(/1,1/),count=(/ni,nj/) ) ; 
+     istatus=NF90_PUT_VAR(ncout,id_dep,h1d(1:nk),start=(/1/),count=(/nk/) ) ; 
+     istatus=NF90_PUT_VAR(ncout,id_tim,time(1:nt),start=(/1/),count=(/nt/) ) ; 
 
   ELSE
      STOP ' file format not supported'
@@ -285,8 +285,8 @@ PROGRAM vecrot_opa
            icount(2)=nj
            icount(3)=1
            icount(4)=1
-           istatus = NF90_GET_VAR(ncid1,id_u,u,start=(/1,1,k,itime/),count=(/ni,nj,1,1/) )
-           istatus = NF90_GET_VAR(ncid2,id_v,v,start=(/1,1,k,itime/),count=(/ni,nj,1,1/) )
+           istatus = NF90_GET_VAR(ncid1,id_u,u(1:ni,1:nj),start=(/1,1,k,itime/),count=(/ni,nj,1,1/) ) ; 
+           istatus = NF90_GET_VAR(ncid2,id_v,v(1:ni,1:nj),start=(/1,1,k,itime/),count=(/ni,nj,1,1/) ) ; 
         END IF
 
         ! interpolation on Cgrid
@@ -331,8 +331,8 @@ PROGRAM vecrot_opa
            irec2=2+ (itime-1)*nk*2+(k-1)*2+(idim-1) 
            WRITE(11,rec=irec2)((vrot(i,j),i=1,ni),j=1,nj)
         ELSE IF ( ctype == 'cdf' ) THEN
-           istatus=NF90_PUT_VAR(ncout,id_tang,urot,start=(/1,1,k,itime/), count=(/ni,nj,1,1/) )
-           istatus=NF90_PUT_VAR(ncout,id_norm,vrot,start=(/1,1,k,itime/), count=(/ni,nj,1,1/) )
+           istatus=NF90_PUT_VAR(ncout,id_tang,urot(1:ni,1:nj),start=(/1,1,k,itime/), count=(/ni,nj,1,1/) ) ; 
+           istatus=NF90_PUT_VAR(ncout,id_norm,vrot(1:ni,1:nj),start=(/1,1,k,itime/), count=(/ni,nj,1,1/) ) ; 
         ELSE
            PRINT *, ' CTYPE unknown :', TRIM(ctype),' ... ERROR :('
            STOP

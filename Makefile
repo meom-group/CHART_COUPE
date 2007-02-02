@@ -122,7 +122,7 @@ coupe.total:
 common.h : parameter.h chart_version.h
 
 vecrot_opa: vecrot_opa.f
-	pgf90 -O -I/usr/local/netcdf-3.6.1/pgi/include -L /usr/local/netcdf-3.6.1/pgi/lib -lnetcdf -Mfree -Mextend -byteswapio vecrot_opa.f -o vecrot_opa 
+	pgf90 -O  -I/usr/local/netcdf-3.6.1/pgi/include -L /usr/local/netcdf-3.6.1/pgi/lib -lnetcdf -Mfree -Mextend -byteswapio vecrot_opa.f -o vecrot_opa 
 
 tar :
 	(cd ../ ; tar cf chart-coupe-6.0.tar CHART6.0/*.[Ffh] CHART6.0/Makefile* )
