@@ -51,7 +51,6 @@ c
      .      ACCESS='DIRECT',recl=88)
         READ(10,rec=1) VER,RECORD_str,irecl
         PRINT *,'file OPENed:',fil1
-c        PRINT *,VER,RECORD_str,irecl
         PRINT *,VER
         CLOSE(10)
 
