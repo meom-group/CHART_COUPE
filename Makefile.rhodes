@@ -23,9 +23,9 @@
 
 #FFLAGS=  -extend_source   -mips4 -bytereclen -I/usr/local/pub/include  -L/usr/local/pub/lib64  -static -mp
 FFLAGS=  -extend_source   -mips4 -bytereclen -I/usr/local/pub/include  -L/usr/local/pub/lib64  -static
-#FFLAGS=  -col120 -n32   -bytereclen -I/usr/local/pub/include  -L../ -g -C
 
 FC = f90
+.PHONY: clean
 
 CHARTOBJ = \
 chart.o  color.o readpal.o readbimg.o util.o calcul.o\
@@ -58,83 +58,41 @@ COMPILE = $(FC) $(FFLAGS)   -c $*.f
 BINDIR = $(HOME)/bin
 DEMODIR = /net/meol755/home/molines/bin
 
-all: chart coupe
+all: chart coupe 
 
-chart715: clean chparam chart coupe clean restoreparam 
+all25: chart25 coupe25
 
-chparam:
-	/bin/cp parameter.715 parameter.h
 
-restoreparam:
-	/bin/cp parameter.755 parameter.h
+chparamstd:
+	/bin/cp parameter.rhodes.h parameter.h
+	/bin/cp mapncar.rhodes.h mapncar.h
+	make clean
 
-chart:  ${CHARTOBJ}
+chparam25:
+	/bin/cp parameter.orca025.h parameter.h
+	/bin/cp mapncar.rhodes.h mapncar.h
+	make clean
+
+chart:  chparamstd  ${CHARTOBJ}
 	$(HOME)/bin/ncargf90    $(FFLAGS) ${CHARTOBJ} -o $@  -lnetcdf
 
 coupe:  ${COUPEOBJ}
 	$(HOME)/bin/ncargf90    $(FFLAGS) ${COUPEOBJ} -o $@  -lnetcdf
 
+chart25: chparam25 ${CHARTOBJ}
+	$(HOME)/bin/ncargf90    $(FFLAGS) ${CHARTOBJ} -o $@  -lnetcdf
+
+coupe25:  ${COUPEOBJ}
+	$(HOME)/bin/ncargf90    $(FFLAGS) ${COUPEOBJ} -o $@  -lnetcdf
+
 clean:
 	-/bin/rm -f *.o core *% *.trace *~
 
-install:	chart	coupe
+install:
 	mv -f chart $(BINDIR)/chart
 	mv -f coupe $(BINDIR)/coupe
-
-chart25:	chart	coupe
-	mv -f chart $(BINDIR)/chart25
-	mv -f coupe $(BINDIR)/coupe25
-
-bipro1: chart coupe
-	 rcp -p coupe root@meolbipro1:/usr/local/bin/coupetest
-
-remote_install: chart coupe
-	rcp -p chart root@meolbipro1:/usr/local/bin/chart
-	rcp -p coupe root@meolbipro1:/usr/local/bin/coupe
-	rcp -p chart root@meollnx1:/usr/local/bin/chart
-	rcp -p coupe root@meollnx1:/usr/local/bin/coupe
-	rcp -p chart root@meolk7:/usr/local/bin/chart
-	rcp -p coupe root@meolk7:/usr/local/bin/coupe
-	rcp -p chart root@meolipx:/usr/local/bin/chart
-	rcp -p coupe root@meolipx:/usr/local/bin/coupe
-	rcp -p chart root@meollnx2:/usr/local/bin/chart
-	rcp -p coupe root@meollnx2:/usr/local/bin/coupe
-	rcp -p chart root@meollnx5:/usr/local/bin/chart
-	rcp -p coupe root@meollnx5:/usr/local/bin/coupe
-	rcp -p chart root@meolatl:/usr/local/bin/chart
-	rcp -p coupe root@meolatl:/usr/local/bin/coupe
-
-remote8.1: chart coupe
-	rcp -p chart meollab:/usr/local/bin/chart
-	rcp -p coupe meollab:/usr/local/bin/coupe
-	rcp -p chart meoldrak:/usr/local/bin/chart
-	rcp -p coupe meoldrak:/usr/local/bin/coupe
-	rcp -p chart meolfram:/usr/local/bin/chart
-	rcp -p coupe meolfram:/usr/local/bin/coupe
-#rcp -p chart root@meollnx3:/usr/local/bin/chart
-#rcp -p coupe root@meollnx3:/usr/local/bin/coupe
-#rcp -p chart root@meolmed:/usr/local/bin/chart
-#rcp -p coupe root@meolmed:/usr/local/bin/coupe
-
-remote_k200: chart coupe
-	rcp -p chart root@meolk200:/usr/local/bin/chart5
-	rcp -p chart root@meolk200:/usr/local/bin/coupe5
-
-remote_755: chart coupe
-	rcp -p chart root@meol755:/usr/local/bin/chart5
-	rcp -p chart root@meol755:/usr/local/bin/coupe5
-
-meollnx1: chart coupe
-	rcp -p chart root@meollnx1:/usr/local/bin/chart
-	rcp -p coupe root@meollnx1:/usr/local/bin/coupe
-                                                                                                     
-install4:	chart	coupe
-	mv -f chart $(BINDIR)/chart4
-	mv -f coupe $(BINDIR)/coupe4
-
-demo:	chart	coupe
-	mv -f chart $(DEMODIR)/dchart
-	mv -f coupe $(DEMODIR)/dcoupe
+	mv -f chart25 $(BINDIR)/chart25
+	mv -f coupe25 $(BINDIR)/coupe25
 
 chart.total:
 	cat $(CHARTSRC) > chart.total
@@ -142,10 +100,9 @@ chart.total:
 coupe.total:
 	cat $(COUPESRC) > coupe.total
 
-
 common.h : parameter.h chart_version.h
 
-vecrot_opa: vecrot_opa.f
+vecrot_opa: parameter.h vecrot_opa.f
 	f90  -col120   -mips4 -bytereclen -I/usr/local/pub/include  -L/usr/local/pub/lib64  vecrot_opa.f -o vecrot_opa  -lnetcdf
 
 
