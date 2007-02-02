@@ -12,7 +12,7 @@ FFLAGS= -O   -q64 -qfixed=132 -I/usr/local/netcdf/include -qmaxmem=-1 -qsmp -bre
 CPPFLAGS= 
 #FFLAGS=  -byteswapio -Mextend -O -g -C
 .SUFFIXES: .F
-FC = xlf_r
+FC = xlf90_r
 CPP=/lib/cpp
 
 .F.o:
@@ -138,7 +138,7 @@ coupe.total:
 common.h : parameter.h chart_version.h
 
 vecrot_opa: vecrot_opa.f
-	xlf90_r -q64 -qfixed=132 -O  -I/usr/local/netcdf/include -qsmp vecrot_opa.f  -L/usr/local/netcdf/lib -lnetcdf -o vecrot_opa
+	xlf90_r -q64 -k -O  -I/usr/local/netcdf-3.6.0-p1/include -qsmp vecrot_opa.f  -L/usr/local/netcdf-3.6.0-p1/lib -lnetcdf -o vecrot_opa
 
 
 
