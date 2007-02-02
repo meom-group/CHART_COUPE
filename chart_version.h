@@ -1,6 +1,6 @@
       print *,' '
-      print *, 'Chart version 6.1  01/02/2007'
-          print *, ' New features 6.1 :'
+      print *, 'Chart version 6.dev  01/02/2007'
+          print *, ' New features 6.dev :'
           print *, '        -toward a new version of chart !'
           print *,' (doc web http://www-meom.hmg.inpg.fr/WEB_CHART/)'
           print *,' '
