@@ -184,7 +184,7 @@ PROGRAM vecrot_opa
      istatus=NF90_CREATE('vecrot.nc',NF90_CLOBBER,ncout)
      !define dims just as in input file
      istatus=NF90_DEF_DIM(ncout,'x',ni,id_x)
-     istatus=NF90_DEF_DIM(ncout,'y',ni,id_y)
+     istatus=NF90_DEF_DIM(ncout,'y',nj,id_y)
      istatus=NF90_DEF_DIM(ncout,'deptht',nk,id_z)
      istatus=NF90_DEF_DIM(ncout,'time_counter',NF90_UNLIMITED,id_t)
      ! define variables
