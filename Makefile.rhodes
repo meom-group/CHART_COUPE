@@ -103,7 +103,7 @@ coupe.total:
 common.h : parameter.h chart_version.h
 
 vecrot_opa: parameter.h vecrot_opa.f
-	f90  -col120   -mips4 -bytereclen -I/usr/local/pub/include  -L/usr/local/pub/lib64  vecrot_opa.f -o vecrot_opa  -lnetcdf
+	f90  -freeform  -mips4 -bytereclen -I/usr/local/pub/include  -L/usr/local/pub/lib64  vecrot_opa.f -o vecrot_opa  -lnetcdf
 
 
 
