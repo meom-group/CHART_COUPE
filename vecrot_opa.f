@@ -1,15 +1,14 @@
       PROGRAM vecrot_opa
       IMPLICIT NONE
 
-      INTEGER nimax,njmax,nkmax,ndimax,ntmax
-      PARAMETER (nimax=780,njmax=1296,nkmax=43,ndimax=1,ntmax=1)
+      include 'parameter.h'
       CHARACTER*80 line1, line2, line3, line4
       CHARACTER*80 fil1,fil2,line,filgrid,cmd
-      REAL u(nimax,njmax), h1d(nkmax)
-      REAL v(nimax,njmax)
-      REAL ua(nimax,njmax),va(nimax,njmax)
-      REAL urot(nimax,njmax)
-      REAL vrot(nimax,njmax)
+      REAL u(NXX,NYY), h1d(NA)
+      REAL v(NXX,NYY)
+      REAL ua(NXX,NYY),va(NXX,NYY)
+      REAL urot(NXX,NYY)
+      REAL vrot(NXX,NYY)
 
       CHARACTER*80 RECORD_str, ctype
       CHARACTER*4 VER
@@ -18,7 +17,7 @@
       INTEGER k,i,j,ni,nj,nk, ji,jj
       INTEGER irecl, irec,IFich,narg,iargc,irec2
       INTEGER nt,icod,ndim,itime,idim
-      REAL    x1, y1, dx, dy, spval, time_tag1(ntmax),time(ntmax)
+      REAL    x1, y1, dx, dy, spval, time_tag1(Ntime),time(Ntime)
       REAL angled,angle,alfa,pi
       include 'netcdf.inc'
       INTEGER istatus, ncid1, ncid2
