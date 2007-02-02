@@ -835,7 +835,7 @@ c     couleur ---------------------------------------------------
             call PrintMessage (0,13,' ')
          else
          call GetString (i, itype, str_arg, lstr_arg, f_clrdata)
- 	 if (f_clrdata.ne.'vecrot.bimg') then           
+ 	 if (f_clrdata.ne.'vecrot.bimg' .and. f_clrdata .ne. 'vecrot.nc' ) then           
          if (FindFile (f_clrdata, 1).eq.1) then
             call PrintMessage (1,6, f_clrdata(1:lnblnk(f_clrdata)))
          endif 
