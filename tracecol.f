@@ -1245,7 +1245,8 @@ c Labels for the northern or for the southern hemisphere?
 c Set up the labels.
 c Set up the labels.
         ilab=nint(rlat)
-        cfmt='( '//int_table(ICLR_YAXIS)%format//',1x,a)'
+!        cfmt='( '//int_table(ICLR_YAXIS)%format//',1x,a)'
+         cfmt='( '//int_table(ICLR_YAXIS)%format//',a)'
 C   look for integer of real format
         if ( index (cfmt,'I') .EQ. 0 .AND. index (cfmt,'i') .EQ. 0 ) then
         write(crlab,cfmt) rlat, clab(4:4)
@@ -1302,7 +1303,8 @@ c Labels for 'West of Greenwich' or for 'East of Greenwich'?
         end if
 c Set up the labels.
         ilab=nint(rlon)
-        cfmt='( '//int_table(ICLR_XAXIS)%format//',1x,a)'
+!        cfmt='( '//int_table(ICLR_XAXIS)%format//',1x,a)'
+        cfmt='( '//int_table(ICLR_XAXIS)%format//',a)'
 C   look for integer of real format
         if ( index (cfmt,'I') .EQ. 0 .AND. index (cfmt,'i') .EQ. 0 ) then
         write(crlab,cfmt) rlon, clab(4:4)
