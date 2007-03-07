@@ -8,7 +8,8 @@
 #    ##   ##  ##  ##    ##  ##    ##
 #    ######   ##  ##    ##   ######
 #
-FFLAGS= -O   -q64 -qfixed=132 -I/usr/local/netcdf/include -qmaxmem=-1 -qsmp -brename:.fdate,.fdate_ -bmaxdata:2000000000 
+FFLAGS= -O   -q64 -qfixed=132 -I/usr/local/netcdf/include -qmaxmem=-1 -qsmp -brename:.fdate,.fdate_ -bmaxdata:2000000000 -qsave
+#FFLAGS= -C -g  -q64 -qfixed=132 -I/usr/local/netcdf/include -qmaxmem=-1 -brename:.fdate,.fdate_ -bmaxdata:2000000000 -qsave
 CPPFLAGS= 
 #FFLAGS=  -byteswapio -Mextend -O -g -C
 .SUFFIXES: .F
