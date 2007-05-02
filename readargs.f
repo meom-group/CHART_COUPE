@@ -308,6 +308,9 @@ c     fichiers ----------------------------------------
         opt_mean=1
         call Get1real (i, itype, str_arg, zmean0)
 
+      else if (str_opt.eq.'-log10' ) then
+        opt_log=1
+
       else if (str_opt.eq.'-b') then
          opt_map=1
          call GetString (i, itype, str_arg, lstr_arg, filebat)
@@ -1613,6 +1616,7 @@ c     valeurs par defaut
       opt_spval    = 0
       opt_scale    = 0
       opt_mean     = 0
+      opt_log      = 0
       opt_map      = 1
       opt_high     = 0
       opt_ocean    = 0

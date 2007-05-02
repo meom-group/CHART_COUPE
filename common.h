@@ -12,7 +12,7 @@ c       carte
         integer*2 opt_grid, opt_grad, opt_xstep, opt_ystep,opt_zstep
         integer*2 opt_kmstep, opt_ijgrid,opt_high
         integer*2 opt_noproj, opt_labx, opt_laby, opt_labz
-	integer*2 opt_sigma, opt_sigmatr, opt_orca, opt_spval, opt_mean, opt_scale
+	integer*2 opt_sigma, opt_sigmatr, opt_orca, opt_spval, opt_mean, opt_scale, opt_log
         real*4 over_spval, zmean0, zscale
 
         integer*2 opt_nolat, opt_nolon, opt_xybat
@@ -117,7 +117,7 @@ c       FORMAT BIMG
      .               opt_high,
      .               opt_minc, opt_maxc, opt_xybat, opt_marks,
      .               opt_reverse, opt_marg, opt_labx,opt_laby,opt_labz,
-     .               opt_sigma, opt_sigmatr, opt_orca, opt_spval, opt_mean, opt_scale,
+     .               opt_sigma, opt_sigmatr, opt_orca, opt_spval, opt_mean, opt_scale,opt_log,
      .               opt_conv,opt_map,opt_mapfill,opt_batgrid,opt_ocean,
      .               opt_showgrid,
      .               opt_rlat,opt_rlon,opt_km,opt_grad,opt_shift,opt_360,
