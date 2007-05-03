@@ -33,9 +33,9 @@ cdf.f
 DEPEND = parameter.h common.h
 COMPILE = $(FC) $(FFLAGS)   -c $*.f 
 
-BINDIR = /usr/local/bin
+BINDIR = $(HOME)/bin
 
-all: chart coupe
+all: chart coupe vecrot_opa
 
 chart: ${CHARTOBJ}
 	ncargf90   $(FFLAGS) ${CHARTOBJ} -o $@  $(NCDF)
@@ -43,12 +43,16 @@ chart: ${CHARTOBJ}
 coupe: ${COUPEOBJ}
 	ncargf90    $(FFLAGS) ${COUPEOBJ} -o $@  $(NCDF)
 
+vecrot_opa: vecrot_opa.f
+	$(FC) $(FFLAGS)  -free vecrot_opa.f -o vecrot_opa  $(NCDF)
+
 clean:
 	-/bin/rm -f *.o core *% *.trace *~
 
-install:	chart	coupe
+install:	chart	coupe vecrot_opa
 	mv -f chart $(BINDIR)/chart
 	mv -f coupe $(BINDIR)/coupe
+	mv -f vecrot_opa $(BINDIR)/vecrot_opa
 
 chart.total:
 	cat $(CHARTSRC) > chart.total
@@ -58,9 +62,6 @@ coupe.total:
 
 
 common.h : parameter.h chart_version.h
-
-vecrot_opa: vecrot_opa.f
-	$(FC) $(FFLAGS)  -free vecrot_opa.f -o vecrot_opa  $(NCDF)
 
 tar :
 	(cd ../ ; tar cf chart-coupe-6.0.tar CHART6.0/*.[Ffh] CHART6.0/Makefile* )
