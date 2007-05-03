@@ -8,7 +8,7 @@
 #    ##   ##  ##  ##    ##  ##    ##
 #    ######   ##  ##    ##   ######
 #
-FFLAGS= -lg2c -assume byterecl  -convert big_endian -O -I/home/molines/ncarg/include -I/usr/local/include
+FFLAGS= -lg2c -assume byterecl  -convert big_endian -extend_source -O -I/home/molines/ncarg/include -I/usr/local/include
 FC = ifort
 
 
