@@ -1,0 +1,69 @@
+# Makefile pour les utilitaire bimg
+# actuellement chart et coupe
+#
+NCDF = -I/usr/local/include -L/usr/local/lib -lnetcdf
+FFLAGS=  -L$(HOME)/mylib -lg2c -assume byterecl  -convert big_endian -O -extend_source $(NCDF)
+FC = ifort
+
+CHARTOBJ = \
+chart.o  color.o readpal.o readbimg.o util.o calcul.o\
+deflim.o readargs.o tracecol.o isocontours.o val_table.o \
+drawpalette.o checkfiles.o vectors.o lnblnk.o flush.o overlay.o sigma.o \
+cdf.o
+
+CHARTSRC = \
+chart.f  color.f readpal.f readbimg.f util.f calcul.f\
+deflim.f readargs.f tracecol.f isocontours.f val_table.f\
+drawpalette.f checkfiles.F vectors.f lnblnk.f flush.f overlay.f sigma.f \
+cdf.f
+
+COUPEOBJ = \
+coupe.o  color.o readpal.o readbimg.o util.o calcul.o\
+deflim.o readargs.o tracecol.o isocontours.o val_table.o\
+drawpalette.o checkfiles.o lnblnk.o flush.o overlay.o sigma.o \
+cdf.o
+
+COUPESRC = \
+coupe.f  color.f readpal.f readbimg.f util.f calcul.f\
+deflim.f readargs.f tracecol.f isocontours.f val_table.f\
+drawpalette.f checkfiles.F lnblnk.f flush.f overlay.f sigma.f \
+cdf.f
+
+
+DEPEND = parameter.h common.h
+COMPILE = $(FC) $(FFLAGS)   -c $*.f 
+
+BINDIR = /usr/local/bin
+
+all: chart coupe
+
+chart: ${CHARTOBJ}
+	ncargf90   $(FFLAGS) ${CHARTOBJ} -o $@  $(NCDF)
+
+coupe: ${COUPEOBJ}
+	ncargf90    $(FFLAGS) ${COUPEOBJ} -o $@  $(NCDF)
+
+clean:
+	-/bin/rm -f *.o core *% *.trace *~
+
+install:	chart	coupe
+	mv -f chart $(BINDIR)/chart
+	mv -f coupe $(BINDIR)/coupe
+
+chart.total:
+	cat $(CHARTSRC) > chart.total
+
+coupe.total:
+	cat $(COUPESRC) > coupe.total
+
+
+common.h : parameter.h chart_version.h
+
+vecrot_opa: vecrot_opa.f
+	$(FC) $(FFLAGS)  -free vecrot_opa.f -o vecrot_opa  $(NCDF)
+
+tar :
+	(cd ../ ; tar cf chart-coupe-6.0.tar CHART6.0/*.[Ffh] CHART6.0/Makefile* )
+
+
+# DO NOT DELETE
