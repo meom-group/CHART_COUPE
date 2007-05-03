@@ -166,6 +166,7 @@ C
 c     preparation des donnees 
 
             if (opt_clrdata.eq.1) then
+               bimgclr%lclr=.true. ; bimgclr%lcnt=.false.
                call BimgReadData (clrdata,bimgclr,map_coord,t,kclr,cl_dim)
 	        if (bimgclr%spval0 ) bimgclr%spval = defspval
                if (opt_vorticity.eq.1) then
@@ -176,6 +177,7 @@ c     preparation des donnees
 C         ier=PrintBimgStructure(bimgclr)
             
             if (opt_contours.eq.1) then
+               bimgcnt%lcnt=.true. ; bimgcnt%lclr=.false.
                call BimgReadData (cntdata,bimgcnt,map_coord,t,kcnt,ct_dim)
                call SetClrCNESday (bimgcnt%time)
 	        if (bimgcnt%spval0) bimgcnt%spval = defspval

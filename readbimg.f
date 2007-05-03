@@ -552,7 +552,8 @@ C     option -mean : change the mean value of local data set
           enddo
          enddo
         end if
-        IF ( opt_log == 1 ) THEN
+
+        IF ( opt_log == 1 .OR. ( opt_cntlog == 1 .AND. bimg%lcnt ) .OR. (opt_clrlog == 1 .AND. bimg%lclr) ) THEN
           WHERE(local_data(imin:imax,jmin:jmax) /=  bimg%spval .AND. 
      .          local_data(imin:imax,jmin:jmax) /= 0 ) 
               local_data(imin:imax,jmin:jmax) = log10( local_data(imin:imax,jmin:jmax))

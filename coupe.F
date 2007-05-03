@@ -167,6 +167,7 @@ c     Calcul des couleurs
 	     print *,' CLRDATA...'
 c             if (opt_clrgrid .ne. 0 ) print *,'      Grille irreguliere type:', opt_clrgrid
               if (bimgclr%grid .ne. 0 ) print *,'      Grille irreguliere type:', bimgclr%grid
+             bimgclr%lclr=.true. ; bimgclr%lcnt=.false.
              call CalculateCutPlane (clrdata, bimgclr,bimgzlevel, t, cl_dim)
 	    endif
 
@@ -197,6 +198,7 @@ c     Calcul des isocontours
 	     print *,' CNTDATA...'
 c             if (opt_contgrid .ne. 0 ) print *,'      Grille irreguliere type:', opt_contgrid
               if (bimgcnt%grid .ne. 0 ) print *,'      Grille irreguliere type:', bimgcnt%grid
+             bimgcnt%lcnt=.true. ; bimgcnt%lclr=.false.
              call CalculateCutPlane (cntdata, bimgcnt,bimgzlevel, t, ct_dim)
 
       if(opt_marg.eq.0) then
@@ -771,6 +773,7 @@ c     Tableau des profondeurs.
 
             layer(layer_cnt) = -bimgzlevel%depth(k)
 
+            bimgzlevel%lclr=.false. ; bimgzlevel%lcnt=.false.
             call BimgReadData (work,bimgzlevel,map_coord,1,k,1)
 
 	   if (bimgzlevel%grid .ne. 3 ) then
@@ -996,6 +999,7 @@ c     option grille
 
 
 	 print *,'BATHYMETRY'
+         bathyinfo%lclr=.false. ; bathyinfo%lcnt=.false.
          call BimgReadData (bathy,bathyinfo,map_coord,1,1,1)
          close (20)
 c

@@ -1,6 +1,9 @@
       print *,' '
-      print *, 'Coupe version 6.dev 01/02/2007'
-          print *,'  developper branch toward a new chart and coupe '
+      print *, 'Coupe version 6.dev 03/05/2007'
+          print *, ' New features 6.dev :'
+          print *, '        -log10 option : for couping (!?)  log10 of the field'
+          print *, '        -clrlog10 option : for coloring log10 of the field'
+          print *, '        -cntlog10 option : for countouring log10 of the field'
           print *,' (doc web http://www-meom.hmg.inpg.fr/WEB_CHART/)'
           print *,' '
           print *,' In this  compilation NXX= ', NXX
