@@ -6,8 +6,8 @@
 !      parameter (NXX=773,NYY=1296,NA=150,Ntime=700)
 !      parameter (NXX=800,NYY=1296,NA=100,Ntime=700)
 ! for ORCA025
-       parameter (NXX=1442,NYY=1021,NA=190,Ntime=700)
-!      parameter (NXX=1500,NYY=1500,NA=100,Ntime=700)
+!      parameter (NXX=1442,NYY=1021,NA=190,Ntime=700)
+      parameter (NXX=1500,NYY=1500,NA=100,Ntime=700)
 ! for etopo2
 !     parameter (NXX=1711,NYY=601,NA=100,Ntime=700)
 ! for POP10
