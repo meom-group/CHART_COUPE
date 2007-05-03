@@ -58,9 +58,9 @@ COMPILE = $(FC) $(FFLAGS)   -c $*.f
 BINDIR = $(HOME)/bin
 DEMODIR = /net/meol755/home/molines/bin
 
-all: chart coupe 
+all: chart coupe vecrot_opa
 
-all25: chart25 coupe25
+all25: chart25 coupe25 vecrot_opa25 
 
 
 chparamstd:
@@ -89,10 +89,11 @@ clean:
 	-/bin/rm -f *.o core *% *.trace *~
 
 install:
-	mv -f chart $(BINDIR)/chart
-	mv -f coupe $(BINDIR)/coupe
-	mv -f chart25 $(BINDIR)/chart25
-	mv -f coupe25 $(BINDIR)/coupe25
+	@-mv -f chart $(BINDIR)/chart
+	@-mv -f coupe $(BINDIR)/coupe
+	@-mv -f chart25 $(BINDIR)/chart25
+	@-mv -f coupe25 $(BINDIR)/coupe25
+	@-mv -f vecrot_opa $(BINDIR)/vecrot_opa
 
 chart.total:
 	cat $(CHARTSRC) > chart.total
@@ -105,6 +106,9 @@ common.h : parameter.h chart_version.h
 vecrot_opa: parameter.h vecrot_opa.f
 	f90  -freeform  -mips4 -bytereclen -I/usr/local/pub/include  -L/usr/local/pub/lib64  vecrot_opa.f -o vecrot_opa  -lnetcdf
 
+
+vecrot_opa25: chparam25 parameter.h vecrot_opa.f
+	f90  -freeform  -mips4 -bytereclen -I/usr/local/pub/include  -L/usr/local/pub/lib64  vecrot_opa.f -o vecrot_opa  -lnetcdf
 
 
 # DO NOT DELETE
