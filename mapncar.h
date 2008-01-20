@@ -12,8 +12,8 @@ c --------------------------------------------------------------------
 
 
       integer  sz_iama, sz_cra
-      parameter (sz_iama = 25000000)
-      parameter (sz_cra =  1000000)
+      parameter (sz_iama = 250000000)
+      parameter (sz_cra =  10000000)
 
 
       integer  iama(sz_iama), iaia(10), igia(10)

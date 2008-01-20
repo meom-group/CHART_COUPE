@@ -126,7 +126,9 @@ C     cmiss='missing_value'
       NCID=bimg%ncid
       nvars=bimg%nvars
       cvar=bimg%varname
+      PRINT *, NCID, nvars,cvar
       STATUS=NF_INQ_VARID (NCID,cvar,varid)
+      PRINT *, status
 C ... Enter interactive loop if the variable name is not
 C     given or if it is wrong.
       DO WHILE (STATUS .EQ. NF_ENOTVAR) 

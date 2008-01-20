@@ -968,6 +968,8 @@ c ---------------------------------------------------------------------
       external drwbathy
       integer  BimgOpenFile 
 
+      PRINT *, 'Reading bathy file for coupe'
+
       open (20,file=filebat,iostat=state,status='old')
       if (state.eq.0) then
          close (20)
@@ -988,7 +990,11 @@ c**            print *, 'pas de fichier de bathymetrie specifie'
       
       if (value.eq.0) then
 	 bathyinfo%fname=filebat
+         PRINT *,' bimgOpenfile'
+         bathyinfo%modifier='none'
+         bathyinfo%varname='none'
          bathyinfo%f_unit = BimgOpenFile (bathyinfo)
+         PRINT *,' bimgReafHeader'
          call BimgReadHeader (bathyinfo)
 
 c     option grille
