@@ -344,6 +344,8 @@ C       et on a un debordement de tableau dans les lignes suivantes
           END DO
          END DO
       ENDIF
+C JMM add option -forcexy
+      IF ( opt_forcexy  .EQ. 1 ) lflag=.false.
 
       IF (lflag) then 
        bimg%grid=1

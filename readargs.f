@@ -388,6 +388,9 @@ c     -----------------------------------------------
          opt_noproj = 1
          opt_map = 0
 
+      elseif (str_opt.eq.'-forcexy') then
+         opt_forcexy = 1
+
       elseif (str_opt.eq.'-gridxy') then
          opt_batgrid  = 3
          opt_clrgrid  = 3
@@ -1611,6 +1614,7 @@ c     valeurs par defaut
       opt_color    = 0
       opt_grid     = 0
       opt_ijgrid   = 0
+      opt_forcexy  = 0
       opt_xgrid    = 0
       opt_ygrid    = 0
       opt_zgrid    = 0

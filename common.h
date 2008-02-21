@@ -52,6 +52,8 @@ c       vecteurs
 
 c       overlay
 	integer*2 opt_overdata, opt_overmark, opt_overclr, opt_overout
+c       divers
+        integer*2 opt_forcexy
 
 	integer*2 nmark
 	real*4 clrmark(NCLRMARK), xmark(NCLRMARK)
@@ -140,7 +142,8 @@ c       FORMAT BIMG
      .               opt_vecrot, opt_cgrid, opt_vecshade,
      .               opt_xstep, opt_ystep,opt_zstep,opt_kmstep,
      .               opt_cntsav, opt_dash, opt_shade,
-     .               opt_overdata, opt_overmark, opt_overclr, opt_overout
+     .               opt_overdata, opt_overmark, opt_overclr, opt_overout,
+     .               opt_forcexy
 
 
       character*256 filepal, filebat
