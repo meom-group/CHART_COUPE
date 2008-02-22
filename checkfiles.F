@@ -142,20 +142,20 @@ C    .          (color%y2mod.lt.map_coord(4))) then
 C              call PrintMessage (1, 2, ' ')
 C           endif 
             if ( (color%x1mod+map_shift).gt.map_coord(1)) then
-             PRINT *, 'Warning ... Zoom lon min < x1 --> mis a x1 '
-             map_coord(1) = color%x1mod+map_shift
+             PRINT *, 'Warning ... Zoom lon min < x1 --> mis a x1 +0.01'
+             map_coord(1) = color%x1mod+map_shift +0.01
             endif
             if ( (color%x2mod+map_shift).lt.map_coord(2)) then
-             PRINT *, 'Warning ... Zoom lon max > x2 --> mis a x2 '
-             map_coord(2) = color%x2mod+map_shift
+             PRINT *, 'Warning ... Zoom lon max > x2 --> mis a x2 -0.01'
+             map_coord(2) = color%x2mod+map_shift -0.01
             endif
             if ( (color%y1mod).gt.map_coord(3)) then
-             PRINT *, 'Warning ... Zoom lat min < y1  --> mis a y1 '
-             map_coord(3) = color%y1mod
+             PRINT *, 'Warning ... Zoom lat min < y1  --> mis a y1 +0.01'
+             map_coord(3) = color%y1mod + 0.01
             endif
             if ( (color%y2mod).lt.map_coord(4)) then
-             PRINT *, 'Warning ... Zoom lat max > y2  --> mis a y2 '
-             map_coord(4) = color%y2mod
+             PRINT *, 'Warning ... Zoom lat max > y2  --> mis a y2 -0.01'
+             map_coord(4) = color%y2mod - 0.01
             endif
          else 
             map_coord(1) = color%x1mod 
