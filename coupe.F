@@ -992,7 +992,7 @@ c**            print *, 'pas de fichier de bathymetrie specifie'
 	 bathyinfo%fname=filebat
          PRINT *,' bimgOpenfile'
          bathyinfo%modifier='none'
-         bathyinfo%varname='none'
+         bathyinfo%varname='Bathymetry'
          bathyinfo%f_unit = BimgOpenFile (bathyinfo)
          PRINT *,' bimgReafHeader'
          call BimgReadHeader (bathyinfo)
