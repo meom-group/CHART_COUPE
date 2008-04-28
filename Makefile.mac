@@ -8,9 +8,7 @@
 #    ##   ##  ##  ##    ##  ##    ##
 #    ######   ##  ##    ##   ######
 #
-#FFLAGS= -lg2c -assume byterecl  -convert big_endian -extend_source -O -I/home/molines/ncarg/include -I/usr/local/include
-FFLAGS= -fno-second-underscore -fendian=big -ffixed-line-length-132  -O -I/usr/local/include -L/usr/local/lib
-#FC = ifort
+FFLAGS= -fno-second-underscore -fendian=big -ffixed-line-length-132  -O -I/usr/local/g95/include -L/usr/local/G95/lib
 FC = g95
 
 
@@ -41,23 +39,15 @@ cdf.f
 
 DEPEND = parameter.h common.h
 
-BINDIR = $(HOME)/bin
+BINDIR = /usr/local/bin
 
 all: chart coupe vecrot_opa
 
-chart715: clean chparam chart coupe clean restoreparam 
-
-chparam:
-	/bin/cp parameter.715 parameter.h
-
-restoreparam:
-	/bin/cp parameter.755 parameter.h
-
 chart: ${CHARTOBJ}
-	ncargf90   $(FFLAGS) ${CHARTOBJ} -o $@  /usr/local/lib/libnetcdf.a
+	ncargf90   $(FFLAGS) ${CHARTOBJ} -o $@  /usr/local/g95/lib/libnetcdf.a
 
 coupe: ${COUPEOBJ}
-	ncargf90    $(FFLAGS) ${COUPEOBJ} -o $@ /usr/local/lib/libnetcdf.a
+	ncargf90    $(FFLAGS) ${COUPEOBJ} -o $@ /usr/local/g95/lib/libnetcdf.a
 
 clean:
 	-/bin/rm -f *.o core *% *.trace *~
@@ -78,8 +68,5 @@ common.h : parameter.h chart_version.h
 
 vecrot_opa: vecrot_opa.f
 	$(FC) $(FFLAGS) -ffree-form vecrot_opa.f -o vecrot_opa  -lnetcdf
-
-
-
 
 # DO NOT DELETE
