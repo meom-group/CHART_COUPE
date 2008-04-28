@@ -299,7 +299,7 @@ C ... Read the geographical coordinates from cdf File
         xygr(bimg%nxfile+1,j,2)=
      .    2*xygr(bimg%nxfile,j,2) - xygr(bimg%nxfile-1,j,2)
         enddo                               
-Dans ce cas (grille completement irreguliere), il faut determiner
+CDans ce cas (grille completement irreguliere), il faut determiner
 c le min et le max en balayant toute la grille.
 c
 c initialise

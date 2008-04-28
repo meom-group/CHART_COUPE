@@ -458,8 +458,10 @@ c---------------
 	xa=map_coord(1)*pi/180.
 	xb=map_coord(2)*pi/180.
 
-	ya=-alog(tand(45-map_coord(3)/2.))
-	yb=-alog(tand(45-map_coord(4)/2.))
+cya=-alog(tand(45-map_coord(3)/2.))
+cyb=-alog(tand(45-map_coord(4)/2.))
+        ya=-alog(tan((45-map_coord(3)/2.))*pi/180.)
+        yb=-alog(tan((45-map_coord(4)/2.))*pi/180.)
 
 	angled=atan2((xb-xa),(yb-ya))
 	angled=angled*180./pi
