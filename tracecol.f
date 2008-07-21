@@ -151,7 +151,7 @@ C       print *,'corner4', corner4, map_marg(4), map_rlat
  
  
        if (map_proj.eq.'CE') then      
-      	call mpsetr ('GR',0)
+      	call mpsetr ('GR',0.)
        else
       	call mpsetr ('GR',xstep)
        endif 

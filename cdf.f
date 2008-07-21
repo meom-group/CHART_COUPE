@@ -543,7 +543,7 @@ CC
 C     REAL zwork(bimg%nxfile,bimg%nyfile)
       REAL zwork(kx,ky)
       INTEGER tstep, couche, dim
-      INTEGER start(10),count(10),dimid(10)
+      INTEGER :: start(10),count(10),dimid(10)
       INTEGER ji, jj
       INTEGER lonpos,latpos,deppos,timpos,dimpos
 C
@@ -556,10 +556,12 @@ CC
        IF ( bimg%modifier .NE. 'none' ) CALL cmodif (bimg)
       NCID  = bimg%ncid
       varid = bimg%varid
+
       DO ji = 1,10
        start(ji) = -10
        count(ji) = -10
       END DO
+
 C
       STATUS=NF_INQ_DIMID(NCID,clon,dimlonid)
       CALL ERR_HDL(STATUS)    
@@ -584,6 +586,7 @@ C
 C
       STATUS=NF_INQ_VARDIMID(NCID,varid,dimid)
       CALL ERR_HDL(STATUS)
+         lonpos=0 ; latpos=0; deppos=0 ; timpos=0 ; dimpos=0
          DO ji = 1 , bimg%ndimv
           IF      (dimid(ji) .EQ. dimlonid ) THEN
             lonpos = ji

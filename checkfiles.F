@@ -331,7 +331,7 @@ C
 
             if (opt_vectZ.eq.1) then
             vectors(3)%fname = f_vecdata3
-               vectors(3)%f_unit = BimgOpenFile (f_vecdata3)
+               vectors(3)%f_unit = BimgOpenFile (vectors(3) )
                call BimgReadHeader(vectors(3))
          if (vectors(3)%spval .eq. 0 ) print *,' WARNING  VECTORS W:  spval = 0'
          if (opt_dep.ne.0) then

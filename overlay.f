@@ -240,9 +240,11 @@ c
         character*8 map_proj, map_zone
         real map_rlat,map_rlon
         real map_coord(4), map_marg(4), map_shift
+        real*4 over_spval, zmean0, zscale
 
         common /map/map_coord, map_marg, map_shift,
-     .              map_zone, map_rlat,map_rlon,map_proj
+     .              map_zone, map_rlat,map_rlon,map_proj,
+     .              over_spval, zmean0, zscale
 
 	character*(*) showfile
 	integer sid
