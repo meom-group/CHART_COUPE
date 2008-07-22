@@ -414,6 +414,10 @@ CC
       NCID=bimg%ncid
 C
 C ... clonxy  --> xygr(,,1)
+      varid = 0 
+      dimid(:) = 0
+      dimlonid = 0
+      dimlatid = 0
 C 
       STATUS=NF_INQ_VARID(NCID,clonxy,varid)
       CALL ERR_HDL(STATUS)
@@ -556,6 +560,7 @@ CC
        IF ( bimg%modifier .NE. 'none' ) CALL cmodif (bimg)
       NCID  = bimg%ncid
       varid = bimg%varid
+      dimid(:) = 0
 
       DO ji = 1,10
        start(ji) = -10
