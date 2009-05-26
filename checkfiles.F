@@ -752,7 +752,7 @@ CC
 	print *,'VER',VER
       CLOSE(110)
 C
-      IF (VER .EQ. '@!01' ) THEN
+      IF (VER .EQ. '@!01' .OR. VER .EQ. '@!02'  .OR. VER .EQ. '@!03' ) THEN
        isdirect=irecl
       ELSEIF (VER(1:3) .EQ. 'CDF' ) THEN
        isdirect = -1

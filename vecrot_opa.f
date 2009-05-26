@@ -63,7 +63,7 @@ PROGRAM vecrot_opa
   PRINT *,VER
   CLOSE(10)
 
-  IF (VER .EQ. '@!01')  THEN
+  IF (VER .EQ. '@!01' .OR. VER .EQ. '@!02' .OR. VER .EQ. '@!03')  THEN
      ctype='dimg'
      OPEN(10,file=fil1,form='UNFORMATTED', ACCESS='DIRECT',recl=irecl)
      OPEN(12,file=fil2,form='UNFORMATTED', ACCESS='DIRECT',recl=88)
