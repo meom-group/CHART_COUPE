@@ -44,7 +44,7 @@ cdf.f
 
 DEPEND = parameter.h common.h
 
-BINDIR = $(HOME)/bin
+BINDIR = /usr/local/bin
 DEMODIR = /net/meol755/home/molines/bin
 
 all: chart coupe vecrot_opa
@@ -58,10 +58,10 @@ restoreparam:
 	/bin/cp parameter.755 parameter.h
 
 chart: ${CHARTOBJ}
-	ncargf90   $(FFLAGS) ${CHARTOBJ} -o $@ /usr/lib/libg2c.so.0  -lnetcdf 
+	ncargf90  ${CHARTOBJ} -o $@ /usr/lib/libg2c.so.0  $(FFLAGS)
 
 coupe: ${COUPEOBJ}
-	ncargf90    $(FFLAGS) ${COUPEOBJ} -o $@ /usr/lib/libg2c.so.0 -lnetcdf 
+	ncargf90    ${COUPEOBJ} -o $@ /usr/lib/libg2c.so.0 $(FFLAGS)
 
 clean:
 	-/bin/rm -f *.o core *% *.trace *~
@@ -81,7 +81,8 @@ coupe.total:
 common.h : parameter.h chart_version.h
 
 vecrot_opa: vecrot_opa.f
-	$(FC) $(FFLAGS) -free vecrot_opa.f -o vecrot_opa  -lnetcdf
+	$(FC)  -free vecrot_opa.f -o vecrot_opa $(FFLAGS)
+
 
 
 
