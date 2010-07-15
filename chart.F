@@ -237,6 +237,9 @@ c       if (opt_contgrid.eq.3) then
             endif 
 
             if (opt_vecnotr.eq.0.and.opt_vectors.eq.1) then
+                  if (opt_clrmark .EQ. 1 ) THEN
+                   call ClrGetMark()
+                  endif
                call VectorTrace (bimgvec, bimgclr, clrdata, 
      .                           vecdata, ncol, map_coord)
             endif 

@@ -374,10 +374,25 @@ c ---------------------------------------------------------------------
      .                 vv_vst, vv_mnt, vv_mxt, vv_vlc, vv_vhc, vv_vmd
       save   /vectors/
 
+      real    cl_min, cl_max
+      integer cl_met, cl_exp
+      common  /color/cl_min, cl_max, cl_met, cl_exp
+      save    /color/
+
 
       real vmax, vmin
 
       call FindMinMax (bimgvec, vecdata, vmin, vmax)
+
+      if (opt_min.eq.0) cl_min = vmin         
+      if (opt_max.eq.0) cl_max = vmax
+
+      if (opt_clrmark .EQ. 1 ) THEN
+        cl_min = clrmark(1)
+        cl_max = clrmark(nmark)
+      endif
+      vmin=cl_min
+      vmax=cl_max
 
 
 c     initialisation des variables "affichables"
