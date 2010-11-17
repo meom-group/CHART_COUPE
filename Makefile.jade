@@ -8,11 +8,14 @@
 #    ##   ##  ##  ##    ##  ##    ##
 #    ######   ##  ##    ##   ######
 #
-NCDF=/opt/software/SGI/netcdf/4.0/
-FFLAGS= -lg2c -assume byterecl  -convert big_endian -extend_source -O -I/home/molines/ncarg/include -I/usr/local/include \
-         -I$(NCDF)/include -L$(NCDF)/lib
-FFLAGS2=  -assume byterecl  -convert big_endian -extend_source -O -I/home/molines/ncarg/include -I/usr/local/include \
-         -I$(NCDF)/include -L$(NCDF)/lib
+NCDF= -I/opt/software/SGI/netcdf/4.0/include -L/opt/software/SGI/netcdf/4.0/lib -lnetcdff -lnetcdf
+
+# flag static is used to allow the use of CDFTOOLS in parallel with mpi_metamon
+FFLAGS= -extend_source -static -O  $(NCDF) -assume byterecl -convert big_endian
+
+#FFLAGS=  -assume byterecl  -convert big_endian -extend_source -O -I/home/molines/ncarg/include -I/usr/local/include \
+         -I/data/molines/netcdf-3.6.2/include -L/data/molines/netcdf-3.6.2/lib
+FFLAGS2= $(FFLAGS)
 FC = ifort
 
 
@@ -56,10 +59,10 @@ restoreparam:
 	/bin/cp parameter.755 parameter.h
 
 chart: ${CHARTOBJ}
-	ncargf90   $(FFLAGS) ${CHARTOBJ} -o $@  -lnetcdf -lnetcdff
+	ncargf90    $(FFLAGS)  ${CHARTOBJ} -o $@  -lnetcdff -lnetcdf
 
 coupe: ${COUPEOBJ}
-	ncargf90    $(FFLAGS) ${COUPEOBJ} -o $@  -lnetcdf -lnetcdff
+	ncargf90    $(FFLAGS) ${COUPEOBJ} -o $@  -lnetcdff -lnetcdf
 
 clean:
 	-/bin/rm -f *.o core *% *.trace *~

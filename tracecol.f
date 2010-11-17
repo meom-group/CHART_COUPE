@@ -237,7 +237,7 @@ c ---------------------------------------------------------------------
          real dx,dy, ptr
          integer icra, ncls, iusr, jusr
 c        dimension icra(1500,1500)
-         dimension icra(1615,1615)
+         dimension icra(3000,3000)
          data ncls /300/
          integer offset,index, map_flag
          real   rl,rr,rb,rt, ur,ul,ut,ub
@@ -359,7 +359,7 @@ C    .                1000,1000, 1,1,ncls,ncls,icra)
 c  call gca (cfux(x1pos),cfuy(y1pos),cfux(x2pos),cfuy(y2pos),
 c    .                1500,1500, 1,1,ncls,ncls,icra) 
 	  call gca (cfux(x1pos),cfuy(y1pos),cfux(x2pos),cfuy(y2pos),
-     .                1615,1615, 1,1,ncls,ncls,icra) 
+     .                3000,3000, 1,1,ncls,ncls,icra) 
       else
     	do i=1,nx
 	   do j=1,ny
@@ -394,7 +394,7 @@ c    .                1500,1500, 1,1,ncls,ncls,icra)
      .               1.,float(nx),1.,float(ny),1)
 
 c    call gca(1.,1.,float(nx),float(ny),1500,1500,1,1,nx,ny,icra)
-	    call gca(1.,1.,float(nx),float(ny),1615,1615,1,1,nx,ny,icra)
+	    call gca(1.,1.,float(nx),float(ny),3000,3000,1,1,nx,ny,icra)
 
         endif 
       else 
