@@ -1,0 +1,7 @@
+FC = ifort
+
+NCDF= -I/opt/software/SGI/netcdf/4.0/include -L/opt/software/SGI/netcdf/4.0/lib -lnetcdff -lnetcdf
+
+FFLAGS = -static -O $(NCDF) -assume byterecl -convert big_endian 
+
+LD = ncargf90
