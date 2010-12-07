@@ -703,16 +703,16 @@ CONTAINS
     !!----------------------------------------------------------------------
 
     REAL(KIND=4)       :: day
-    CHARACTER(LEN=10)  :: strDay, ClipperDat
+    CHARACTER(LEN=10)  :: clDay 
     INTEGER(KIND=4)    :: ji
 
-    strDay = ClipperDat (NINT(day))
+    clDay = ClipperDat (NINT(day))
 
     DO ji=1,80
        string_table(CLIPPER_DATE)%cstr(ji:ji) = ' '
     ENDDO
 
-    string_table(CLIPPER_DATE)%cstr(1:17) = strDay
+    string_table(CLIPPER_DATE)%cstr(1:17) = clDay
 
   END SUBROUTINE SetCLIPPERday
 
