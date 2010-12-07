@@ -1,0 +1,6 @@
+FC = ifort
+# To activate debuging uncomment the following line 
+FFLAGS = -CB -O -g -traceback -assume byterecl -convert big_endian -I/usr/local/include -L/usr/local/lib -lnetcdf
+
+#FFLAGS = -O -assume byterecl -convert big_endian -I/usr/local/include -L/usr/local/lib -lnetcdf
+LD = ncargf90
