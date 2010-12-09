@@ -1,0 +1,114 @@
+# Makefile pour les utilitaire bimg
+# actuellement chart et coupe
+#
+#    ######   ##  ##    ##   ######
+#    ##   ##  ##  ###  ###  ##    ##
+#    ######   ##  ########  ##
+#    ##   ##  ##  ## ## ##  ##  #####
+#    ##   ##  ##  ##    ##  ##    ##
+#    ######   ##  ##    ##   ######
+#
+.SUFFIXES: .o .f .F
+.F.o:
+	$(FC) -c $(FFLAGS) $<
+
+.f.o:
+	$(FC) -c $(FFLAGS) $<
+
+.F:
+	$(FC) -o $@ $(FFLAGS) $(LDFLAGS) $<
+
+.f:
+	$(FCT) -o $@ $(FFLAGS) $(LDFLAGS) $<
+
+#FFLAGS=  -extend_source   -mips4 -bytereclen -I/usr/local/pub/include  -L/usr/local/pub/lib64  -static -mp
+FFLAGS=  -extend_source   -mips4 -bytereclen -I/usr/local/pub/include  -L/usr/local/pub/lib64  -static
+
+FC = f90
+.PHONY: clean
+
+CHARTOBJ = \
+chart.o  color.o readpal.o readbimg.o util.o calcul.o\
+deflim.o readargs.o tracecol.o isocontours.o val_table.o \
+drawpalette.o checkfiles.o vectors.o lnblnk.o flush.o overlay.o sigma.o \
+cdf.o
+
+CHARTSRC = \
+chart.f  color.f readpal.f readbimg.f util.f calcul.f\
+deflim.f readargs.f tracecol.f isocontours.f val_table.f\
+drawpalette.f checkfiles.F vectors.f lnblnk.f flush.f overlay.f sigma.f \
+cdf.f 
+
+COUPEOBJ = \
+coupe.o  color.o readpal.o readbimg.o util.o calcul.o\
+deflim.o readargs.o tracecol.o isocontours.o val_table.o\
+drawpalette.o checkfiles.o lnblnk.o flush.o overlay.o sigma.o \
+cdf.o 
+
+COUPESRC = \
+coupe.f  color.f readpal.f readbimg.f util.f calcul.f\
+deflim.f readargs.f tracecol.f isocontours.f val_table.f\
+drawpalette.f checkfiles.F lnblnk.f flush.f overlay.f sigma.f \
+cdf.f
+
+
+DEPEND = parameter.h common.h mapncar.h
+COMPILE = $(FC) $(FFLAGS)   -c $*.f 
+
+BINDIR = $(HOME)/bin
+DEMODIR = /net/meol755/home/molines/bin
+
+all: chart coupe vecrot_opa
+
+all25: chart25 coupe25 vecrot_opa25 
+
+
+chparamstd:
+	/bin/cp parameter.rhodes.h parameter.h
+	/bin/cp mapncar.rhodes.h mapncar.h
+	make clean
+
+chparam25:
+	/bin/cp parameter.orca025.h parameter.h
+	/bin/cp mapncar.rhodes.h mapncar.h
+	make clean
+
+chart:  chparamstd  ${CHARTOBJ}
+	$(HOME)/bin/ncargf90    $(FFLAGS) ${CHARTOBJ} -o $@  -lnetcdf
+
+coupe:  ${COUPEOBJ}
+	$(HOME)/bin/ncargf90    $(FFLAGS) ${COUPEOBJ} -o $@  -lnetcdf
+
+chart25: chparam25 ${CHARTOBJ}
+	$(HOME)/bin/ncargf90    $(FFLAGS) ${CHARTOBJ} -o $@  -lnetcdf
+
+coupe25:  ${COUPEOBJ}
+	$(HOME)/bin/ncargf90    $(FFLAGS) ${COUPEOBJ} -o $@  -lnetcdf
+
+clean:
+	-/bin/rm -f *.o core *% *.trace *~
+
+install:
+	@-mv -f chart $(BINDIR)/chart
+	@-mv -f coupe $(BINDIR)/coupe
+	@-mv -f chart25 $(BINDIR)/chart25
+	@-mv -f coupe25 $(BINDIR)/coupe25
+	@-mv -f vecrot_opa $(BINDIR)/vecrot_opa
+
+chart.total:
+	cat $(CHARTSRC) > chart.total
+
+coupe.total:
+	cat $(COUPESRC) > coupe.total
+
+common.h : parameter.h chart_version.h
+
+vecrot_opa: parameter.h vecrot_opa.f
+	f90  -freeform  -mips4 -bytereclen -I/usr/local/pub/include  -L/usr/local/pub/lib64  vecrot_opa.f -o vecrot_opa  -lnetcdf
+
+
+vecrot_opa25: chparam25 parameter.h vecrot_opa.f
+	f90  -freeform  -mips4 -bytereclen -I/usr/local/pub/include  -L/usr/local/pub/lib64  vecrot_opa.f -o vecrot_opa  -lnetcdf
+
+
+# DO NOT DELETE

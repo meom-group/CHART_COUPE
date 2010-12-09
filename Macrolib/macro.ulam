@@ -1,0 +1,17 @@
+#----------------------------------------------------------------------
+# CHART/COUPE 7.0 , MEOM 2010
+# $Id$
+# Copyright (c) 2010, J.-M. Molines.
+# Software governed by the CeCILL licence (Licence/CHARTCeCILL.txt)
+#----------------------------------------------------------------------
+
+FC = ifort
+LD = ifort
+NCDF = -I/usr/local/include -L/usr/local/lib -lnetcdf
+NCL = -L/usr/local/pub/ncar/5.1.1/lib -lncarg -lncarg_gks -lncarg_c -lX11 -lXext -lpng -lz
+
+# To activate debuging uncomment the following line 
+#DEBUGFLAG = -O -CB -g -traceback 
+DEBUGFLAG =  -O3
+
+FFLAGS = $(DEBUGFLAG) -assume byterecl -convert big_endian $(NCDF) $(NCL)

@@ -1,0 +1,87 @@
+# Makefile pour les utilitaire bimg
+# actuellement chart et coupe
+#
+#    ######   ##  ##    ##   ######
+#    ##   ##  ##  ###  ###  ##    ##
+#    ######   ##  ########  ##
+#    ##   ##  ##  ## ## ##  ##  #####
+#    ##   ##  ##  ##    ##  ##    ##
+#    ######   ##  ##    ##   ######
+#
+FFLAGS= -O   -q64 -qfixed=132 -I/usr/local/netcdf/include -qmaxmem=-1 -qsmp -brename:.fdate,.fdate_ -bmaxdata:2000000000 -qsave
+#FFLAGS= -C -g  -q64 -qfixed=132 -I/usr/local/netcdf/include -qmaxmem=-1 -brename:.fdate,.fdate_ -bmaxdata:2000000000 -qsave
+CPPFLAGS= 
+#FFLAGS=  -byteswapio -Mextend -O -g -C
+.SUFFIXES: .F
+FC = xlf90_r
+CPP=/lib/cpp
+
+.F.o:
+	$(CPP) $(CPPFLAGS) $*.F $*.f
+	$(FC) $(FFLAGS) $*.f -c
+	\rm $*.f
+
+CHARTOBJ = \
+chart.o  color.o readpal.o readbimg.o util.o calcul.o\
+deflim.o readargs.o tracecol.o isocontours.o val_table.o \
+drawpalette.o checkfiles.o vectors.o lnblnk.o flush.o overlay.o sigma.o \
+cdf.o
+
+CHARTSRC = \
+chart.F  color.f readpal.f readbimg.f util.f calcul.f\
+deflim.f readargs.f tracecol.f isocontours.f val_table.f\
+drawpalette.f checkfiles.F vectors.f lnblnk.f flush.f overlay.f sigma.f \
+cdf.f
+
+COUPEOBJ = \
+coupe.o  color.o readpal.o readbimg.o util.o calcul.o\
+deflim.o readargs.o tracecol.o isocontours.o val_table.o\
+drawpalette.o checkfiles.o lnblnk.o flush.o overlay.o sigma.o \
+cdf.o
+
+COUPESRC = \
+coupe.F  color.f readpal.f readbimg.f util.f calcul.f\
+deflim.f readargs.f tracecol.f isocontours.f val_table.f\
+drawpalette.f checkfiles.F lnblnk.f flush.f overlay.f sigma.f \
+cdf.f
+
+
+DEPEND = parameter.h common.h
+COMPILE =xlf $(FFLAGS)   -c $*.f 
+
+BINDIR = /usr/local/bin
+DEMODIR = /net/meol755/home/molines/bin
+
+all: chart coupe vecrot_opa
+
+
+chart: ${CHARTOBJ}
+	ncargf77_r    $(FFLAGS) -L/usr/local/netcdf/lib -lnetcdf ${CHARTOBJ} -o $@ 
+
+coupe: ${COUPEOBJ}
+	ncargf77_r    $(FFLAGS) -L/usr/local/netcdf/lib -lnetcdf  ${COUPEOBJ} -o $@
+
+clean:
+	-/bin/rm -f *.o core *% *.trace *~
+
+install:	chart	coupe
+	mv -f chart $(BINDIR)/chart
+	mv -f coupe $(BINDIR)/coupe
+	mv -f vecrot_opa $(BINDIR)/vecrot_opa
+
+chart.total:
+	cat $(CHARTSRC) > chart.total
+
+coupe.total:
+	cat $(COUPESRC) > coupe.total
+
+
+common.h : parameter.h chart_version.h
+
+vecrot_opa: vecrot_opa.f
+	xlf90_r -q64 -k -O  -I/usr/local/netcdf-3.6.0-p1/include -qsmp vecrot_opa.f  -L/usr/local/netcdf-3.6.0-p1/lib -lnetcdf -o vecrot_opa
+
+
+
+
+# DO NOT DELETE

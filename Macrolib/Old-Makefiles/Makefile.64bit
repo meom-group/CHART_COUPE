@@ -1,0 +1,84 @@
+# Makefile pour les utilitaire bimg
+# actuellement chart et coupe
+# This makefile works with a particular installation of NCARG:
+# From jade@CINES, I took all the NCARG_DIR.
+#  I have to make a link between  libXaw.so.8 -> libXaw.so.7 for idt to work
+#  I also had to define TMPDIR as the default was looking to some CINES directory ...
+# Hopefully it works !
+ 
+#
+#FFLAGS= -lg2c -assume byterecl  -convert big_endian -extend_source -O -I/home/molines/ncarg/include -I/usr/local/include -I/usr/X11R6/lib/
+FFLAGS=  -assume byterecl  -convert big_endian -extend_source -O -I/usr/local/include -L/usr/local/lib
+FC = ifort
+
+
+CHARTOBJ = \
+chart.o  color.o readpal.o readbimg.o util.o calcul.o\
+deflim.o readargs.o tracecol.o isocontours.o val_table.o \
+drawpalette.o checkfiles.o vectors.o lnblnk.o flush.o overlay.o sigma.o \
+cdf.o
+
+CHARTSRC = \
+chart.f  color.f readpal.f readbimg.f util.f calcul.f\
+deflim.f readargs.f tracecol.f isocontours.f val_table.f\
+drawpalette.f checkfiles.F vectors.f lnblnk.f flush.f overlay.f sigma.f \
+cdf.f
+
+COUPEOBJ = \
+coupe.o  color.o readpal.o readbimg.o util.o calcul.o\
+deflim.o readargs.o tracecol.o isocontours.o val_table.o\
+drawpalette.o checkfiles.o lnblnk.o flush.o overlay.o sigma.o \
+cdf.o
+
+COUPESRC = \
+coupe.f  color.f readpal.f readbimg.f util.f calcul.f\
+deflim.f readargs.f tracecol.f isocontours.f val_table.f\
+drawpalette.f checkfiles.F lnblnk.f flush.f overlay.f sigma.f \
+cdf.f
+
+
+DEPEND = parameter.h common.h
+
+BINDIR = $(HOME)/bin
+DEMODIR = /net/meol755/home/molines/bin
+
+all: chart coupe vecrot_opa
+
+chart715: clean chparam chart coupe clean restoreparam 
+
+chparam:
+	/bin/cp parameter.715 parameter.h
+
+restoreparam:
+	/bin/cp parameter.755 parameter.h
+
+chart: ${CHARTOBJ}
+	ncargf90   $(FFLAGS) ${CHARTOBJ} -o $@  /usr/lib/libg2c.so.0 -lnetcdf 
+
+coupe: ${COUPEOBJ}
+	ncargf90    $(FFLAGS) ${COUPEOBJ} -o $@  /usr/lib/libg2c.so.0 -lnetcdf 
+
+clean:
+	-/bin/rm -f *.o core *% *.trace *~
+
+install:	chart	coupe	vecrot_opa
+	mv -f chart $(BINDIR)/chart
+	mv -f coupe $(BINDIR)/coupe
+	mv -f vecrot_opa  $(BINDIR)/vecrot_opa
+
+chart.total:
+	cat $(CHARTSRC) > chart.total
+
+coupe.total:
+	cat $(COUPESRC) > coupe.total
+
+
+common.h : parameter.h chart_version.h
+
+vecrot_opa: vecrot_opa.f
+	$(FC) $(FFLAGS) -free vecrot_opa.f -o vecrot_opa  -lnetcdf
+
+
+
+
+# DO NOT DELETE
