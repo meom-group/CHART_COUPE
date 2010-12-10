@@ -1,0 +1,19 @@
+#----------------------------------------------------------------------
+# CHART/COUPE 7.0 , MEOM 2010
+# $Id: macro.ifort 139 2010-12-08 11:36:16Z molines $
+# Copyright (c) 2010, J.-M. Molines.
+# Software governed by the CeCILL licence (Licence/CHARTCeCILL.txt)
+#----------------------------------------------------------------------
+FC = ifort
+LD = ncargf90
+NCDF = -I/opt/netcdf-4.1/include -L /opt/netcdf-4.1/lib/  -lnetcdf
+HDF5 = -I/opt/hdf5-1.8.4/include -L/opt/hdf5-1.8.4/lib -lhdf5_hl -lhdf5
+ZLIB = -I/opt/zlib-1.2.3/include -L/opt/zlib-1.2.3/lib -lz
+
+NCL = 
+
+# To activate debuging uncomment the following line
+#DEBUGFLAG = -O -CB -g -traceback
+DEBUGFLAG =  -O3
+
+FFLAGS = $(DEBUGFLAG) -assume byterecl -convert big_endian $(NCDF) $(NCL) $(HDF5) $(ZLIB)
