@@ -80,7 +80,11 @@ MODULE modcom
 
   REAL(KIND=4)    :: spval_new         !: new spval                    [-spval  ]
   REAL(KIND=4)    :: vmean0            !: new mean values              [-mean   ]
-  REAL(KIND=4)    :: dscale            !: scaling factor for data      [-sacle  ]
+  REAL(KIND=4)    :: vmean0cnt         !: new mean values for cnt      [-cntmean ]
+  REAL(KIND=4)    :: vmean0clr         !: new mean values for clr      [-clrmean ]
+  REAL(KIND=4)    :: dscale            !: scaling factor for data      [-scale  ]
+  REAL(KIND=4)    :: dscalecnt         !: scaling factor for cntdata   [-scalecnt ]
+  REAL(KIND=4)    :: dscaleclr         !: scaling factor for clrdata   [-scaleclr ]
   REAL(KIND=4)    :: scal_cslab        !: scale factor for lbl char sz [-cslab  ]
 
 !----------------------------------------------------------------------------------

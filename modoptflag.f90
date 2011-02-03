@@ -33,6 +33,7 @@ MODULE modoptflag
   INTEGER(KIND=2) :: opt_kmstep, opt_ijgrid,opt_high
   INTEGER(KIND=2) :: opt_noproj, opt_labx, opt_laby, opt_labz
   INTEGER(KIND=2) :: opt_sigma, opt_sigmatr, opt_orca, opt_spval, opt_mean, opt_scale
+  INTEGER(KIND=2) :: opt_scalecnt, opt_scaleclr, opt_meancnt, opt_meanclr
   INTEGER(KIND=2) :: opt_log, opt_clrlog, opt_cntlog
 
   INTEGER(KIND=2) :: opt_nolat, opt_nolon, opt_xybat

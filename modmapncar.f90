@@ -8,9 +8,9 @@ MODULE modmapncar
   !!----------------------------------------------------------------------
   PUBLIC 
 
-  INTEGER(KIND=4), PARAMETER :: jp_iama = 2500000  !: size of area map integer worspace
+  INTEGER(KIND=4), PARAMETER :: jp_iama = 25000000  !: size of area map integer worspace
 !INTEGER(KIND=4), PARAMETER :: jp_iama = 250000000  !: size of area map integer worspace
-  INTEGER(KIND=4), PARAMETER :: jp_cra =  1000000  !: size of area map real workspace
+  INTEGER(KIND=4), PARAMETER :: jp_cra =  10000000  !: size of area map real workspace
 !INTEGER(KIND=4), PARAMETER :: jp_cra =  10000000  !: size of area map real workspace
   INTEGER(KIND=4), PARAMETER :: jp_agid =  10      !: max number of area/group id
 

@@ -129,7 +129,8 @@ PROGRAM coupe
            PRINT *,' CLRDATA...'
            blimgclr%lclr = .TRUE. 
            blimgclr%lcnt = .FALSE.
-           CALL CalculateCutPlane (clrdata, blimgclr, blimgzlevel, jt, ncl_dim)
+           CALL CalculateCutPlane (clrdata, blimgclr, blimgzlevel, jt, ncl_dim, opt_scaleclr, dscaleclr, &
+              &                                                                 opt_meanclr, vmean0clr )
         ENDIF
 
         IF (opt_color == 1) THEN
@@ -152,7 +153,8 @@ PROGRAM coupe
            PRINT *,' CNTDATA...'
            blimgcnt%lcnt = .TRUE. 
            blimgcnt%lclr = .FALSE.
-           CALL CalculateCutPlane (cntdata, blimgcnt, blimgzlevel, jt, nct_dim)
+           CALL CalculateCutPlane (cntdata, blimgcnt, blimgzlevel, jt, nct_dim, opt_scalecnt, dscalecnt, &
+              &                                                                 opt_meancnt, vmean0cnt )
 
            IF(opt_marg == 0) THEN
               CALL set(x1pos, x2pos, y1pos, y2pos, 1., float(NXX), 1., float(NYY), 1)

@@ -147,7 +147,8 @@ PROGRAM chart
               ! Prepare data for plotting
               IF (opt_clrdata == 1) THEN
                  blimgclr%lclr=.TRUE. ; blimgclr%lcnt=.FALSE.
-                 CALL BimgReadData (zclrdata,blimgclr,rmap_coord,jt,nkclr,ncl_dim)
+                 CALL BimgReadData (zclrdata,blimgclr,rmap_coord,jt,nkclr,ncl_dim, opt_scaleclr, dscaleclr,  &
+                   &                                                               opt_meanclr, vmean0clr  )
                  IF (blimgclr%lspval0 ) blimgclr%spval = rp_defspval
                  CALL SetClrCNESday (blimgclr%time)
               ENDIF
@@ -155,7 +156,8 @@ PROGRAM chart
 
               IF (opt_contours == 1) THEN
                  blimgcnt%lcnt=.TRUE. ; blimgcnt%lclr=.FALSE.
-                 CALL BimgReadData (zcntdata,blimgcnt,rmap_coord,jt,nkcnt,nct_dim)
+                 CALL BimgReadData (zcntdata,blimgcnt,rmap_coord,jt,nkcnt,nct_dim, opt_scalecnt, dscalecnt, &
+                   &                                                               opt_meancnt,  vmean0cnt ) 
                  CALL SetClrCNESday (blimgcnt%time)
                  IF (blimgcnt%lspval0) blimgcnt%spval = rp_defspval
               ENDIF

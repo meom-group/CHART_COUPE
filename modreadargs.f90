@@ -256,12 +256,29 @@ CONTAINS
        CALL Get1real (ki, ktype, cd_arg, spval_new)
 
     CASE (                                                       '-scale' )
-       opt_scale=1
+       opt_scale=1 ; opt_scalecnt=1 ; opt_scaleclr=1
        CALL Get1real (ki, ktype, cd_arg, dscale)
+       dscalecnt = dscale
+       dscaleclr = dscale
+
+    CASE (                                                    '-cntscale' )
+       opt_scalecnt=1
+       CALL Get1real (ki, ktype, cd_arg, dscalecnt)
+    CASE (                                                    '-clrscale' )
+       opt_scaleclr=1
+       CALL Get1real (ki, ktype, cd_arg, dscaleclr)
 
     CASE (                                                        '-mean' )
-       opt_mean=1
+       opt_mean=1 ; opt_meancnt=1; opt_meanclr=1
        CALL Get1real (ki, ktype, cd_arg, vmean0)
+
+    CASE (                                                     '-cntmean' )
+       opt_meancnt=1
+       CALL Get1real (ki, ktype, cd_arg, vmean0cnt)
+
+    CASE (                                                     '-clrmean' )
+       opt_meanclr=1
+       CALL Get1real (ki, ktype, cd_arg, vmean0clr)
 
     CASE (                                                       '-log10' )
        opt_log=1
@@ -1414,7 +1431,11 @@ CONTAINS
     opt_orca     = 0
     opt_spval    = 0
     opt_scale    = 0
+    opt_scalecnt = 0
+    opt_scaleclr = 0
     opt_mean     = 0
+    opt_meancnt  = 0
+    opt_meanclr  = 0
     opt_log      = 0
     opt_clrlog   = 0
     opt_cntlog   = 0

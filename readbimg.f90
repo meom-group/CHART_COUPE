@@ -230,7 +230,7 @@ CONTAINS
   END SUBROUTINE BimgReadHeader
 
 
-  SUBROUTINE BimgReadData (pdata_out, bdimg, pcoords, ktstep, klayer, kdim)
+  SUBROUTINE BimgReadData (pdata_out, bdimg, pcoords, ktstep, klayer, kdim, kopt_scale, pscale, kopt_mean, pmean0)
     !!---------------------------------------------------------------------
     !!                  ***  ROUTINE BimgReadData  ***
     !!
@@ -252,6 +252,10 @@ CONTAINS
     INTEGER(KIND=4),               INTENT(in) :: ktstep    ! time step number to read
     INTEGER(KIND=4),               INTENT(in) :: klayer    ! layer number to read
     INTEGER(KIND=4),               INTENT(in) :: kdim      ! dimension number to read
+    INTEGER(KIND=2), OPTIONAL,     INTENT(in) :: kopt_scale! scaling of the data flag
+    REAL(KIND=4),    OPTIONAL,     INTENT(in) :: pscale    ! scaling of the data flag
+    INTEGER(KIND=2), OPTIONAL,     INTENT(in) :: kopt_mean ! substract mean value flag
+    REAL(KIND=4),    OPTIONAL,     INTENT(in) :: pmean0    ! mean value of the output field
 
     INTEGER(KIND=4)   :: ji, jj, inmean, inx, iny
     INTEGER(KIND=4)   :: iksup, ikinf
@@ -259,7 +263,38 @@ CONTAINS
     REAL(KIND=8)      :: zmean                 ! double precision for accumulation
     REAL(KIND=4)      :: zlat, zlon, zcof, zcof1, zspval
     LOGICAL           :: llgood_point
+    LOGICAL           :: ll_scale , ll_mean
+    REAL(KIND=4)      :: zscale , zmean0
     !!----------------------------------------------------------------------
+    ll_scale=.false. ; zscale = 1.
+    IF ( PRESENT ( kopt_scale ) ) THEN
+     IF ( kopt_scale == 1 ) THEN
+       ll_scale=.true.
+     ELSE 
+       ll_scale=.false.
+     ENDIF
+    ENDIF
+
+    IF ( PRESENT ( pscale ) ) THEN
+       zscale=pscale
+    ELSE 
+       zscale=1.
+    ENDIF
+
+    ll_mean=.false. ; zmean0 = 0
+    IF ( PRESENT ( kopt_mean ) ) THEN
+      IF ( kopt_mean == 1 ) THEN
+       ll_mean=.true.
+      ELSE 
+       ll_mean=.false.
+      ENDIF
+    ENDIF
+      
+    IF ( PRESENT ( pmean0 ) ) THEN
+       zmean0=pmean0
+    ELSE 
+       zmean0=0
+    ENDIF
 
     PRINT '( 3(a,i5) )', ' READ DATA : Time step :', ktstep, &
        &                  ' Layer :', klayer, &
@@ -333,11 +368,11 @@ CONTAINS
        CALL BimgMaskData (bdimg, zlocal_data)
     ENDIF
 
-    ! option -scale
-    IF (opt_scale  ==  1 ) THEN
-       PRINT *,' Scaling input data by ', dscale 
+    ! option -scale -scaleclr -scalecnt
+    IF (ll_scale ) THEN
+       PRINT *,' Scaling input data by ', zscale 
        WHERE ( zlocal_data(1:bdimg%nxfile,1:bdimg%nyfile) /= bdimg%spval ) &
-          &    zlocal_data(1:bdimg%nxfile,1:bdimg%nyfile)=zlocal_data(1:bdimg%nxfile,1:bdimg%nyfile) * dscale
+          &    zlocal_data(1:bdimg%nxfile,1:bdimg%nyfile)=zlocal_data(1:bdimg%nxfile,1:bdimg%nyfile) * zscale
     ENDIF
 
     ! option -shift
@@ -470,8 +505,8 @@ CONTAINS
        bdimg%nxdata = nimax - nimin ! + 1
        bdimg%nydata = njmax - njmin ! + 1
        !     option -mean : change the mean value of local data set
-       IF (opt_mean  ==  1 ) THEN
-          PRINT *, 'Changing mean value of extracted data to ', vmean0
+       IF ( ll_mean ) THEN
+          PRINT *, 'Changing mean value of extracted data to ', zmean0
           inmean = COUNT ( zlocal_data(nimin:nimax,njmin:njmax) /= bdimg%spval )
           zmean  = SUM   ( zlocal_data(nimin:nimax,njmin:njmax) ,                 &
              &             zlocal_data(nimin:nimax,njmin:njmax) /= bdimg%spval ) / inmean
@@ -480,7 +515,7 @@ CONTAINS
 
           WHERE ( zlocal_data(nimin:nimax,njmin:njmax) /= bdimg%spval )           &
              &    zlocal_data(nimin:nimax,njmin:njmax) =                          &
-                  zlocal_data(nimin:nimax,njmin:njmax) -zmean +vmean0 
+                  zlocal_data(nimin:nimax,njmin:njmax) -zmean +zmean0 
        END IF
 
        IF ( opt_log == 1 .OR. ( opt_cntlog == 1 .AND. bdimg%lcnt ) .OR. (opt_clrlog == 1 .AND. bdimg%lclr) ) THEN

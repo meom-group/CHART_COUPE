@@ -194,7 +194,7 @@ CONTAINS
   END SUBROUTINE CoupeInitNCAR
 
 
-  SUBROUTINE CalculateCutPlane (pcut_plane, bdimginfo, bdimgzlevel, kt, kdim )
+  SUBROUTINE CalculateCutPlane (pcut_plane, bdimginfo, bdimgzlevel, kt, kdim, kopt_scale, pscale, kopt_mean, pmean0 )
     !!---------------------------------------------------------------------
     !!                  ***  ROUTINE CalculateCutPlane  ***
     !!
@@ -209,6 +209,10 @@ CONTAINS
     TYPE( bimgfile ),           INTENT(inout) :: bdimgzlevel
     INTEGER(KIND=4),               INTENT(in) :: kt
     INTEGER(KIND=4),               INTENT(in) :: kdim
+    INTEGER(KIND=2),               INTENT(in) :: kopt_scale
+    REAL(KIND=4),                  INTENT(in) :: pscale
+    INTEGER(KIND=2),               INTENT(in) :: kopt_mean
+    REAL(KIND=4),                  INTENT(in) :: pmean0
 
     INTEGER(KIND=4)                  :: ifrst = 0
     INTEGER(KIND=4)                  :: ji, jj, jk
@@ -243,7 +247,8 @@ CONTAINS
 
           !  depth of the levels
           zdep(ilev) = -bdimginfo%depth(jk)
-          CALL BimgReadData (zwork, bdimginfo, rmap_coord, kt, jk, kdim)
+          CALL BimgReadData (zwork, bdimginfo, rmap_coord, kt, jk, kdim, kopt_scale, pscale, &
+             &                                                           kopt_mean, pmean0 )
           IF (bdimginfo%lspval0) bdimginfo%spval=rp_defspval
 
           IF (bdimginfo%ngrid  /=  3 ) THEN 
