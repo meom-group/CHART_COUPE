@@ -133,6 +133,10 @@ CONTAINS
              !       call gsplci(incoul)
              CALL mapiq
              ipt=ipt+1
+             ! in case many 99999 lines are in sequence
+             DO WHILE ( pyover(ipt) >= 9999 .AND. ipt < knover )
+              ipt=ipt+1
+             END DO
              CALL mapit(pyover(ipt),pxover(ipt),0)
           ENDIF
           CALL mapit(pyover(ipt),pxover(ipt),1)
