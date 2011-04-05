@@ -8,7 +8,7 @@
 FC = ifort
 LD = ifort
 NCDF = -I/usr/local/include -L/usr/local/lib -lnetcdf
-NCL = -L/usr/local/pub/ncar/5.1.1/lib -lncarg -lncarg_gks -lncarg_c -lX11 -lXext -lpng -lz
+NCL = -L/usr/local/pub/ncar/5.2.1/lib -lncarg -lncarg_gks -lncarg_c -lX11 -lXext -lpng -lz
 
 # To activate debuging uncomment the following line 
 #DEBUGFLAG = -O -CB -g -traceback 

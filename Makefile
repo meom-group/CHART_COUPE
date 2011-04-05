@@ -44,6 +44,9 @@ clean :
 cleanall :  clean
 	\rm -f chart coupe
 
+install : all
+	mv chart coupe vecrot_opa vecrot $(INSTALL)
+
 # dependence below
 
 modparam.o : modparam.f90

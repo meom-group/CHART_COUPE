@@ -55,7 +55,7 @@ PROGRAM coupe
   !!----------------------------------------------------------------------
   !
   PRINT *,' '
-  PRINT *, 'Coupe version  F90 24/11/2010'
+  PRINT *, 'Coupe version 7.0 (F90)  24/11/2010'
   PRINT *,' (doc web http://www-meom.hmg.inpg.fr/WEB_CHART/)'
   PRINT *,' '
   PRINT *,' In this  compilation   NXX = ', NXX

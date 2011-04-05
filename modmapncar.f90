@@ -8,10 +8,10 @@ MODULE modmapncar
   !!----------------------------------------------------------------------
   PUBLIC 
 
-  INTEGER(KIND=4), PARAMETER :: jp_iama = 25000000  !: size of area map integer worspace
-!INTEGER(KIND=4), PARAMETER :: jp_iama = 250000000  !: size of area map integer worspace
-  INTEGER(KIND=4), PARAMETER :: jp_cra =  10000000  !: size of area map real workspace
-!INTEGER(KIND=4), PARAMETER :: jp_cra =  10000000  !: size of area map real workspace
+! INTEGER(KIND=4), PARAMETER :: jp_iama = 2500000  !: size of area map integer worspace
+ INTEGER(KIND=4), PARAMETER :: jp_iama = 250000000  !: size of area map integer worspace
+! INTEGER(KIND=4), PARAMETER :: jp_cra =  1000000  !: size of area map real workspace
+ INTEGER(KIND=4), PARAMETER :: jp_cra =  10000000  !: size of area map real workspace
   INTEGER(KIND=4), PARAMETER :: jp_agid =  10      !: max number of area/group id
 
   INTEGER(KIND=4),DIMENSION(jp_iama) :: niama      !: area map integer workspace
@@ -20,8 +20,8 @@ MODULE modmapncar
   REAL(KIND=4)   ,DIMENSION(jp_cra)  :: xcra       !: Area map workspace for X-coord
   REAL(KIND=4)   ,DIMENSION(jp_cra)  :: ycra       !: Area map worksapce for Y-coord
 
-  INTEGER(KIND=4), PARAMETER :: jp_IWRK=190000     !: size of integer contour workspace
-  INTEGER(KIND=4), PARAMETER :: jp_RWRK=190000     !: size of real contour workspace
+  INTEGER(KIND=4), PARAMETER :: jp_IWRK=1900000     !: size of integer contour workspace
+  INTEGER(KIND=4), PARAMETER :: jp_RWRK=1900000    !: size of real contour workspace
 
   INTEGER(KIND=4), DIMENSION(jp_IWRK) :: niwrk     !: integer contour workspace
   REAL(KIND=4),    DIMENSION(jp_IWRK) :: rwrk      !: real contour workspace
