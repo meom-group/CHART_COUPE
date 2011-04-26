@@ -187,6 +187,10 @@ CONTAINS
              alfan(ji)=1.
              alfa1(ji)=0.
              alfa2(ji)=0.
+             ii0(1,ji)= ii0(3,ji)
+             jj0(1,ji)= jj0(3,ji)
+             ii0(2,ji)= ii0(3,ji)
+             jj0(2,ji)= jj0(3,ji)
           ENDIF
        ENDDO  
     ENDIF ! gridxy
