@@ -136,9 +136,8 @@ CONTAINS
 
     zxa=pmap_coord(1)*zpi/180.
     zxb=pmap_coord(2)*zpi/180.
-
-    zya=-alog(TAN((45-pmap_coord(3)/2.))*zpi/180.)
-    zyb=-alog(TAN((45-pmap_coord(4)/2.))*zpi/180.)
+    zya=-alog(TAN((45-pmap_coord(3)/2.)*zpi/180.))
+    zyb=-alog(TAN((45-pmap_coord(4)/2.)*zpi/180.))
 
     angled=ATAN2((zxb-zxa),(zyb-zya))
     angled=angled*180./zpi
