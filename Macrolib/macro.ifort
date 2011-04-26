@@ -10,9 +10,9 @@ NCDF = -I/usr/local/include -L/usr/local/lib -lnetcdf
 NCL = 
 
 # To activate debuging uncomment the following line
-#DEBUGFLAG = -O -CB -g -traceback
+#DEBUGFLAG = -O -CB -g -traceback -fpe0
 DEBUGFLAG =  -O3
 
-FFLAGS = $(DEBUGFLAG) -assume byterecl -convert big_endian $(NCDF) $(NCL)
+FFLAGS = $(DEBUGFLAG) -assume byterecl -convert big_endian $(NCDF) $(NCL) 
 
 INSTALL = $(HOME)/bin
