@@ -988,7 +988,7 @@ CONTAINS
 
     ilocmi = MINLOC(zdis)
     kimin  = ilocmi(1) + ii0 - 1
-    kjmin  = ilocmi(2) + ii0 - 1
+    kjmin  = ilocmi(2) + ij0 - 1
 
     ll_bwest = .FALSE.
     ll_best  = .FALSE.
