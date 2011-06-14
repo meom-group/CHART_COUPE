@@ -520,7 +520,7 @@ CONTAINS
 
        IF ( opt_log == 1 .OR. ( opt_cntlog == 1 .AND. bdimg%lcnt ) .OR. (opt_clrlog == 1 .AND. bdimg%lclr) ) THEN
           WHERE(  zlocal_data(nimin:nimax,njmin:njmax) /= bdimg%spval .AND.      &
-             &    zlocal_data(nimin:nimax,njmin:njmax) >= 0                 ) 
+             &    zlocal_data(nimin:nimax,njmin:njmax) > 0.                 ) 
              zlocal_data(nimin:nimax,njmin:njmax) = LOG10( zlocal_data(nimin:nimax,njmin:njmax))
           ELSEWHERE
              zlocal_data(nimin:nimax,njmin:njmax) =  bdimg%spval 

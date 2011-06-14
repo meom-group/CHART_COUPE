@@ -548,6 +548,7 @@ CONTAINS
     REAL(KIND=4)                            :: zx1per, zy1per, zx2per, zy2per
     REAL(KIND=4)                            :: zcoef, zcoeflab
     REAL(KIND=4)                            :: zxdeb, zxfin, zydeb, zyfin
+    REAL(KIND=4)                            :: zval
     CHARACTER(LEN=20), DIMENSION(NBOXMAX+1) :: cllbs  
     !!----------------------------------------------------------------------
     CALL getset(zrl, zrr, zrb, zrt, zur, zul, zut, zub,ilog)
@@ -637,15 +638,28 @@ CONTAINS
     END SELECT
 
     IF (opt_clrmark  ==  1 ) THEN
-       DO ji=1,nmark
-          IF (int_format == 1) THEN
-             WRITE(cllbs(ji),int_table(ICLR_PAL)%format)  NINT (vclrmark(ji)/(zcoef))
-             cllbs(ji) = ADJUSTL( cllbs(ji) )
-          ELSE
-             WRITE(cllbs(ji),int_table(ICLR_PAL)%format)       (vclrmark(ji)/(zcoef))
-             cllbs(ji) = ADJUSTL( cllbs(ji) )
-          ENDIF
-       ENDDO
+       IF ( opt_log /= 1  .AND. opt_clrlog /=1 .AND. opt_cntlog /=1 ) THEN
+         DO ji=1,nmark
+           IF (int_format == 1) THEN
+              WRITE(cllbs(ji),int_table(ICLR_PAL)%format)  NINT (vclrmark(ji)/(zcoef))
+              cllbs(ji) = ADJUSTL( cllbs(ji) )
+           ELSE
+              WRITE(cllbs(ji),int_table(ICLR_PAL)%format)       (vclrmark(ji)/(zcoef))
+              cllbs(ji) = ADJUSTL( cllbs(ji) )
+           ENDIF
+         ENDDO
+       ELSE
+         DO ji=1,nmark
+              zval= 10.**(vclrmark(ji)/(zcoef))
+           IF (int_format == 1) THEN
+              WRITE(cllbs(ji),int_table(ICLR_PAL)%format)  NINT (zval)
+              cllbs(ji) = ADJUSTL( cllbs(ji) )
+           ELSE
+              WRITE(cllbs(ji),int_table(ICLR_PAL)%format)       (zval)
+              cllbs(ji) = ADJUSTL( cllbs(ji) )
+           ENDIF
+         ENDDO
+       ENDIF
     ENDIF
 
     IF ( opt_nobox  ==  -1 ) THEN   ! case -clrmark 
