@@ -419,7 +419,7 @@ CONTAINS
 
        IF ( ll_print ) THEN
           ll_print = .FALSE.
-          PRINT *,' LIMITES DE LA GRILLE IRREGULIERE:'
+          PRINT *,' LIMITS OF IRREGULAR GRID '
           PRINT *,'   x1mod=',bdimg%x1mod
           PRINT *,'   x2mod=',bdimg%x2mod
           PRINT *,'   y1mod=',bdimg%y1mod
@@ -531,10 +531,10 @@ CONTAINS
        icount (ipos_lon) = bdimg%nyfile
        istart (ipos_lat) = 1
        icount (ipos_lat) = 1
-       PRINT *, istart, icount
+       PRINT *, istart, icount 
        istatus=NF90_INQ_VARID(id_nc,clatxy,id_var)
        CALL ERR_HDL(istatus)
-       istatus=NF90_GET_VAR(id_nc,id_var,zxyloc, start=(/1,1/),count=(/1,bdimg%nyfile/))
+       istatus=NF90_GET_VAR(id_nc,id_var,zxyloc, start=(/1,1/),count=(/bdimg%nyfile,1/))
        CALL ERR_HDL(istatus)
        DO ji=1,bdimg%nxfile
           DO jj=1,bdimg%nyfile
