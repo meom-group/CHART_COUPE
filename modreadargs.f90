@@ -357,6 +357,12 @@ CONTAINS
        opt_noproj = 1
        opt_map    = 0
 
+    CASE (                                                      '-pixel' )
+       opt_ijgrid = 1
+       opt_noproj = 1
+       opt_map    = 0
+       opt_noint  = 1
+
     CASE (                                                     '-forcexy' )
        opt_forcexy = 1
 
