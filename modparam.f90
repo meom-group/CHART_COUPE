@@ -13,6 +13,12 @@ MODULE modparam
   !! Copyright (c) 2010, J.-M. Molines.
   !! Software governed by the CeCILL licence (Licence/CHARTCeCILL.txt)
   !!----------------------------------------------------------------------
+      ! Big zone
+!     INTEGER, PARAMETER :: NXX     = 3800   !: X size for the data and plot
+!     INTEGER, PARAMETER :: NYY     = 3800   !: Y size for the data and plot
+!     INTEGER, PARAMETER :: NA      = 75     !: Z size for the data
+!     INTEGER, PARAMETER :: Nmaxtime= 700    !: Maximum number of time step in data file
+
       ! ORCA12
       INTEGER, PARAMETER :: NXX     = 4322   !: X size for the data and plot
       INTEGER, PARAMETER :: NYY     = 3059   !: Y size for the data and plot

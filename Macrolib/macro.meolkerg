@@ -11,9 +11,10 @@ HDF5 = -I/opt/hdf5-1.8.4/include -L/opt/hdf5-1.8.4/lib -lhdf5_hl -lhdf5
 ZLIB = -I/opt/zlib-1.2.3/include -L/opt/zlib-1.2.3/lib -lz
 
 NCL = 
+INSTALL=$(HOME)/bin
 
 # To activate debuging uncomment the following line
-#DEBUGFLAG = -O -CB -g -traceback
-DEBUGFLAG =  -O3
+#DEBUGFLAG = -O -CB -g -traceback -fpe0
+#DEBUGFLAG =  -O3
 
 FFLAGS = $(DEBUGFLAG) -assume byterecl -convert big_endian $(NCDF) $(NCL) $(HDF5) $(ZLIB)
