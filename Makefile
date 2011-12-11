@@ -104,7 +104,7 @@ nclinfo.o : nclinfo.f90
 overlay.o : overlay.f90 modparam.o  modcom.o
 	$(FC) $(FFLAGS) -c $*.f90 
 
-readbimg.o : readbimg.f90 modcom.o  util.o cdf.o
+readbimg.o : readbimg.f90 tracecol.o modcom.o  util.o cdf.o
 	$(FC) $(FFLAGS) -c $*.f90 
 
 readpal.o : readpal.f90 modcom.o modcolor.o

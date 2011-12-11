@@ -358,6 +358,7 @@ CONTAINS
        opt_map    = 0
 
     CASE (                                                      '-pixel' )
+       opt_pixel  = 1
        opt_ijgrid = 1
        opt_noproj = 1
        opt_map    = 0
@@ -1427,6 +1428,7 @@ CONTAINS
     opt_color    = 0
     opt_grid     = 0
     opt_ijgrid   = 0
+    opt_pixel    = 0
     opt_forcexy  = 0
     opt_xgrid    = 0
     opt_ygrid    = 0

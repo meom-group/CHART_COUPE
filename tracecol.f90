@@ -20,6 +20,7 @@ MODULE tracecol
   !!     CreateCoordsFile
   !!     TraceMeridiens
   !!     TraceMeridian
+  !!     SetPlotWindow
   !!----------------------------------------------------------------------
   USE modcom
   USE modmapncar
@@ -47,6 +48,7 @@ MODULE tracecol
   PUBLIC :: DrawContinents 
   PUBLIC :: DrawOceans
   PUBLIC :: mark
+  PUBLIC :: SetPlotWindow
 
   PRIVATE :: CreateCoordsFile
   PRIVATE :: TraceMeridiens 
@@ -1186,5 +1188,58 @@ CONTAINS
     ENDDO
 
   END SUBROUTINE mark
+
+  SUBROUTINE SetPLotWindow ( bdimg )
+    !!---------------------------------------------------------------------
+    !!                  ***  SUBROUTINE SetPlotWindow  ***
+    !!
+    !! ** Purpose :   Set plot windows in order to have undistorted plot 
+    !!              when performing a pixel plot ( option -pixel )
+    !!
+    !! ** Method  : take information in nxdata, nydata to set x1pos x2pos
+    !!              y1pos y2pos in order that the plot window have the
+    !!              same aspect ration than the data
+    !!
+    !!----------------------------------------------------------------------
+    TYPE( bimgfile ),             INTENT(in) :: bdimg
+
+    REAL(KIND=8)    :: dl_gx, dl_gy, dl_dx0, dl_dy0, dl_rp, dl_dx, dl_dy
+    INTEGER(KIND=4) :: inx, iny
+    !!----------------------------------------------------------------------
+
+    IF ( opt_debug == 1 ) PRINT *,  'SetPlotWindow  ...'
+    inx = bdimg%nxdata
+    iny = bdimg%nydata
+
+    ! position of the center of the plot window (actual)
+    dl_gx = ( x1pos + x2pos) / 2.d0
+    dl_gy = ( y1pos + y2pos) / 2.d0
+
+    ! actual size of the window 
+    dl_dx0 = ( x2pos - x1pos )
+    dl_dy0 = ( y2pos - y1pos )
+
+    ! aspect ratio of the data
+    dl_rp = inx * 1.d0 / iny
+
+    ! first guess
+    dl_dx = dl_rp * dl_dy0
+    dl_dy = dl_dy0
+
+    ! check if it fits in the actual window
+    IF ( dl_dx >= dl_dx0 ) THEN
+       dl_dx = dl_dx0
+       dl_dy = dl_dx0 / dl_rp
+    ENDIF
+
+    x1pos = dl_gx - dl_dx /2.d0
+    x2pos = dl_gx + dl_dx /2.d0
+    y1pos = dl_gy - dl_dy /2.d0
+    y2pos = dl_gy + dl_dy /2.d0
+
+    CALL InitMap()
+    CALL DrawMeridians()
+
+  END SUBROUTINE SetPlotWindow
 
 END MODULE tracecol

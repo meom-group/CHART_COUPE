@@ -15,6 +15,7 @@ MODULE readbimg
   USE modcom
   USE cdf
   USE util
+  USE tracecol
 
   IMPLICIT NONE
 
@@ -563,6 +564,11 @@ CONTAINS
 
     ! restore original spval for next layer. 
     IF (bdimg%lspval0) bdimg%spval = 0.
+
+    ! set plot window in case of -pixel option
+    IF (opt_pixel == 1 ) THEN
+      CALL SetPlotWindow(bdimg)
+    ENDIF
 
   END SUBROUTINE BimgReadData
 

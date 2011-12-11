@@ -16,8 +16,8 @@ MODULE modparam
       ! ORCA12
       INTEGER, PARAMETER :: NXX     = 4322   !: X size for the data and plot
       INTEGER, PARAMETER :: NYY     = 3059   !: Y size for the data and plot
-      INTEGER, PARAMETER :: NA      = 46    !: Z size for the data
-      INTEGER, PARAMETER :: Nmaxtime= 700   !: Maximum number of time step in data file
+      INTEGER, PARAMETER :: NA      = 75     !: Z size for the data
+      INTEGER, PARAMETER :: Nmaxtime= 700    !: Maximum number of time step in data file
 
       ! ORCA025
 !     INTEGER, PARAMETER :: NXX     = 1500   !: X size for the data and plot
@@ -26,16 +26,16 @@ MODULE modparam
 !     INTEGER, PARAMETER :: Nmaxtime= 700    !: Maximum number of time step in data file
 
       ! ORCA2
-!     INTEGER, PARAMETER :: NXX     = 500   !: X size for the data and plot
-!     INTEGER, PARAMETER :: NYY     = 550   !: Y size for the data and plot
-!     INTEGER, PARAMETER :: NA      = 46    !: Z size for the data
-!     INTEGER, PARAMETER :: Nmaxtime= 700   !: Maximum number of time step in data file
+!     INTEGER, PARAMETER :: NXX     = 500    !: X size for the data and plot
+!     INTEGER, PARAMETER :: NYY     = 550    !: Y size for the data and plot
+!     INTEGER, PARAMETER :: NA      = 46     !: Z size for the data
+!     INTEGER, PARAMETER :: Nmaxtime= 700    !: Maximum number of time step in data file
 
       ! PERIANT8
 !     INTEGER, PARAMETER :: NXX     = 2882   !: X size for the data and plot
-!     INTEGER, PARAMETER :: NYY     = 799   !: Y size for the data and plot
+!     INTEGER, PARAMETER :: NYY     = 799    !: Y size for the data and plot
 !     INTEGER, PARAMETER :: NA      = 200    !: Z size for the data
-!     INTEGER, PARAMETER :: Nmaxtime= 700   !: Maximum number of time step in data file
+!     INTEGER, PARAMETER :: Nmaxtime= 700    !: Maximum number of time step in data file
 
 
       INTEGER, PARAMETER :: jp_txt=50 !: max number of -string '...'  options

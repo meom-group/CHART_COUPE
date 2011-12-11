@@ -101,11 +101,13 @@ PROGRAM chart
      CALL DefaultPalette (incol, opt_reverse,opt_pal)
   ENDIF
 
-  CALL InitMap()   ! map initialization
-
-  ! Draw fixed elements of the map : argument of the routine are gflas selector id
-
-  CALL DrawMeridians ()
+  IF ( opt_pixel == 0 ) THEN
+    CALL InitMap()   ! map initialization
+    ! Draw fixed elements of the map : argument of the routine are gflas selector id
+    CALL DrawMeridians ()
+  ELSE
+    ! done later in SetPlotWindow
+  ENDIF
 
   IF (opt_ocean    == 1) CALL DrawOceans ()
   IF (opt_map      == 1) CALL DrawContinents ()
