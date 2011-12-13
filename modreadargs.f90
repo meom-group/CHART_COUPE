@@ -189,6 +189,7 @@ CONTAINS
     INTEGER(KIND=4)     :: ilen_opt
     INTEGER(KIND=4)     :: ilen_arg
     REAL(KIND=4)        :: zdum
+    REAL(KIND=4)        :: zx, zy, zr     ! for center option ( middle point and radius)
     CHARACTER(LEN=256)  :: cl_cmd
     CHARACTER(LEN=30)   :: clValue, clFormat, clValFmt
     CHARACTER(LEN=64)   :: cdum, cline
@@ -692,6 +693,14 @@ CONTAINS
           PRINT *,'ERROR : coordinates mus be given in ascending order '
           STOP
        ENDIF
+
+    CASE (                                                      '-center' )
+       opt_zoom = 1
+       CALL Get3real (ki, ktype, cd_arg, zx, zy, zr )
+          rmap_coord(1) = zx - zr
+          rmap_coord(2) = zx + zr
+          rmap_coord(3) = zy - zr
+          rmap_coord(4) = zy + zr
 
     CASE (                                                         '-pts' )
        opt_zoom = 1
@@ -2042,6 +2051,33 @@ CONTAINS
     ENDIF
 
   END SUBROUTINE Get4real
+
+  SUBROUTINE Get3real (ki, ktype, cd_arg, pValue1, pValue2, pValue3)
+    !!---------------------------------------------------------------------
+    !!                  ***  ROUTINE Get3real  ***
+    !!
+    !! ** Purpose :  Get 3 real argument of an option
+    !!
+    !!----------------------------------------------------------------------
+    INTEGER(KIND=4), INTENT(inout) :: ki         ! argument index on the line
+    INTEGER(KIND=4),    INTENT(in) :: ktype      ! file or line
+    CHARACTER(LEN=*),   INTENT(in) :: cd_arg     ! already argument if file
+    REAL(KIND=4),      INTENT(out) :: pValue1    ! output Real Value 1
+    REAL(KIND=4),      INTENT(out) :: pValue2    ! output Real Value 2
+    REAL(KIND=4),      INTENT(out) :: pValue3    ! output Real Value 3
+
+    CHARACTER(LEN=64)  ::  cldum
+    !!----------------------------------------------------------------------
+    IF (ktype == jp_from_line) THEN
+       ki=ki+1 ;  CALL getarg(ki,cldum) ; READ(cldum,*) pValue1
+       ki=ki+1 ;  CALL getarg(ki,cldum) ; READ(cldum,*) pValue2
+       ki=ki+1 ;  CALL getarg(ki,cldum) ; READ(cldum,*) pValue3
+    ELSE
+       READ (cd_arg,*) pValue1, pValue2, pValue3
+    ENDIF
+
+  END SUBROUTINE Get3real
+
 
 END MODULE modreadargs
 
