@@ -1,7 +1,7 @@
 #!/bin/ksh
 
 
-for f in paldif20.raw ; do
+for f in joel*.raw ; do
   pal=${f%.raw}.pal
   cat head.PAL > $pal
 
