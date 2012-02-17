@@ -479,6 +479,7 @@ CONTAINS
     INTEGER(KIND=4)    :: iclip, ierr
     INTEGER(KIND=4)    :: ji
     INTEGER(KIND=4)    :: ilog
+    INTEGER(KIND=4)    :: icolor0  ! original text color
     REAL(KIND=4)       :: zrec(4)
     REAL(KIND=4)       :: zrl, zrr, zrb, zrt,  zur, zul, zut, zub
     CHARACTER(LEN=24)  :: cldum
@@ -521,6 +522,22 @@ CONTAINS
                &          -(textr(ji)%rcsize), textr(ji)%angle, textr(ji)%align)
        ENDDO
     ENDIF
+
+    ! -stringrc option
+    IF (nstrcountrc /= 0) THEN
+       DO ji = 1, nstrcountrc
+          CALL ParseString (textrc(ji)%cstr, clOut)
+          ! save actual CC color
+          CALL pcgeti('CC',icolor0)
+          ! fix required CC
+          CALL pcseti('CC',textrc(ji)%icolor+19) ! in order to address color of palette
+          CALL plchhq (textrc(ji)%xpos, textrc(ji)%ypos, TRIM(clOut),         &
+               &          -(textrc(ji)%rcsize), textrc(ji)%angle, textrc(ji)%align)
+          ! restore original color  CC(0) 
+          CALL pcseti('CC',icolor0)
+       ENDDO
+    ENDIF
+
 
     CALL set( zrl, zrr, zrb, zrt, zur, zul, zut, zub, ilog)
     CALL gsclip (iclip)

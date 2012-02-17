@@ -13,6 +13,7 @@ MODULE util
   !! FindMinMax 
   !! GetStringParameters 
   !! GetStringrParameters 
+  !! GetStringrcParameters 
   !! GetStringtParameters 
   !! PrintMessage
   !! LevelOfDepth
@@ -55,6 +56,7 @@ MODULE util
   PUBLIC :: FindMinMax
   PUBLIC :: GetStringParameters
   PUBLIC :: GetStringrParameters
+  PUBLIC :: GetStringrcParameters
   PUBLIC :: GetStringtParameters
   PUBLIC :: PrintMessage
   PUBLIC :: LevelOfDepth
@@ -287,6 +289,46 @@ MODULE util
     sd_textstruct%cstr = cd_in( ib+1 : ie )
 
   END SUBROUTINE GetStringrParameters
+
+  SUBROUTINE GetStringrcParameters (cd_in, sd_textstruct)
+    !!---------------------------------------------------------------------
+    !!                  ***  ROUTINE GetStringrcParameters  ***
+    !!
+    !! ** Purpose :  Parse argument of the -stringr option when read from file
+    !!
+    !! ** Method  :   Look for 5 values separated by at least one blank character
+    !!                and a string isolated either by '  ' or  "  "
+    !!
+    !!----------------------------------------------------------------------
+    CHARACTER(LEN=*),    INTENT(inout) :: cd_in
+    TYPE( text_string ), INTENT(inout) :: sd_textstruct
+
+    INTEGER(KIND=4)  :: ib, ie
+    CHARACTER(LEN=1) :: cmatch
+    !!----------------------------------------------------------------------
+    READ( cd_in , * ) sd_textstruct%xpos,   sd_textstruct%ypos, &
+        &             sd_textstruct%rcsize, sd_textstruct%align, sd_textstruct%angle, &
+        &             sd_textstruct%icolor
+    cmatch='"'
+    ib = index ( cd_in,  cmatch )
+
+    IF  ( ib == 0 ) THEN
+       cmatch=''''
+       ib = index ( cd_in, cmatch )
+       IF ( ib == 0 ) THEN
+         PRINT *, ' empty string '
+         sd_textstruct%cstr = ' '
+         RETURN
+       ENDIF
+    ENDIF
+
+    ie= index ( cd_in, cmatch, .true. ) - 1
+    IF (ie == ib-1 )  ie = LEN_TRIM(cd_in)
+
+    sd_textstruct%cstr = cd_in( ib+1 : ie )
+
+  END SUBROUTINE GetStringrcParameters
+
 
 
   SUBROUTINE GetStringtParameters (cd_in, sd_textstruct)

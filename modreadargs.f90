@@ -1338,10 +1338,12 @@ CONTAINS
           READ(cdum,*) text(nstrcount)%align
           ki=ki+1 ;  CALL getarg(ki,text(nstrcount)%cstr)
           text(nstrcount)%angle=0.
+          text(nstrcount)%icolor=0
        ELSE 
           nstrcount = nstrcount + 1
           CALL GetStringParameters (cd_arg, text(nstrcount))
           text(nstrcount)%angle=0.
+          text(nstrcount)%icolor=0
        ENDIF
 
     CASE (                                                     '-stringr' )
@@ -1358,10 +1360,35 @@ CONTAINS
           ki=ki+1 ;  CALL getarg(ki,cdum)
           READ(cdum,*) textr(nstrcountr)%angle
           ki=ki+1 ;  CALL getarg(ki,textr(nstrcountr)%cstr)
+          text(nstrcount)%icolor=0
        ELSE
           nstrcountr = nstrcountr + 1
           CALL GetStringrParameters (cd_arg, textr(nstrcountr))
+          text(nstrcount)%icolor=0
        ENDIF
+
+    CASE (                                                     '-stringrc' )
+       opt_color = 1
+       IF (ktype == jp_from_line) THEN
+          nstrcountrc= nstrcountrc+ 1
+          ki=ki+1 ;  CALL getarg(ki,cdum)
+          READ(cdum,*) textrc(nstrcountrc)%xpos
+          ki=ki+1 ;  CALL getarg(ki,cdum)
+          READ(cdum,*) textrc(nstrcountrc)%ypos
+          ki=ki+1 ;  CALL getarg(ki,cdum)
+          READ(cdum,*) textrc(nstrcountrc)%rcsize
+          ki=ki+1 ;  CALL getarg(ki,cdum)
+          READ(cdum,*) textrc(nstrcountrc)%align
+          ki=ki+1 ;  CALL getarg(ki,cdum)
+          READ(cdum,*) textrc(nstrcountrc)%angle
+          ki=ki+1 ;  CALL getarg(ki,cdum)
+          READ(cdum,*) textrc(nstrcountrc)%icolor
+          ki=ki+1 ;  CALL getarg(ki,textrc(nstrcountrc)%cstr)
+       ELSE
+          nstrcountrc = nstrcountrc + 1
+          CALL GetStringrcParameters (cd_arg, textrc(nstrcountrc))
+       ENDIF
+
 
     CASE DEFAULT
        IF ( cd_opt(1:1) == '#' ) THEN

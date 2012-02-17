@@ -137,13 +137,15 @@ MODULE modcom
      REAL(KIND=4)       :: rcsize                  !# size of text 
      REAL(KIND=4)       :: align                   !# alignment [ -1.0 .... 1.0 ]
      REAL(KIND=4)       :: angle                   !# angle (deg) for the text. Horiz = 0
+     INTEGER(KIND=4)    :: icolor                  !# text color index
      CHARACTER(LEN=256) :: cstr                    !# text to be written
   END TYPE text_string
 
-  INTEGER(KIND=4) :: nstrcount  = 0                !: counter for strings 
-  INTEGER(KIND=4) :: nstrcountr = 0                !: counter for rotated strings
+  INTEGER(KIND=4) :: nstrcount   = 0               !: counter for strings 
+  INTEGER(KIND=4) :: nstrcountr  = 0               !: counter for rotated strings
+  INTEGER(KIND=4) :: nstrcountrc = 0               !: counter for rotated strings + colored 
 
-  TYPE( text_string ) :: text(jp_txt), textr(jp_txt)
+  TYPE( text_string ) :: text(jp_txt), textr(jp_txt), textrc(jp_txt)
 
 ! palette
   INTEGER(KIND=4) :: nlbpos                        !: label position indicator 
