@@ -55,7 +55,7 @@ PROGRAM chart
   !! Software governed by the CeCILL licence (Licence/CHARTCeCILL.txt)
   !!----------------------------------------------------------------------
   PRINT *,' '
-  PRINT *, 'Chart version 7.0 (F90)  24/11/2010'
+  PRINT *, 'Chart version 7.1 (F90)  19/02/2012'
   PRINT *,' (doc web http://www-meom.hmg.inpg.fr/WEB_CHART/)'
   PRINT *,' '
   PRINT *,' In this compilation    NXX = ', NXX
