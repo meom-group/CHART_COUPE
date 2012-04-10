@@ -231,7 +231,7 @@ CONTAINS
   END SUBROUTINE BimgReadHeader
 
 
-  SUBROUTINE BimgReadData (pdata_out, bdimg, pcoords, ktstep, klayer, kdim, kopt_scale, pscale, kopt_mean, pmean0)
+  SUBROUTINE BimgReadData (pdata_out, bdimg, pcoords, ktstep, klayer, kdim, kopt_scale, pscale, kopt_mean, pmean0, kopt_abs)
     !!---------------------------------------------------------------------
     !!                  ***  ROUTINE BimgReadData  ***
     !!
@@ -257,6 +257,7 @@ CONTAINS
     REAL(KIND=4),    OPTIONAL,     INTENT(in) :: pscale    ! scaling of the data flag
     INTEGER(KIND=2), OPTIONAL,     INTENT(in) :: kopt_mean ! substract mean value flag
     REAL(KIND=4),    OPTIONAL,     INTENT(in) :: pmean0    ! mean value of the output field
+    INTEGER(KIND=2), OPTIONAL,     INTENT(in) :: kopt_abs  ! mean value of the output field
 
     INTEGER(KIND=4)   :: ji, jj, inmean, inx, iny
     INTEGER(KIND=4)   :: iksup, ikinf
@@ -264,7 +265,7 @@ CONTAINS
     REAL(KIND=8)      :: zmean                 ! double precision for accumulation
     REAL(KIND=4)      :: zlat, zlon, zcof, zcof1, zspval
     LOGICAL           :: llgood_point
-    LOGICAL           :: ll_scale , ll_mean
+    LOGICAL           :: ll_scale , ll_mean, ll_abs
     REAL(KIND=4)      :: zscale , zmean0
     !!----------------------------------------------------------------------
     ll_scale=.false. ; zscale = 1.
@@ -296,6 +297,16 @@ CONTAINS
     ELSE 
        zmean0=0
     ENDIF
+
+    ll_abs=.false.
+    IF ( PRESENT ( kopt_abs ) ) THEN
+      IF ( kopt_abs == 1 ) THEN
+       ll_abs=.true.
+      ELSE
+       ll_abs=.false.
+      ENDIF
+    ENDIF
+
 
     PRINT '( 3(a,i5) )', ' READ DATA : Time step :', ktstep, &
        &                  ' Layer :', klayer, &
@@ -374,6 +385,13 @@ CONTAINS
        PRINT *,' Scaling input data by ', zscale 
        WHERE ( zlocal_data(1:bdimg%nxfile,1:bdimg%nyfile) /= bdimg%spval ) &
           &    zlocal_data(1:bdimg%nxfile,1:bdimg%nyfile)=zlocal_data(1:bdimg%nxfile,1:bdimg%nyfile) * zscale
+    ENDIF
+    
+    ! option -abs -clrabs -cntabs
+    IF (ll_abs ) THEN
+       PRINT *,' Taking absolute value of iniput data '
+       WHERE ( zlocal_data(1:bdimg%nxfile,1:bdimg%nyfile) /= bdimg%spval ) &
+          &    zlocal_data(1:bdimg%nxfile,1:bdimg%nyfile)=ABS(zlocal_data(1:bdimg%nxfile,1:bdimg%nyfile))
     ENDIF
 
     ! option -shift

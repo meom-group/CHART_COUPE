@@ -269,6 +269,15 @@ CONTAINS
        opt_scaleclr=1
        CALL Get1real (ki, ktype, cd_arg, dscaleclr)
 
+    CASE (                                                         '-abs' )
+       opt_abs=1 ; opt_abscnt=1 ; opt_absclr=1
+
+    CASE (                                                      '-cntabs' )
+       opt_abscnt=1
+
+    CASE (                                                      '-clrabs' )
+       opt_absclr=1
+
     CASE (                                                        '-mean' )
        opt_mean=1 ; opt_meancnt=1; opt_meanclr=1
        CALL Get1real (ki, ktype, cd_arg, vmean0)
@@ -1477,6 +1486,9 @@ CONTAINS
     opt_scale    = 0
     opt_scalecnt = 0
     opt_scaleclr = 0
+    opt_abs      = 0
+    opt_abscnt   = 0
+    opt_absclr   = 0
     opt_mean     = 0
     opt_meancnt  = 0
     opt_meanclr  = 0
