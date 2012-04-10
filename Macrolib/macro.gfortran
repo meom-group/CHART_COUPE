@@ -1,0 +1,19 @@
+#----------------------------------------------------------------------
+# CHART/COUPE 7.0 , MEOM 2010
+# $Id: macro.ifort 152 2011-04-26 16:28:36Z molines $
+# Copyright (c) 2010, J.-M. Molines.
+# Software governed by the CeCILL licence (Licence/CHARTCeCILL.txt)
+#----------------------------------------------------------------------
+FC = gfortran
+LD = ncargf90
+NCDF_ROOT=/usr
+NCDF = -I$(NCDF_ROOT)/include -L$(NCDF_ROOT)/lib -lnetcdf -lnetcdff
+NCL = 
+
+# To activate debuging uncomment the following line
+#DEBUGFLAG = -O -CB -g -traceback -fpe0
+DEBUGFLAG =  -O3
+
+FFLAGS = $(DEBUGFLAG) -fconvert=big-endian $(NCDF) $(NCL) 
+
+INSTALL = $(HOME)/bin
