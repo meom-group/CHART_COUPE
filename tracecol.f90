@@ -63,9 +63,6 @@ MODULE tracecol
        REAL(KIND=4) :: cdy
      END FUNCTION cfuy
 
-     CHARACTER(LEN=24) FUNCTION fdate ()
-     END FUNCTION fdate
-  
      FUNCTION mapaci (kid )
        INTEGER(KIND=4) :: kid 
      END FUNCTION mapaci
@@ -482,7 +479,7 @@ CONTAINS
     INTEGER(KIND=4)    :: icolor0  ! original text color
     REAL(KIND=4)       :: zrec(4)
     REAL(KIND=4)       :: zrl, zrr, zrb, zrt,  zur, zul, zut, zub
-    CHARACTER(LEN=24)  :: cldum
+    CHARACTER(LEN=24)  :: cldum, fdate
     CHARACTER(LEN=256) :: clOut
     !!----------------------------------------------------------------------
     CALL gqclip(ierr, iclip, zrec)
