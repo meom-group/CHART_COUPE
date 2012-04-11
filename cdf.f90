@@ -134,18 +134,20 @@ CONTAINS
     !!----------------------------------------------------------------------
     TYPE( bimgfile ), INTENT(inout) :: bdimg
     !
+    INTEGER(KIND=4), PARAMETER      :: jp_missing_nm=4
     INTEGER(KIND=4) ::  istatus, id_nc                  ! error status, ncid
     INTEGER(KIND=4) ::  indims, invars                  ! number of dims, variables
     INTEGER(KIND=4) ::  id_dimdep, id_dimtim, id_dimdim !  id of dimensions
     INTEGER(KIND=4) ::  id_dimlat, id_dimlon            !   "        "
     INTEGER(KIND=4) ::  id_var, id_dep, id_tim          !  id of variables
-    INTEGER(KIND=4) ::  idimv             ! number of dimensions for the variable
-    INTEGER(KIND=4) ::  ier               ! error count
-    INTEGER(KIND=4) ::  ji, jj, jvar  ! dummy loop index
-    INTEGER(KIND=4) ::  ixf ,iyf      ! a local variable for %nxfile, %nyfile
+    INTEGER(KIND=4) ::  idimv               ! number of dimensions for the variable
+    INTEGER(KIND=4) ::  ier                 ! error count
+    INTEGER(KIND=4) ::  ji, jj, jvar, jmis  ! dummy loop index
+    INTEGER(KIND=4) ::  ixf ,iyf            ! a local variable for %nxfile, %nyfile
     
     !
     CHARACTER(LEN=80) :: clvar, clnam, clongn
+    CHARACTER(LEN=20), DIMENSION(jp_missing_nm) :: cl_missing=(/'missing_value','_FillValue   ','Fillvalue    ','_Fillvalue   '/)
     !
     LOGICAL         :: llflag, ll_nodepth 
     LOGICAL         :: ll_print = .TRUE.       ! flag to print only once the grid.
@@ -208,7 +210,11 @@ CONTAINS
     END IF
     bdimg%ndimv = idimv
     ! ... special value (missing value/fill value)
-    istatus=NF90_GET_ATT(id_nc,id_var,cmiss,zspval)
+    DO jmis=1, jp_missing_nm
+       istatus=NF90_GET_ATT(id_nc,id_var,cl_missing(jmis),zspval)
+       IF ( istatus /= NF90_ENOTATT ) EXIT
+    END DO
+    
     IF ( istatus == NF90_ENOTATT ) THEN
        PRINT *, ' missing value not defined, take default value '
        zspval=rp_defspval  ! defined in modparam.f90 
