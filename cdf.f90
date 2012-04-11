@@ -34,35 +34,78 @@ MODULE cdf
 
   ! choice for cdf name
   INTEGER(KIND=4), PARAMETER      :: jp_missing_nm=5   ! missing value attribute name
-  CHARACTER(LEN=20), DIMENSION(jp_missing_nm) :: cl_missing=(/'dummy_____','missing_value','_FillValue   ','Fillvalue    ','_Fillvalue   '/)
+  CHARACTER(LEN=20), DIMENSION(jp_missing_nm) :: cl_missing= &
+   &          (/  'dummy________', &
+   &              'missing_value', &
+   &              '_FillValue   ', &
+   &              'Fillvalue    ', &
+   &              '_Fillvalue   '   /)
 
   !   LON
   INTEGER(KIND=4), PARAMETER      :: jp_lon_nm=4     ! longitude dimension name  9 char
-  CHARACTER(LEN=20), DIMENSION(jp_lon_nm) :: cl_lon=(/'dummy____','x        ','lon      ','longitude'/)
+  CHARACTER(LEN=20), DIMENSION(jp_lon_nm) :: cl_lon=          &
+   &          (/   'dummy____',    &
+   &               'x        ',    &
+   &               'lon      ',    &
+   &               'longitude'      /)
 
   INTEGER(KIND=4), PARAMETER      :: jp_lonv_nm=4     ! longitude variable name 11 char
-  CHARACTER(LEN=20), DIMENSION(jp_lonv_nm) :: cl_lonv=(/'dummy______','nav_lon   ','v_lon      ','v_longitude'/)
+  CHARACTER(LEN=20), DIMENSION(jp_lonv_nm) :: cl_lonv=        &
+   &          (/   'dummy______',   &
+   &               'nav_lon    ',   &
+   &               'v_lon      ',   &
+   &               'v_longitude'     /)
 
   !   LAT
   INTEGER(KIND=4), PARAMETER      :: jp_lat_nm=4     ! latitude dimension name  8 char
-  CHARACTER(LEN=20), DIMENSION(jp_lat_nm) :: cl_lat=(/'dummy___','y       ','lat     ','latitude'/)
+  CHARACTER(LEN=20), DIMENSION(jp_lat_nm) :: cl_lat=          &
+   &          (/   'dummy___',    &
+   &               'y       ',    &
+   &               'lat     ',    &
+   &               'latitude'       /)
 
   INTEGER(KIND=4), PARAMETER      :: jp_latv_nm=4     ! latgitude variable name  10 char
-  CHARACTER(LEN=20), DIMENSION(jp_latv_nm) :: cl_latv=(/'dummy_____','nav_lat   ','v_lat     ','v_latitude'/)
+  CHARACTER(LEN=20), DIMENSION(jp_latv_nm) :: cl_latv=        &
+   &          (/   'dummy_____',    &
+   &               'nav_lat   ',    &
+   &               'v_lat     ',    &
+   &               'v_latitude'      /)
 
   !   DEPTH 
   INTEGER(KIND=4), PARAMETER      :: jp_depth_nm=7     ! depth dimension name  7 char
-  CHARACTER(LEN=20), DIMENSION(jp_depth_nm) :: cl_depth=(/'dummy__','deptht ','depthu ','depthv ','depthw ','z      ','nav_lev'/)
+  CHARACTER(LEN=20), DIMENSION(jp_depth_nm) :: cl_depth=      &
+   &          (/   'dummy__',    &
+   &               'deptht ',    &
+   &               'depthu ',    &
+   &               'depthv ',    &
+   &               'depthw ',    &
+   &               'z      ',    &
+   &               'nav_lev'       /)
 
   INTEGER(KIND=4), PARAMETER      :: jp_depthv_nm=7    ! depth variable name  9 char
-  CHARACTER(LEN=20), DIMENSION(jp_depthv_nm) :: cl_depthv=(/'dummy____','v_deptht ','v_depthu ','v_depthv ','v_depthw','v_z     ','v_nav_lev'/)
+  CHARACTER(LEN=20), DIMENSION(jp_depthv_nm) :: cl_depthv=    &
+   &          (/   'dummy____',    &
+   &               'v_deptht ',    &
+   &               'v_depthu ',    &
+   &               'v_depthv ',    &
+   &               'v_depthw ',    &
+   &               'v_z      ',    &
+   &               'v_nav_lev'       /)
 
   !   TIME
   INTEGER(KIND=4), PARAMETER      :: jp_time_nm=4     ! time dimension name 12 char
-  CHARACTER(LEN=20), DIMENSION(jp_time_nm) :: cl_time=(/'dummy______','time_counter','time        ','t           '/)
+  CHARACTER(LEN=20), DIMENSION(jp_time_nm) :: cl_time=        &
+   &          (/   'dummy_______',    &
+   &               'time_counter',    &
+   &               'time        ',    &
+   &               't           '        /)
 
   INTEGER(KIND=4), PARAMETER      :: jp_timev_nm=4     ! time variable name 14 char
-  CHARACTER(LEN=20), DIMENSION(jp_timev_nm) :: cl_timev=(/'dummy_________','v_time_counter','v_time        ','v_t           '/)
+  CHARACTER(LEN=20), DIMENSION(jp_timev_nm) :: cl_timev=      &
+   &          (/   'dummy_________',    &
+   &               'v_time_counter',    &
+   &               'v_time        ',    &
+   &               'v_t           '       /)
 
 
   PUBLIC :: PrintBimgStructure
