@@ -24,12 +24,46 @@ MODULE cdf
 
   PRIVATE
 
-  INTEGER(KIND=4),PARAMETER  :: jpstand = 14
+  INTEGER(KIND=4),PARAMETER  :: jpstand = 16
 
   CHARACTER(LEN=80), POINTER :: clat, clon, cdepth, ctime, cdim
   CHARACTER(LEN=80), POINTER :: ctitle ,ccom1, ccom2, ccom3, ccom4
   CHARACTER(LEN=80), POINTER :: cmiss, clongname, cunits, clonxy, clatxy
+  CHARACTER(LEN=80), POINTER :: cdepthv, ctimev
   CHARACTER(LEN=80), DIMENSION(jpstand), TARGET :: cstandlist
+
+  ! choice for cdf name
+  INTEGER(KIND=4), PARAMETER      :: jp_missing_nm=5   ! missing value attribute name
+  CHARACTER(LEN=20), DIMENSION(jp_missing_nm) :: cl_missing=(/'dummy_____','missing_value','_FillValue   ','Fillvalue    ','_Fillvalue   '/)
+
+  !   LON
+  INTEGER(KIND=4), PARAMETER      :: jp_lon_nm=4     ! longitude dimension name  9 char
+  CHARACTER(LEN=20), DIMENSION(jp_lon_nm) :: cl_lon=(/'dummy____','x        ','lon      ','longitude'/)
+
+  INTEGER(KIND=4), PARAMETER      :: jp_lonv_nm=4     ! longitude variable name 11 char
+  CHARACTER(LEN=20), DIMENSION(jp_lonv_nm) :: cl_lonv=(/'dummy______','nav_lon   ','v_lon      ','v_longitude'/)
+
+  !   LAT
+  INTEGER(KIND=4), PARAMETER      :: jp_lat_nm=4     ! latitude dimension name  8 char
+  CHARACTER(LEN=20), DIMENSION(jp_lat_nm) :: cl_lat=(/'dummy___','y       ','lat     ','latitude'/)
+
+  INTEGER(KIND=4), PARAMETER      :: jp_latv_nm=4     ! latgitude variable name  10 char
+  CHARACTER(LEN=20), DIMENSION(jp_latv_nm) :: cl_latv=(/'dummy_____','nav_lat   ','v_lat     ','v_latitude'/)
+
+  !   DEPTH 
+  INTEGER(KIND=4), PARAMETER      :: jp_depth_nm=7     ! depth dimension name  7 char
+  CHARACTER(LEN=20), DIMENSION(jp_depth_nm) :: cl_depth=(/'dummy__','deptht ','depthu ','depthv ','depthw ','z      ','nav_lev'/)
+
+  INTEGER(KIND=4), PARAMETER      :: jp_depthv_nm=7    ! depth variable name  9 char
+  CHARACTER(LEN=20), DIMENSION(jp_depthv_nm) :: cl_depthv=(/'dummy____','v_deptht ','v_depthu ','v_depthv ','v_depthw','v_z     ','v_nav_lev'/)
+
+  !   TIME
+  INTEGER(KIND=4), PARAMETER      :: jp_time_nm=4     ! time dimension name 12 char
+  CHARACTER(LEN=20), DIMENSION(jp_time_nm) :: cl_time=(/'dummy______','time_counter','time        ','t           '/)
+
+  INTEGER(KIND=4), PARAMETER      :: jp_timev_nm=4     ! time variable name 14 char
+  CHARACTER(LEN=20), DIMENSION(jp_timev_nm) :: cl_timev=(/'dummy_________','v_time_counter','v_time        ','v_t           '/)
+
 
   PUBLIC :: PrintBimgStructure
   PUBLIC :: CdfOpen
@@ -52,25 +86,28 @@ CONTAINS
     !!
     !!----------------------------------------------------------------------
     !
-    IF (opt_debug == 1 ) PRINT *,'#CDF CdfInit ...'
+    IF ( lo_debug  ) PRINT *,'#CDF CdfInit ...'
 
     ! standard names 
-    cstandlist(1 )= 'x'             ; clon      => cstandlist(1 )
-    cstandlist(2 )= 'y'             ; clat      => cstandlist(2 )
-    cstandlist(3 )= 'deptht'        ; cdepth    => cstandlist(3 )
-    cstandlist(4 )= 'time_counter'  ; ctime     => cstandlist(4 )
-    cstandlist(5 )= 'dim'           ; cdim      => cstandlist(5 )
-    cstandlist(6 )= 'Conventions'   ; ctitle    => cstandlist(6 )
-    cstandlist(7 )= 'file_name'     ; ccom2     => cstandlist(7 )
-    cstandlist(8 )= 'production'    ; ccom3     => cstandlist(8 )
-    cstandlist(9 )= 'TimeStamp'     ; ccom4     => cstandlist(9 )
-    cstandlist(10)= 'missing_value' ; cmiss     => cstandlist(10)
-    cstandlist(11)= 'long_name'     ; clongname => cstandlist(11)
-    cstandlist(12)= 'units'         ; cunits    => cstandlist(12)
-    cstandlist(13)= 'nav_lon'       ; clonxy    => cstandlist(13)
-    cstandlist(14)= 'nav_lat'       ; clatxy    => cstandlist(14)
+    cstandlist(1 )= 'x'              ; clon      => cstandlist(1 )
+    cstandlist(2 )= 'y'              ; clat      => cstandlist(2 )
+    cstandlist(3 )= 'deptht'         ; cdepth    => cstandlist(3 )  ! dimension
+    cstandlist(4 )= 'time_counter'   ; ctime     => cstandlist(4 )  ! dimension
+    cstandlist(5 )= 'dim'            ; cdim      => cstandlist(5 )
+    cstandlist(6 )= 'Conventions'    ; ctitle    => cstandlist(6 )
+    cstandlist(7 )= 'file_name'      ; ccom2     => cstandlist(7 )
+    cstandlist(8 )= 'production'     ; ccom3     => cstandlist(8 )
+    cstandlist(9 )= 'TimeStamp'      ; ccom4     => cstandlist(9 )
+    cstandlist(10)= 'missing_value'  ; cmiss     => cstandlist(10)
+    cstandlist(11)= 'long_name'      ; clongname => cstandlist(11)
+    cstandlist(12)= 'units'          ; cunits    => cstandlist(12)
+    cstandlist(13)= 'nav_lon'        ; clonxy    => cstandlist(13)
+    cstandlist(14)= 'nav_lat'        ; clatxy    => cstandlist(14)
+    !
+    cstandlist(15)= 'v_deptht'       ; cdepthv   => cstandlist(15)   ! variable
+    cstandlist(16)= 'v_time_counter' ; ctimev    => cstandlist(16 )  ! variable
 
-    IF (opt_debug == 1 ) PRINT *,'#CDF CdfInit Done.'
+    IF ( lo_debug ) PRINT *,'#CDF CdfInit Done.'
     !
   END SUBROUTINE CdfInit
   !
@@ -94,7 +131,7 @@ CONTAINS
     !!----------------------------------------------------------------------
 
     CALL CdfInit
-    IF ( opt_debug == 1 )  THEN 
+    IF (  lo_debug )  THEN 
       PRINT *, '#CDF In CdfOpen ...', TRIM(bdimg%cmodifier), TRIM(cd_filename)
     ENDIF
 
@@ -116,7 +153,7 @@ CONTAINS
     CALL CdfInit
     CdfOpen=id_nc
 
-    IF ( opt_debug == 1 )  PRINT *, '#CDF Done.'
+    IF (  lo_debug )  PRINT *, '#CDF Done.'
 
   END FUNCTION CdfOpen
 
@@ -134,7 +171,6 @@ CONTAINS
     !!----------------------------------------------------------------------
     TYPE( bimgfile ), INTENT(inout) :: bdimg
     !
-    INTEGER(KIND=4), PARAMETER      :: jp_missing_nm=4
     INTEGER(KIND=4) ::  istatus, id_nc                  ! error status, ncid
     INTEGER(KIND=4) ::  indims, invars                  ! number of dims, variables
     INTEGER(KIND=4) ::  id_dimdep, id_dimtim, id_dimdim !  id of dimensions
@@ -146,8 +182,7 @@ CONTAINS
     INTEGER(KIND=4) ::  ixf ,iyf            ! a local variable for %nxfile, %nyfile
     
     !
-    CHARACTER(LEN=80) :: clvar, clnam, clongn
-    CHARACTER(LEN=20), DIMENSION(jp_missing_nm) :: cl_missing=(/'missing_value','_FillValue   ','Fillvalue    ','_Fillvalue   '/)
+    CHARACTER(LEN=80) :: clvar, clnam, clongn, cldum
     !
     LOGICAL         :: llflag, ll_nodepth 
     LOGICAL         :: ll_print = .TRUE.       ! flag to print only once the grid.
@@ -210,20 +245,22 @@ CONTAINS
     END IF
     bdimg%ndimv = idimv
     ! ... special value (missing value/fill value)
-    DO jmis=1, jp_missing_nm
-       istatus=NF90_GET_ATT(id_nc,id_var,cl_missing(jmis),zspval)
-       IF ( istatus /= NF90_ENOTATT ) EXIT
-    END DO
+    cl_missing(1) = cmiss
+    cldum = LookForName( jp_missing_nm, cl_missing, 'A', id_nc, id_var )
+    istatus=NF90_GET_ATT(id_nc,id_var,cldum,zspval)
     
     IF ( istatus == NF90_ENOTATT ) THEN
        PRINT *, ' missing value not defined, take default value '
        zspval=rp_defspval  ! defined in modparam.f90 
     END IF
     bdimg%spval = zspval
+    
     ! ... size of the horizontal 2D fields (nxfile, nyfile)
     ! ...... latitude or y or j direction  named clat
     IF ( lo_debug ) PRINT *,'#CRH Looking for ', TRIM(clat),' dimension'
-    istatus=NF90_INQ_DIMID(id_nc,clat,id_dimlat)
+    cl_lat(1) = clat
+    cldum = LookForName( jp_lat_nm, cl_lat, 'D', id_nc )
+    istatus=NF90_INQ_DIMID(id_nc,cldum,id_dimlat)
     CALL ERR_HDL(istatus) 
 
     istatus=NF90_INQUIRE_DIMENSION(id_nc, id_dimlat, len=iyf)
@@ -233,7 +270,9 @@ CONTAINS
 
     ! ...... longitude  or x or i direction named clon
     IF ( lo_debug ) PRINT *,'#CRH Looking for ', TRIM(clon),' dimension'
-    istatus=NF90_INQ_DIMID(id_nc,clon,id_dimlon)
+    cl_lon(1) = clon
+    cldum = LookForName( jp_lon_nm, cl_lon, 'D', id_nc )
+    istatus=NF90_INQ_DIMID(id_nc,cldum,id_dimlon)
     CALL ERR_HDL(istatus)
 
     istatus=NF90_INQUIRE_DIMENSION(id_nc, id_dimlon, len=ixf)
@@ -248,7 +287,9 @@ CONTAINS
     ! ... Number of vertical levels, set to 1 if nothing found
     !
     ll_nodepth = .FALSE.
-    istatus=NF90_INQ_DIMID(id_nc,cdepth,id_dimdep)
+    cl_depth(1)=cdepth
+    cldum = LookForName( jp_depth_nm, cl_depth, 'D', id_nc )
+    istatus=NF90_INQ_DIMID(id_nc,cldum,id_dimdep)
     IF (istatus == NF90_EBADDIM ) THEN
        PRINT *,' Only one level assumed ...'
        bdimg%nzfile = 1 ;  bdimg%depth(1) = 0.
@@ -278,7 +319,9 @@ CONTAINS
        ENDIF
        !
      IF ( .NOT. ll_nodepth ) THEN  ! there is a depth variable to read
-       istatus=NF90_INQ_VARID(id_nc,cdepth,id_dep)
+       cl_depthv(1)=cdepthv
+       cldum = LookForName(jp_depthv_nm, cl_depthv, 'V', id_nc )
+       istatus=NF90_INQ_VARID(id_nc,cldum,id_dep)
        CALL ERR_HDL(istatus)
 
        istatus=NF90_GET_VAR(id_nc, id_dep, bdimg%depth, start=(/1/), count=(/bdimg%nzfile/))
@@ -290,7 +333,9 @@ CONTAINS
     !
     ! ... Number of time steps, 1 if not defined
     !
-    istatus=NF90_INQ_DIMID(id_nc,ctime,id_dimtim)
+    cl_time(1) = ctime
+    cldum = LookForName( jp_time_nm, cl_time, 'D', id_nc )
+    istatus=NF90_INQ_DIMID(id_nc,cldum,id_dimtim)
     IF (istatus == NF90_EBADDIM ) THEN
        PRINT *,' Only one time assumed ...'
        bdimg%nt = 1  ;   bdimg%timea(1) = 0.
@@ -298,17 +343,19 @@ CONTAINS
        istatus=NF90_INQUIRE_DIMENSION(id_nc, id_dimtim, len=bdimg%nt)
        CALL ERR_HDL(istatus)
        !
-       istatus=NF90_INQ_VARID(id_nc,ctime,id_tim)
+       cl_timev(1) = ctimev
+       cldum = LookForName( jp_timev_nm, cl_timev, 'V', id_nc )
+       istatus=NF90_INQ_VARID(id_nc,cldum,id_tim)
        IF ( istatus == NF90_NOERR ) THEN
        !
           istatus=NF90_GET_VAR(id_nc, id_tim, bdimg%timea, start=(/1/),count=(/bdimg%nt/))
           CALL ERR_HDL(istatus)
        ELSE 
          IF ( bdimg%nt == 1 ) THEN
-            PRINT *, 'No time variable ',TRIM(ctime),' found. Put 0 '
+            PRINT *, 'No time variable ',TRIM(ctimev(3:)),' found. Put 0 '
             bdimg%timea(1) = 0
          ELSE
-            PRINT *, 'No time variable ',TRIM(ctime),' found. More than 1 time ..;'
+            PRINT *, 'No time variable ',TRIM(ctimev(3:)),' found. More than 1 time ..;'
           CALL ERR_HDL(istatus)
          ENDIF
        ENDIF
@@ -440,7 +487,7 @@ CONTAINS
     bdimg%nlast_recr  = 0          
 
     CALL CdfInit
-    IF ( opt_debug == 1 )  PRINT *,'#CDF  ReadHeader done.'
+    IF (  lo_debug )  PRINT *,'#CDF  ReadHeader done.'
   END SUBROUTINE CdfHeader
 
 
@@ -457,12 +504,13 @@ CONTAINS
     INTEGER(KIND=4),     INTENT(in) :: kx, ky
 
     INTEGER(KIND=4) ::  istatus, id_nc
-    INTEGER(KIND=4) ::  id_var, id_dim(2)
+    INTEGER(KIND=4) ::  id_var, id_dim(2), id_varlon, id_varlat
     INTEGER(KIND=4) ::  id_dimlon, id_dimlat
     INTEGER(KIND=4) ::  ipos_lon, ipos_lat
     INTEGER(KIND=4) ::  istart(10),icount(10)
     INTEGER(KIND=4) ::  ji,jj
     REAL(KIND=4), DIMENSION(kx,ky) ::  zxyloc
+    CHARACTER(LEN=80) :: cldum
     !!----------------------------------------------------------------------
     IF ( lo_debug ) PRINT *,'#CXY  In CdfXYgr', bdimg%cmodifier
     IF ( bdimg%cmodifier /= 'none' ) CALL cmodif (bdimg)
@@ -470,19 +518,32 @@ CONTAINS
     !
     ! ... clonxy  --> xygr(,,1)
     id_var    = 0 
+    id_varlon = 0 
+    id_varlat = 0 
     id_dim(:) = 0
     id_dimlon = 0
     id_dimlat = 0
     ! 
-    istatus=NF90_INQ_VARID(id_nc,clonxy,id_var)
+    cl_lonv(1) = clonxy
+    cldum = LookForName( jp_lonv_nm, cl_lonv, 'V', id_nc )
+    istatus=NF90_INQ_VARID(id_nc,cldum,id_varlon)
     CALL ERR_HDL(istatus)
-    istatus=NF90_INQUIRE_VARIABLE(id_nc,id_var, dimids=id_dim)
+
+    cl_latv(1) = clatxy
+    cldum = LookForName( jp_latv_nm, cl_latv, 'V', id_nc )
+    istatus=NF90_INQ_VARID(id_nc,cldum,id_varlat)
+
+    istatus=NF90_INQUIRE_VARIABLE(id_nc,id_varlon, dimids=id_dim)
     CALL ERR_HDL(istatus)    
     !
-    istatus=NF90_INQ_DIMID(id_nc,clon,id_dimlon)
+    cl_lon(1) = clon
+    cldum = LookForName( jp_lon_nm, cl_lon, 'D', id_nc )
+    istatus=NF90_INQ_DIMID(id_nc,cldum,id_dimlon)
     CALL ERR_HDL(istatus)
     !
-    istatus=NF90_INQ_DIMID(id_nc,clat,id_dimlat)
+    cl_lat(1) = clat
+    cldum = LookForName( jp_lat_nm, cl_lat, 'D', id_nc )
+    istatus=NF90_INQ_DIMID(id_nc,cldum,id_dimlat)
     CALL ERR_HDL(istatus)  
     !
     IF ( id_dim(2) == 0 ) THEN
@@ -493,7 +554,7 @@ CONTAINS
        icount (ipos_lon) = bdimg%nxfile
        istart (ipos_lat) = 1
        icount (ipos_lat) = 1
-       istatus=NF90_GET_VAR(id_nc,id_var,zxyloc, start=(/1,1/),count=(/bdimg%nxfile,1/))
+       istatus=NF90_GET_VAR(id_nc,id_varlon,zxyloc, start=(/1,1/),count=(/bdimg%nxfile,1/))
        CALL ERR_HDL(istatus)
        DO ji=1,bdimg%nxfile
           DO jj=1,bdimg%nyfile
@@ -518,7 +579,7 @@ CONTAINS
        icount (ipos_lon) = bdimg%nxfile
        istart (ipos_lat) = 1
        icount (ipos_lat) = bdimg%nyfile                                           
-       istatus=NF90_GET_VAR(id_nc,id_var,zxyloc,start=(/1,1/) ,count=(/bdimg%nxfile,bdimg%nyfile/))
+       istatus=NF90_GET_VAR(id_nc,id_varlon,zxyloc,start=(/1,1/) ,count=(/bdimg%nxfile,bdimg%nyfile/))
        CALL ERR_HDL(istatus)
        DO ji=1,bdimg%nxfile
           DO jj=1,bdimg%nyfile
@@ -537,10 +598,9 @@ CONTAINS
        icount (ipos_lon) = bdimg%nyfile
        istart (ipos_lat) = 1
        icount (ipos_lat) = 1
-       PRINT *, istart, icount 
-       istatus=NF90_INQ_VARID(id_nc,clatxy,id_var)
+
        CALL ERR_HDL(istatus)
-       istatus=NF90_GET_VAR(id_nc,id_var,zxyloc, start=(/1,1/),count=(/bdimg%nyfile,1/))
+       istatus=NF90_GET_VAR(id_nc,id_varlat,zxyloc, start=(/1,1/),count=(/bdimg%nyfile,1/))
        CALL ERR_HDL(istatus)
        DO ji=1,bdimg%nxfile
           DO jj=1,bdimg%nyfile
@@ -550,9 +610,7 @@ CONTAINS
     ELSE
        ! General case
 
-       istatus=NF90_INQ_VARID(id_nc,clatxy,id_var)
-       CALL ERR_HDL(istatus)
-       istatus=NF90_GET_VAR(id_nc,id_var,zxyloc,start=(/1,1/) ,count=(/bdimg%nxfile,bdimg%nyfile/))
+       istatus=NF90_GET_VAR(id_nc,id_varlat,zxyloc,start=(/1,1/) ,count=(/bdimg%nxfile,bdimg%nyfile/))
        CALL ERR_HDL(istatus)
 
        DO ji=1,bdimg%nxfile
@@ -597,6 +655,7 @@ CONTAINS
     INTEGER(KIND=4)                :: ji, jj
     INTEGER(KIND=4)                :: ipos_lon, ipos_lat, ipos_dep, ipos_tim, ipos_dim
     REAL(KIND=4), DIMENSION(:,:), ALLOCATABLE :: zwork
+    CHARACTER(LEN=80)              :: cldum
     !!----------------------------------------------------------------------
     IF ( lo_debug ) PRINT *,'#CGL  In CdfGetLayer ...' , bdimg%cmodifier
 
@@ -610,18 +669,26 @@ CONTAINS
     istart(:) = -10
     icount(:) = -10
     !
-    istatus=NF90_INQ_DIMID(id_nc,clon,id_dimlon)
-    CALL ERR_HDL(istatus)    
+    cl_lon(1) = clon
+    cldum = LookForName( jp_lon_nm, cl_lon, 'D', id_nc )
+    istatus=NF90_INQ_DIMID(id_nc,cldum,id_dimlon)
+    CALL ERR_HDL(istatus)
     !
-    istatus=NF90_INQ_DIMID(id_nc,clat,id_dimlat)
-    CALL ERR_HDL(istatus)      
+    cl_lat(1) = clat
+    cldum = LookForName( jp_lat_nm, cl_lat, 'D', id_nc )
+    istatus=NF90_INQ_DIMID(id_nc,cldum,id_dimlat)
+    CALL ERR_HDL(istatus)
     !
-    istatus=NF90_INQ_DIMID(id_nc,cdepth,id_dimdep)
+    cl_depth(1)=cdepth
+    cldum = LookForName( jp_depth_nm, cl_depth, 'D', id_nc )
+    istatus=NF90_INQ_DIMID(id_nc,cldum,id_dimdep)
     IF (istatus == NF90_EBADDIM ) THEN
        id_dimdep = -1
     ENDIF
     !
-    istatus=NF90_INQ_DIMID(id_nc,ctime,id_dimtim)
+    cl_time(1) = ctime
+    cldum = LookForName( jp_time_nm, cl_time, 'D', id_nc )
+    istatus=NF90_INQ_DIMID(id_nc,cldum,id_dimtim)
     IF (istatus == NF90_EBADDIM ) THEN
        id_dimtim = -1
     END IF
@@ -686,7 +753,7 @@ CONTAINS
     CALL CdfInit
 
     DEALLOCATE ( zwork )
-    IF (opt_debug == 1 ) PRINT *, ' CdfGetLayer done.'
+    IF ( lo_debug ) PRINT *, ' CdfGetLayer done.'
     !
   END SUBROUTINE CdfGetLayer
 
@@ -830,5 +897,77 @@ CONTAINS
     PrintBimgStructure = 1
     !
   END FUNCTION PrintBimgStructure
+
+  CHARACTER(LEN=80) FUNCTION LookForName( kchoice, cd_list, cd_typ, kncid, kvarid )
+    !!---------------------------------------------------------------------
+    !!                  ***  FUNCTION LookForName  ***
+    !!
+    !! ** Purpose : Try to find the cdf name of some dimension, var, att
+    !!
+    !! ** Method  : Scan a list of predifined name passed as arguments.
+    !!
+    !!----------------------------------------------------------------------
+    INTEGER(KIND=4),                      INTENT(in) :: kchoice
+    CHARACTER(LEN=*), DIMENSION(kchoice), INTENT(in) :: cd_list
+    CHARACTER(LEN=1),                     INTENT(in) :: cd_typ
+    INTEGER(KIND=4),                      INTENT(in) :: kncid
+    INTEGER(KIND=4), OPTIONAL,            INTENT(in) :: kvarid
+    !
+    INTEGER(KIND=4)   :: jchoice
+    INTEGER(KIND=4)   :: idum, ifrst, istatus
+
+    !!----------------------------------------------------------------------
+    IF ( lo_debug ) THEN
+      PRINT *, '#LFN - LookForName '
+      PRINT *, '    Input arguments :'
+      PRINT *, '  KCHOICE = ', kchoice 
+      PRINT *, '  CD_LIST = ', ( TRIM(cd_list(jchoice))," ", jchoice=1,kchoice )
+      PRINT *, '  CD_TYP  = ', cd_typ
+      PRINT *, '  KNCID   = ', kncid
+      IF ( PRESENT (kvarid) ) THEN
+        PRINT *, '  KVARID  = ', kvarid
+      ENDIF
+    ENDIF
+
+    SELECT CASE ( cd_typ )
+    CASE ('A')  ! attribute case 
+      DO jchoice=1, kchoice
+         LookForName=TRIM(cd_list(jchoice))
+         istatus=NF90_INQUIRE_ATTRIBUTE(kncid, kvarid, LookForName)
+         IF ( istatus == NF90_ENOTATT ) THEN
+            LookForName='not_found'
+         ELSE
+            EXIT
+         ENDIF
+      END DO
+
+    CASE ('D')  ! dimension name
+      DO jchoice=1, kchoice
+         LookForName=cd_list(jchoice)
+         istatus=NF90_INQ_DIMID(kncid, LookForName, idum )
+         IF ( istatus == NF90_NOERR ) THEN 
+            EXIT
+         ELSE
+            LookForName='not_found'
+         ENDIF
+      END DO
+
+    CASE ('V')  ! variable name
+      DO jchoice=1, kchoice
+         ifrst=1
+         IF (  TRIM(cd_list(jchoice)(1:2)) == 'v_' ) ifrst=3   ! skip heading 'v_'
+         LookForName=cd_list(jchoice)(ifrst:)
+         istatus=NF90_INQ_VARID(kncid, LookForName, idum)
+         IF ( istatus == NF90_ENOTVAR )THEN 
+            LookForName='not_found'
+         ELSE
+            EXIT
+         ENDIF
+      END DO
+     END SELECT
+
+     IF ( lo_debug ) PRINT *,' LOOK FOR NAME : ', TRIM(LookForName)
+
+  END FUNCTION LookForName
 
 END MODULE cdf
