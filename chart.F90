@@ -233,7 +233,8 @@ PROGRAM chart
               !     assemblage des differentes parties du dessin
 
               IF (opt_ocean    == 1)                        CALL gflas3( jp_ib_ocean    )
-              IF (opt_color    == 1 .AND. opt_overclr == 0) CALL gflas3( jp_ib_color    )
+!             IF (opt_color    == 1 .AND. opt_overclr == 0) CALL gflas3( jp_ib_color    )
+              IF (opt_color    == 1 )                       CALL gflas3( jp_ib_color    )
               IF (opt_contours == 1)                        CALL gflas3( jp_ib_contours )
               IF (opt_vecnotr  == 0 .AND. opt_vectors == 1) CALL gflas3( jp_ib_vectors  )
               IF (opt_map      == 1)                        CALL gflas3( jp_ib_map      )
