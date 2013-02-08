@@ -1,0 +1,19 @@
+#----------------------------------------------------------------------
+# CHART/COUPE 7.0 , MEOM 2010
+# $Id: macro.jade 147 2011-04-05 13:41:41Z molines $
+# Copyright (c) 2010, J.-M. Molines.
+# Software governed by the CeCILL licence (Licence/CHARTCeCILL.txt)
+#----------------------------------------------------------------------
+FC = ifort
+LD = ncargf90
+NCDF = -I$(NETCDF_BASE)/include/Intel -L$(NETCDF_BASE)/lib/Intel  -lnetcdff -lnetcdf
+NCL =
+
+# To activate debuging uncomment the following line
+#DEBUGFLAG = -O -CB -g -traceback
+DEBUGFLAG =  -O3
+
+#FFLAGS = $(DEBUGFLAG) -static -assume byterecl -convert big_endian $(NCDF) $(NCL)
+FFLAGS = $(DEBUGFLAG)  -assume byterecl -convert big_endian $(NCDF) $(NCL)
+
+INSTALL=$(WORKDIR)/bin
