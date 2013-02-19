@@ -495,7 +495,7 @@ CONTAINS
 
     ! -team option
     IF ( opt_team  ==  1 ) THEN
-       cldum = 'LEGI-MEOM'
+       cldum = 'LGGE-MEOM'
        CALL plchhq( 0.01, 0.02, cldum, -0.35, 0., -1.)
     ENDIF
 
