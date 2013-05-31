@@ -112,6 +112,7 @@ MODULE cdf
   PUBLIC :: CdfOpen
   PUBLIC :: CdfHeader
   PUBLIC :: CdfGetLayer
+  PUBLIC :: CdfReadHgr
 
   PRIVATE :: ERR_HDL
   PRIVATE :: cmodif
@@ -1012,5 +1013,30 @@ CONTAINS
      IF ( lo_debug ) PRINT *,' LOOK FOR NAME : ', TRIM(LookForName)
 
   END FUNCTION LookForName
+
+  SUBROUTINE CdfReadHgr( pxtab, pytab, cd_hgr, kpi, kpj )
+    !!---------------------------------------------------------------------
+    !!                  ***  ROUTINE CdfReadHgr  ***
+    !!
+    !! ** Purpose : Read glamf, gphif in mesh_hgr like file
+    !!
+    !! ** Method  : read cd_hgr file dimensions, allocate memory, read array
+    !!
+    !!----------------------------------------------------------------------
+    REAL(KIND=4), DIMENSION(:,:), ALLOCATABLE, INTENT(out) :: pxtab, pytab
+    INTEGER(KIND=4),                           INTENT(out) :: kpi,kpj
+    CHARACTER(LEN=*),                          INTENT(in ) :: cd_hgr
+
+    INTEGER(KIND=4)  :: ierr, nchgr, id
+    !!----------------------------------------------------------------------
+    ierr = NF90_OPEN(cd_hgr, NF90_NOWRITE, nchgr)
+    ierr = NF90_INQ_DIMID(nchgr, 'x', id ) ; ierr = NF90_INQUIRE_DIMENSION(nchgr, id, len=kpi )
+    ierr = NF90_INQ_DIMID(nchgr, 'y', id ) ; ierr = NF90_INQUIRE_DIMENSION(nchgr, id, len=kpj )
+    ALLOCATE (pxtab(kpi,kpj), pytab(kpi,kpj))
+    ierr = NF90_INQ_VARID(nchgr, 'glamf', id) ; ierr = NF90_GET_VAR(nchgr, id, pxtab )
+    ierr = NF90_INQ_VARID(nchgr, 'gphif', id) ; ierr = NF90_GET_VAR(nchgr, id, pytab )
+    ierr = NF90_CLOSE(nchgr)
+
+  END SUBROUTINE CdfReadHgr
 
 END MODULE cdf

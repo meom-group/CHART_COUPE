@@ -16,6 +16,8 @@ MODULE overlay
   !!----------------------------------------------------------------------
   USE modparam
   USE modcom
+  USE readbimg , ONLY : IsDirect
+  USE cdf,       ONLY : CdfReadHgr
 
   IMPLICIT NONE
 
@@ -290,6 +292,8 @@ CONTAINS
     zy1 =  rmap_coord(3)
     zy2 =  rmap_coord(4)
 
+   IF (IsDirect (cdshowfile ) /= -1) THEN 
+
     OPEN(ilu, file=cdshowfile, form='unformatted')
     READ(ilu) cldum
     READ(ilu) cldum
@@ -305,6 +309,10 @@ CONTAINS
     READ(ilu) zgrx(:,:)
     READ(ilu) zgry(:,:)
     CLOSE(ilu)
+    
+    ELSE ! assume a NEMO netcdf file reading glamf gphif
+       CALL CdfReadHgr (zgrx,zgry, cdshowfile, inxg,inyg )
+    ENDIF
 
     ! Draw lines at  j = constant
     DO jj=1,inyg

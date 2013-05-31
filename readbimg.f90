@@ -32,8 +32,8 @@ MODULE readbimg
   PUBLIC :: BimgShiftGrid
   PUBLIC :: BimgShift
   PUBLIC :: DirectGetLayer
+  PUBLIC :: IsDirect
 
-  PRIVATE :: IsDirect
   PRIVATE :: BimgRegularGridSlow
   PRIVATE :: BimgRegularGrid
   PRIVATE :: BimgRegularGridx
