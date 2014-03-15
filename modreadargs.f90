@@ -334,6 +334,12 @@ CONTAINS
        opt_outfile=1
        CALL GetString (ki, ktype, cd_arg, cf_cgm   )
 
+    CASE (                                                         '-pdf' )
+       opt_pdf=1 ; opt_port=1 ; opt_land=0
+
+    CASE (                                                     '-pdfland' )
+       opt_pdf=1 ; opt_port=0 ; opt_land=1
+
     CASE (                                                        '-icod' )
        PRINT *, '-icod option is no longer supported' ; stop
        !     -----------------------------------------------
@@ -1440,6 +1446,9 @@ CONTAINS
     opt_english  = 0
     opt_dat      = 0
     opt_team     = 1   
+    opt_pdf      = 0   
+    opt_port     = 1   
+    opt_land     = 0   
     opt_debug    = 0
     opt_single   = 0
 

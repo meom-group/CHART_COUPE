@@ -97,7 +97,12 @@ MODULE util
     ENDIF
 
                              !  CONID is a fortan logical unit
-    CALL gopwk (1, 149, 1)   !  WKID = 1,  CONID = 149  WKTYPE = 1 (NCGM)
+    IF (opt_pdf == 1 ) THEN
+       IF (opt_port == 1 ) CALL gopwk (1, 149, 11)  !  WKID = 11,  CONID = 149  WKTYPE = 1 (PDF) portrait
+       IF (opt_land == 1 ) CALL gopwk (1, 149, 12)  !  WKID = 11,  CONID = 149  WKTYPE = 1 (PDF) landscape
+    ELSE
+       CALL gopwk (1, 149, 1)   !  WKID = 1,  CONID = 149  WKTYPE = 1 (NCGM)
+    ENDIF
     CALL gacwk (1)           !  Activate workstation
     CALL gopwk (9, 150, 3)   !  WKID = 9,  CONID = 150  WKTYPE = 3 (WISS)
                              !  This work station is used in conjonction with gflas

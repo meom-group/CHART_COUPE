@@ -41,7 +41,7 @@ MODULE modoptflag
 
   INTEGER(KIND=2) :: opt_nobox
   !       texte
-  INTEGER(KIND=2) :: opt_outfile, opt_dat, opt_team
+  INTEGER(KIND=2) :: opt_outfile, opt_dat, opt_team, opt_pdf, opt_land, opt_port
 
   !       single/multiple frame (en k)
   INTEGER(KIND=2) :: opt_single
