@@ -514,6 +514,7 @@ CONTAINS
     LOGICAL                                   :: ll_goodp, ll_exist
     !!----------------------------------------------------------------------
     PRINT *, 'Reading bathy file for coupe'
+    CALL BimgAlloc ( bl_bathyinfo )
 
     INQUIRE ( FILE=cf_bathy, EXIST=ll_exist)
     IF ( .NOT. ll_exist ) THEN ! find another way ...
@@ -679,6 +680,7 @@ CONTAINS
     CALL ardrln (niama, zbat_x, zbat_y, NXX+3, xcra, ycra, jp_cra,niaia, nigia, jp_agid, drwbathy)
 
     CALL set (zrl, zrr, zrb, zrt, zul, zur, zub, zut, ilog)
+    CALL BimgDeAlloc ( bl_bathyinfo )
 
   END SUBROUTINE CreateBathy
 

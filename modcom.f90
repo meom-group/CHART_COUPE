@@ -57,11 +57,16 @@ MODULE modcom
      INTEGER(KIND=4)    :: mask                        !# flag (1/0) to record if date are to be masked
      INTEGER(KIND=4)    :: ngrid                       !# flag to define the type of grid (1/2/3)
      INTEGER(KIND=4)    :: nshift                      !# flag (1/0) to indicate if data have already be shifted
-     REAL(KIND=4)       :: depth(NA)                   !# Array of depth read from data 
-     REAL(KIND=4)       :: timea(Nmaxtime)             !# Array of time read from data
-     REAL(KIND=4)       :: d_mask(NXX,NYY)             !# mask data on the same area than the zoom
-     REAL(KIND=4)       :: d_xgrid(NXX)                !# longitude or pseudo longitude
-     REAL(KIND=4)       :: d_ygrid(NYY)                !# latitude or pseudo latitude
+!    REAL(KIND=4)       :: depth(NA)                   !# Array of depth read from data 
+     REAL(KIND=4), DIMENSION(:), ALLOCATABLE  :: depth                   !# Array of depth read from data 
+!    REAL(KIND=4)       :: timea(Nmaxtime)             !# Array of time read from data
+     REAL(KIND=4), DIMENSION(:), ALLOCATABLE  :: timea             !# Array of time read from data
+!    !EAL(KIND=4)       :: d_mask(NXX,NYY)             !# mask data on the same area than the zoom
+     REAL(KIND=4), DIMENSION(:,:), ALLOCATABLE :: d_mask !            !# mask data on the same area than the zoom
+     REAL(KIND=4), DIMENSION(:), ALLOCATABLE :: d_xgrid !            !# mask data on the same area than the zoom
+     REAL(KIND=4), DIMENSION(:), ALLOCATABLE :: d_ygrid !            !# mask data on the same area than the zoom
+!    REAL(KIND=4)       :: d_xgrid(NXX)                !# longitude or pseudo longitude
+!    REAL(KIND=4)       :: d_ygrid(NYY)                !# latitude or pseudo latitude
      REAL(KIND=4)       :: alphasup                    !# weight for vertical interpolation between levels
      CHARACTER(LEN=80)  :: cvarname                    !# NetCdf variable name for this structure
      INTEGER(KIND=4)    :: ncid                        !# NetCdf ID of the data file
@@ -239,7 +244,7 @@ MODULE modcom
 
 ! zoom ?
   INTEGER(KIND=4)  :: nimin, nimax, njmin, njmax   !: index of selection to be plotted 
-  TYPE( bimgfile ) bimgwk                          !: working bimg strucure used with wwmuxy
+  TYPE( bimgfile ) bimgwk                          !: working bimg structure used with wwmuxy
 
 ! trace 
   REAL(KIND=4)    :: xstep, ystep, zstep, kmstep   !: tick distance on axis

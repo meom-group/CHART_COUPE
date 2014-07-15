@@ -71,6 +71,14 @@ PROGRAM chart
   ALLOCATE ( zxover(NOVERPTS), zyover(NOVERPTS), zxoverm(NOVERPTS), zyoverm(NOVERPTS) )
   ALLOCATE ( zvecdata (NXX,NYY,2), zcntdata (NXX,NYY), zclrdata (NXX,NYY), zintdata (NXX,NYY) )
 
+  CALL BimgAlloc(blimgclr)
+  CALL BimgAlloc(blimgcnt)
+  CALL BimgAlloc(blimgvec(1))
+  CALL BimgAlloc(blimgvec(2))
+  CALL BimgAlloc(blimgvec(3))
+  CALL BimgAlloc(blimgint)
+  CALL BimgAlloc(blimgzlevel)
+
   inarg = iargc()  ! number of arguments on the command line
 
   IF (inarg == 0) THEN

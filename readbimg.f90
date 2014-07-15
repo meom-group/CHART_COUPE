@@ -31,6 +31,8 @@ MODULE readbimg
   PUBLIC :: BimgMaskData
   PUBLIC :: BimgShiftGrid
   PUBLIC :: BimgShift
+  PUBLIC :: BimgAlloc
+  PUBLIC :: BimgDeAlloc
   PUBLIC :: DirectGetLayer
   PUBLIC :: IsDirect
 
@@ -1269,5 +1271,26 @@ CONTAINS
     END IF
 
   END FUNCTION IsDirect
+
+  SUBROUTINE BimgAlloc(bdimg)
+    TYPE( bimgfile ), INTENT(inout) :: bdimg
+
+    ALLOCATE ( bdimg%depth(NA) )
+    ALLOCATE ( bdimg%timea(Nmaxtime) )
+    ALLOCATE ( bdimg%d_mask(NXX,NYY) )
+    ALLOCATE ( bdimg%d_xgrid(NXX) )
+    ALLOCATE ( bdimg%d_ygrid(NYY) )
+  END SUBROUTINE BimgAlloc
+
+  SUBROUTINE BimgDeAlloc(bdimg)
+    TYPE( bimgfile ), INTENT(inout) :: bdimg
+
+    DEALLOCATE ( bdimg%depth )
+    DEALLOCATE ( bdimg%timea )
+    DEALLOCATE ( bdimg%d_mask  )
+    DEALLOCATE ( bdimg%d_xgrid )
+    DEALLOCATE ( bdimg%d_ygrid )
+  END SUBROUTINE BimgDeAlloc
+
 
 END MODULE readbimg

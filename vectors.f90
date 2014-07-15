@@ -56,7 +56,7 @@ CONTAINS
     !!
     !!----------------------------------------------------------------------
     TYPE( bimgfile ),        INTENT(inout) :: bdimgvec(3)
-    TYPE( bimgfile ),          INTENT(out) :: bdimgclr
+    TYPE( bimgfile ),        INTENT(inout) :: bdimgclr
     REAL(KIND=4), DIMENSION(:), INTENT(in) :: pcoords   ! 4
     INTEGER(KIND=4),            INTENT(in) :: ktstp
     INTEGER(KIND=4),            INTENT(in) :: klev
@@ -314,6 +314,7 @@ CONTAINS
     REAL(KIND=4)                          :: zvv_mnx1, zvv_mny1
     REAL(KIND=4)                          :: zvv_mxx1, zvv_mxy1
     !!----------------------------------------------------------------------
+    CALL BimgAlloc (bimgwk)
     idummy = 0
 
     imap_flag = 1
@@ -429,6 +430,7 @@ CONTAINS
     CALL gflas2
 
     DEALLOCATE(zdummy)
+    CALL BimgDeAlloc(bimgwk)
 
   END SUBROUTINE VectorTrace
 

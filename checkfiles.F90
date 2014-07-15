@@ -45,13 +45,14 @@ CONTAINS
     !!              caracteristics in the respective data structure
     !!
     !! ** Method  :  This routine is a key part for data managing and
-    !!              mapping correspondence
+    !!              mapping correspondence. bimgfile are defined in out
+    !!              because they are allocated elsewhere
     !!
     !!----------------------------------------------------------------------
-    TYPE( bimgfile), INTENT(out) :: bdcolor      ! color data structure
-    TYPE( bimgfile), INTENT(out) :: bdzlevel     ! zlevel data structure (sigma coordinates)
-    TYPE( bimgfile), INTENT(out) :: bdcontours   ! contour data structure 
-    TYPE( bimgfile), INTENT(out) :: bdvectors(3) ! vector data structure
+    TYPE( bimgfile), INTENT(inout) :: bdcolor      ! color data structure
+    TYPE( bimgfile), INTENT(inout) :: bdzlevel     ! zlevel data structure (sigma coordinates)
+    TYPE( bimgfile), INTENT(inout) :: bdcontours   ! contour data structure 
+    TYPE( bimgfile), INTENT(inout) :: bdvectors(3) ! vector data structure
 
     INTEGER(KIND=4) :: ji, jj              ! dummy loop index
     INTEGER(KIND=4) :: izoom_set
@@ -533,6 +534,7 @@ CONTAINS
 
     TYPE( bimgfile)                :: blmask
     !!----------------------------------------------------------------------
+    CALL BimgAlloc (blmask)
 
     blmask%cfname = cd_filename
     blmask%num = BimgOpenFile (blmask)
@@ -548,6 +550,7 @@ CONTAINS
     bdimg%mask = 1
     CALL BimgGetLayer  (blmask, bdimg%d_mask, 1, 1, 1)
     CLOSE (blmask%num)
+    CALL BimgDeAlloc (blmask)
 
   END SUBROUTINE ReadMask
 
@@ -566,6 +569,7 @@ CONTAINS
 
     TYPE( bimgfile)                :: blgrid
     !!----------------------------------------------------------------------
+    CALL BimgAlloc (blgrid)
     blgrid%cfname = cd_filename
     blgrid%num    = BimgOpenFile (blgrid)
 
@@ -580,6 +584,7 @@ CONTAINS
     CALL BimgGetGridInfo (bdimg,blgrid)
 
     CLOSE (blgrid%num)
+    CALL BimgDeAlloc (blgrid)
 
   END SUBROUTINE ReadGrid
 

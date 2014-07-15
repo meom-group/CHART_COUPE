@@ -20,16 +20,22 @@ MODULE modparam
 !     INTEGER, PARAMETER :: Nmaxtime= 700    !: Maximum number of time step in data file
 
       ! ORCA12
-      INTEGER, PARAMETER :: NXX     = 4322   !: X size for the data and plot
-      INTEGER, PARAMETER :: NYY     = 3059   !: Y size for the data and plot
-      INTEGER, PARAMETER :: NA      = 75     !: Z size for the data
+!     INTEGER, PARAMETER :: NXX     = 4322   !: X size for the data and plot
+!     INTEGER, PARAMETER :: NYY     = 3059   !: Y size for the data and plot
+!     INTEGER, PARAMETER :: NA      = 75     !: Z size for the data
+!     INTEGER, PARAMETER :: Nmaxtime= 700    !: Maximum number of time step in data file
+
+!     ! ORCA025
+      INTEGER, PARAMETER :: NXX     = 1500   !: X size for the data and plot
+      INTEGER, PARAMETER :: NYY     = 1600   !: Y size for the data and plot
+      INTEGER, PARAMETER :: NA      = 100    !: Z size for the data
       INTEGER, PARAMETER :: Nmaxtime= 700    !: Maximum number of time step in data file
 
-      ! ORCA025
-!     INTEGER, PARAMETER :: NXX     = 1500   !: X size for the data and plot
-!     INTEGER, PARAMETER :: NYY     = 1600   !: Y size for the data and plot
-!     INTEGER, PARAMETER :: NA      = 100    !: Z size for the data
-!     INTEGER, PARAMETER :: Nmaxtime= 700    !: Maximum number of time step in data file
+      ! GD2014
+!     INTEGER, PARAMETER  :: NXX     = 5529   !: X size for the data and plot
+!     INTEGER, PARAMETER  :: NYY     = 5594   !: Y size for the data and plot
+!     INTEGER, PARAMETER  :: NA      = 100    !: Z size for the data
+!     INTEGER, PARAMETER  :: Nmaxtime= 700    !: Maximum number of time step in data file
 
       ! ORCA2
 !     INTEGER, PARAMETER :: NXX     = 500    !: X size for the data and plot
@@ -45,7 +51,8 @@ MODULE modparam
 
 
       INTEGER, PARAMETER :: jp_txt=50 !: max number of -string '...'  options
-      INTEGER, PARAMETER :: NOVERPTS=500000 !: Max number of overlay points
+!     INTEGER, PARAMETER :: NOVERPTS=500000 !: Max number of overlay points
+      INTEGER, PARAMETER :: NOVERPTS=50000 !: Max number of overlay points
       INTEGER, PARAMETER :: NCLRMARK=256 !: max number of colors in clrmark
 
       REAL(KIND=4), PARAMETER :: rp_defspval=999999999. !: default spval
