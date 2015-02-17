@@ -1,19 +1,17 @@
 #----------------------------------------------------------------------
 # CHART/COUPE 7.0 , MEOM 2010
-# $Id: macro.jade 147 2011-04-05 13:41:41Z molines $
-# Copyright (c) 2010, J.-M. Molines.
+# $Id$
+# Copyright (c) 2015, J.-M. Molines.
 # Software governed by the CeCILL licence (Licence/CHARTCeCILL.txt)
 #----------------------------------------------------------------------
-FC = $(HOME)/bin/ncargf90
-LD = $(HOME)/bin/ncargf90
-NCDFC=/opt/software/libraries/netcdf/bullxmpi/netcdf-4.3.3-rc2
-NCDFF=/opt/software/libraries/netcdf/bullxmpi/netcdf-fortran-4.4.1-4.3.3-rc2
+FC = ncargf90
+LD = ncargf90
 
-NCDF = -I$(NCDFC)/include -L$(NCDFC)/lib  -I$(NCDFF)/include -L$(NCDFF)/lib -lnetcdff -lnetcdf
-NCL = -L$(CAIRO_LIB_PATH) -L$(PNG_LIB_PATH) -L$(HOME)/lib
+NCDF = -I$(NETCDFHOME)/include -L$(NETCDFHOME)/lib  -I$(NETCDFFHOME)/include -L$(NETCDFFHOME)/lib -lnetcdff -lnetcdf
+NCL = -L$(CAIRO_LIB_PATH) -L$(PNG_LIB_PATH) -L$(HOME)/lib  -L /opt/software/graphics/x11/7.6/lib64/ 
 
 # To activate debuging uncomment the following line
-#DEBUGFLAG = -O -CB -g -traceback
+#DEBUGFLAG = -O -CB -g -traceback -fpe0 -ftrapuv
 DEBUGFLAG =  -O3
 
 #FFLAGS = $(DEBUGFLAG) -static -assume byterecl -convert big_endian $(NCDF) $(NCL)
