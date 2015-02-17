@@ -85,7 +85,7 @@ PROGRAM vecrot_opa
      OPEN(ilvi,file=cf_filv,form='UNFORMATTED', ACCESS='DIRECT',recl=irecl)
 
      OPEN(iluo,file='vecrot.bimg',form='UNFORMATTED', ACCESS='DIRECT',recl=irecl)
-  CASE (    'CDF' )
+  CASE (    'CDF', 'HDF' )
      PRINT *, ' NetCdf File U '
      ctype ='cdf'
      istatus=NF90_OPEN(cf_filu,NF90_NOWRITE,ncid1)

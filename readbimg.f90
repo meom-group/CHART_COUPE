@@ -1264,7 +1264,7 @@ CONTAINS
     !
     IF (clver == '@!01' .OR. clver == '@!02'  .OR. clver == '@!03' ) THEN
        IsDirect = irecl
-    ELSEIF (clver(1:3) == 'CDF' ) THEN
+    ELSEIF (clver(1:3) == 'CDF' .OR. clver(2:4) == 'HDF') THEN
        IsDirect = -1
     ELSE
        IsDirect = 0
