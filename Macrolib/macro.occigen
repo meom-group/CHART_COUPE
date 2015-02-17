@@ -4,14 +4,11 @@
 # Copyright (c) 2010, J.-M. Molines.
 # Software governed by the CeCILL licence (Licence/CHARTCeCILL.txt)
 #----------------------------------------------------------------------
-FC = ifort
+FC = ncargf90
 LD = ncargf90
-#NCDF_ROOT=$(WORKDIR)/netcdf_gfortran
-#NCDF = -I$(NCDF_ROOT)/include -L$(NCDF_ROOT)/lib -lnetcdf -lnetcdff
-NCDF=-I/opt/software/libraries/netcdf/netcdf-4.2_hdf5_1.8.14/include -L /opt/software/libraries/netcdf/netcdf-4.2.1.1/lib -lnetcdf -L /opt/software/libraries/netcdf/netcdf-4.2_hdf5_1.8.14/lib   -lnetcdff
+NCDF=-I$(NETCDFHOME)/include -L$(NETCDFHOME)/lib -lnetcdf -I$(NETCDFFHOME)/include -L$(NETCDFFHOME)/lib -lnetcdff
 
-#NCL = -L$(CAIRO_LIB_PATH) -L $(PNG_LIB_PATH) -L /opt/software/graphics/x11/7.6/lib64/
-NCL = -L /opt/software/graphics/x11/7.6/lib64/ -L$(CAIRO_LIB_PATH) -L $(PNG_LIB_PATH) 
+NCL = -L$(CAIRO_LIB_PATH) -L $(PNG_LIB_PATH) -L /opt/software/graphics/x11/7.6/lib64/
 
 # To activate debuging uncomment the following line
 #DEBUGFLAG = -O -CB -g -traceback -fpe0
