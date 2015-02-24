@@ -14,6 +14,6 @@ NCL =
 #DEBUGFLAG = -O -CB -g -traceback -fpe0
 DEBUGFLAG =  -O3
 
-FFLAGS = $(DEBUGFLAG) -fconvert=big-endian $(NCDF) $(NCL) 
+FFLAGS = $(DEBUGFLAG) -fconvert=big-endian $(NCDF) $(NCL)  -ffpe-trap='invalid','zero','overflow' -fcheck='bounds' -g 
 
 INSTALL = $(HOME)/bin

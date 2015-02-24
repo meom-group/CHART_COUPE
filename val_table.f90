@@ -545,13 +545,13 @@ CONTAINS
     int_table (ICNT_NX)%iVal   = bdimgcnt%nxdata
     int_table (ICNT_NY)%iVal   = bdimgcnt%nydata
     real_table(ICNT_TIME)%rVal = bdimgcnt%time
-    real_table(ICNT_DEPTH)%rVal = ABS(bdimgcnt%depth(kcnt_lev))
+    IF (ALLOCATED (bdimgcnt%depth) ) real_table(ICNT_DEPTH)%rVal = ABS(bdimgcnt%depth(kcnt_lev))
 
     ! vecor data structure
     int_table (IVEC_NX)%iVal   = bdimgvec%nxdata
     int_table (IVEC_NY)%iVal   = bdimgvec%nydata
     real_table(IVEC_TIME)%rVal = bdimgvec%time
-    real_table(IVEC_DEPTH)%rVal = ABS(bdimgvec%depth(kvec_lev))
+    IF (ALLOCATED (bdimgvec%depth) ) real_table(IVEC_DEPTH)%rVal = ABS(bdimgvec%depth(kvec_lev))
 
     IF (opt_dep == 1) THEN
        real_table(ICLR_DEPTH)%rVal = ABS(req_dep)

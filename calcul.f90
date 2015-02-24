@@ -130,14 +130,26 @@ CONTAINS
     REAL(KIND=4),DIMENSION(:), INTENT(in) :: pmap_coord  ! transect limit (4 real)
 
     REAL(KIND=4)  ::  zxa, zxb, zya, zyb, zpi     ! real working space
+    REAL(KIND=4)  ::  zzz     ! real working space
     !!----------------------------------------------------------------------
 
     zpi=ACOS(-1.)   ! something like 3.14159...
 
     zxa=pmap_coord(1)*zpi/180.
     zxb=pmap_coord(2)*zpi/180.
-    zya=-alog(TAN((45-pmap_coord(3)/2.)*zpi/180.))
-    zyb=-alog(TAN((45-pmap_coord(4)/2.)*zpi/180.))
+    zzz=TAN((45-pmap_coord(3)/2.)*zpi/180.)
+    IF ( zzz > 0. ) THEN 
+      zya=-alog(zzz)
+    ELSE
+      zya=0.
+    ENDIF
+
+    zzz=TAN((45-pmap_coord(4)/2.)*zpi/180.)
+    IF ( zzz > 0. ) THEN 
+      zyb=-alog(zzz)
+    ELSE
+      zyb=0.
+    ENDIF
 
     angled=ATAN2((zxb-zxa),(zyb-zya))
     angled=angled*180./zpi

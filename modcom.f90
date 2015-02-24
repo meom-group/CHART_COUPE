@@ -271,9 +271,9 @@ MODULE modcom
   INTEGER(KIND=4)    :: nvv_vpo                     !: Vector POsitioning
 
 ! marks for palettes ...
-  INTEGER(KIND=4)  :: marks(145)                   !: 
+  INTEGER(KIND=4)  :: marks(NCLRMARK)                   !: 
   INTEGER(KIND=4)  :: marks_count                  !:
-  INTEGER(KIND=4)  :: marks_index(146)             !:
+  INTEGER(KIND=4)  :: marks_index(NCLRMARK+1)             !:
 
 ! sigma level for the SPEM nostalgic
   REAL(KIND=4), DIMENSION(:,:), ALLOCATABLE :: rys  !: (NXX+1, NYY+1)  sigma coordinate levels

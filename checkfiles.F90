@@ -110,6 +110,7 @@ CONTAINS
 #endif
        bdcolor%cfname  = cf_clrdata
        bdcolor%num = BimgOpenFile (bdcolor)
+       CALL BimgAlloc(bdcolor)
        CALL BimgReadHeader(bdcolor)
        IF (bdcolor%spval == 0 ) PRINT *,' WARNING  CLRDATA :  spval = 0'
 
