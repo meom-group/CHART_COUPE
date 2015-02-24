@@ -1524,6 +1524,7 @@ CONTAINS
     opt_xstep    = 0
     opt_ystep    = 0
     opt_zstep    = 0
+    opt_kmstep   = 0
 
     opt_vectdata = 0
     opt_vect3D   = 0
