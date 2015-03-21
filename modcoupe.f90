@@ -873,7 +873,7 @@ CONTAINS
           CALL set (zrl, zrr, 0., 1., rmap_marg(1), rmap_marg(2), 0., 1., 1)
           CALL halfax (ixtick, nxsub, 0, 0, 0, ylon, ixlb, -1)
        ELSE 
-          WRITE(cl_label,'(f6.2)') rmap_marg(1)
+          WRITE(cl_label,'(f7.2)') rmap_marg(1)
           CALL plchhq (x1pos, ylon, cl_label, -1., 0., -1.)
        ENDIF
     ENDIF

@@ -21,6 +21,7 @@ PROGRAM coupe
    USE tracecol
    USE val_table
    USE modcoupe
+   USE readbimg
 
   IMPLICIT NONE
 
@@ -69,6 +70,13 @@ PROGRAM coupe
   ALLOCATE ( zxoverm(NOVERPTS), zyoverm(NOVERPTS) )
   ALLOCATE ( cntdata (NXX,NYY), clrdata (NXX,NYY))
   ALLOCATE ( xygr(0:NXX+1,0:NYY+1,2))
+
+  CALL BimgAlloc( blimgclr )
+  CALL BimgAlloc( blimgcnt )
+  CALL BimgAlloc( blimgvec(1) )
+  CALL BimgAlloc( blimgvec(2) )
+  CALL BimgAlloc( blimgvec(3) )
+  CALL BimgAlloc( blimgzlevel )
 
   zcoords(1) = 1.
   zcoords(2) = float(NXX)
