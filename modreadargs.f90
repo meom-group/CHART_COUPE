@@ -256,6 +256,9 @@ CONTAINS
        opt_spval=1
        CALL Get1real (ki, ktype, cd_arg, spval_new)
 
+     CASE (                                                     '-spback' )
+       opt_spback=1
+
     CASE (                                                       '-scale' )
        opt_scale=1 ; opt_scalecnt=1 ; opt_scaleclr=1
        CALL Get1real (ki, ktype, cd_arg, dscale)
@@ -1480,6 +1483,7 @@ CONTAINS
     opt_contdata = 0
     opt_nollab   = 0
     opt_color    = 0
+    opt_spback   = 0
     opt_grid     = 0
     opt_ijgrid   = 0
     opt_pixel    = 0

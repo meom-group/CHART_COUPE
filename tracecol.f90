@@ -269,6 +269,7 @@ CONTAINS
     INTEGER(KIND=4)                              :: ilog
     INTEGER(KIND=4)                              :: incls = 300, iusr, jusr
     INTEGER(KIND=4)                              :: ioffset, icol, imap_flag, iszmax
+    INTEGER(KIND=4)                              :: ispvalcol
     INTEGER(KIND=4), DIMENSION(:,:), ALLOCATABLE :: icra
     REAL(KIND=4)                                 :: zrl,  zrr,  zrb,  zrt
     REAL(KIND=4)                                 :: zur,  zul,  zut,  zub
@@ -277,6 +278,12 @@ CONTAINS
     REAL(KIND=4)                                 :: zdx, zdy, zptr
     !!----------------------------------------------------------------------
     IF (opt_color == 0) RETURN
+
+    IF ( opt_spback == 1 ) THEN
+       ispvalcol=COLOR_BACKGROUND
+    ELSE
+       ispvalcol=COLOR_SPVAL
+    ENDIF
 
     iszmax = MAX (NXX, NYY )
     ALLOCATE ( icra ( iszmax, iszmax ) )
@@ -329,7 +336,8 @@ CONTAINS
                    jusr = INT( REAL(zlat-rmap_coord(3))*zdy ) + 1
 
                    IF      (pfld(iusr,jusr) == zspv          ) THEN 
-                      icra(ji,jj) = COLOR_SPVAL
+!                      icra(ji,jj) = COLOR_SPVAL
+                      icra(ji,jj) = ispvalcol
                    ELSE IF (pfld(iusr,jusr) <= plimit(1)     ) THEN
                       icra(ji,jj) = COLOR_NRES
                    ELSE IF (pfld(iusr,jusr) >= plimit(kncol) ) THEN
@@ -372,7 +380,8 @@ CONTAINS
           DO ji=1,inx
              DO jj=1,iny
                 IF (pfld(ji,jj) == zspv) THEN 
-                   icra(ji,jj) = COLOR_SPVAL
+!                   icra(ji,jj) = COLOR_SPVAL
+                    icra(ji,jj) = ispvalcol
                 ELSE IF (pfld(ji,jj) < plimit(1)) THEN
                    icra(ji,jj) = COLOR_NRES
                 ELSE IF (pfld(ji,jj) >= plimit(kncol)) THEN

@@ -31,7 +31,7 @@ MODULE modoptflag
   INTEGER(KIND=2) :: opt_coords, opt_shift, opt_360,  opt_lev, opt_dep
   INTEGER(KIND=2) :: opt_grid, opt_grad, opt_xstep, opt_ystep,opt_zstep
   INTEGER(KIND=2) :: opt_kmstep, opt_ijgrid, opt_pixel, opt_high
-  INTEGER(KIND=2) :: opt_noproj, opt_labx, opt_laby, opt_labz
+  INTEGER(KIND=2) :: opt_noproj, opt_labx, opt_laby, opt_labz, opt_spback
   INTEGER(KIND=2) :: opt_sigma, opt_sigmatr, opt_orca, opt_spval, opt_mean, opt_scale
   INTEGER(KIND=2) :: opt_scalecnt, opt_scaleclr, opt_meancnt, opt_meanclr
   INTEGER(KIND=2) :: opt_abs, opt_abscnt, opt_absclr
