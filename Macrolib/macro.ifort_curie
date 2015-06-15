@@ -1,0 +1,23 @@
+#----------------------------------------------------------------------
+# CHART/COUPE 7.0 , MEOM 2010
+# $Id: macro.occigen 196 2015-03-21 22:12:28Z molines $
+# Copyright (c) 2015, J.-M. Molines.
+# Software governed by the CeCILL licence (Licence/CHARTCeCILL.txt)
+#----------------------------------------------------------------------
+FC = ncargf90
+LD = ncargf90
+
+#NCDF = -I$(NETCDFHOME)/include -L$(NETCDFHOME)/lib  -lnetcdf
+NCDF=-I/usr/local/netcdf-4.2_hdf5_parallel/include  -L/usr/local/netcdf-4.2_hdf5_parallel/lib -lnetcdff -lnetcdf -L/usr/local/hdf5-1.8.9_parallel/lib -lhdf5_hl -lhdf5 -lhdf5
+
+#NCL = -L/usr/lib64/  -L$(PNG_LIB_PATH) -L$(HOME)/lib  #-L /opt/software/graphics/x11/7.6/lib64/ 
+NCL = -L/ccc/work/cont003/gen0727/molines/DEV/cairo/cairo-1.14.0/lib  -L$(PNG_LIB_PATH) -L$(HOME)/lib  #-L /opt/software/graphics/x11/7.6/lib64/ 
+
+# To activate debuging uncomment the following line
+#DEBUGFLAG = -O -CB -g -traceback -fpe0  -ftrapuv
+DEBUGFLAG =  -O3
+
+#FFLAGS = $(DEBUGFLAG) -static -assume byterecl -convert big_endian $(NCDF) $(NCL)
+FFLAGS = $(DEBUGFLAG) -assume byterecl -convert big_endian $(NCDF) $(NCL)
+
+INSTALL=$(WORKDIR)/bin
