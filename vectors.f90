@@ -308,11 +308,12 @@ CONTAINS
     INTEGER(KIND=4)                       :: imap_flag
     INTEGER(KIND=4)                       :: icprev, ierr 
     REAL(KIND=4)                          :: zvv_dmx, zvv_tmp_vrl
-    INTEGER(KIND=4)                       :: ilog
+    INTEGER(KIND=4)                       :: ilog, iclip
     REAL(KIND=4)                          :: zrl, zrr, zrb, zrt
     REAL(KIND=4)                          :: zur,zul,zut, zub
     REAL(KIND=4)                          :: zvv_mnx1, zvv_mny1
     REAL(KIND=4)                          :: zvv_mxx1, zvv_mxy1
+    REAL(KIND=4), DIMENSION(4)            :: zdum
     !!----------------------------------------------------------------------
     CALL BimgAlloc (bimgwk)
     idummy = 0
@@ -326,6 +327,8 @@ CONTAINS
     ENDIF
 
     CALL gflas1( jp_ib_vectors )
+    CALL gqclip ( ierr, iclip, zdum)
+    CALL gsclip ( 1 )
     CALL getset(zrl, zrr, zrb, zrt, zur, zul, zut, zub, ilog)
 
     CALL vvseti ('SET - do SET call flag            ', 0           )
@@ -447,6 +450,7 @@ CONTAINS
 
     CALL gsplci (icprev)
     CALL gflas2
+    CALL gsclip (iclip )
 
     DEALLOCATE(zdummy)
     CALL BimgDeAlloc(bimgwk)
