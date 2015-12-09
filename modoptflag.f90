@@ -64,7 +64,7 @@ MODULE modoptflag
   INTEGER(KIND=2) :: opt_vect3D,opt_vect2D,opt_vectX,opt_vectY,opt_vectZ
   INTEGER(KIND=2) :: opt_vectors, opt_vectclr, opt_vectmod, opt_veclout
   INTEGER(KIND=2) :: opt_vecmin, opt_vecmax, opt_vecpsi,opt_vecnotr,opt_vecrot
-  INTEGER(KIND=2) :: opt_cgrid, opt_vecshade
+  INTEGER(KIND=2) :: opt_cgrid, opt_vecshade, opt_filled_arrow, opt_vecvrm
 
   !       overlay
   INTEGER(KIND=2) :: opt_overdata, opt_overmark, opt_overclr, opt_overout

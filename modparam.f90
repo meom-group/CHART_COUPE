@@ -49,6 +49,12 @@ MODULE modparam
 !     INTEGER, PARAMETER :: NA      = 200    !: Z size for the data
 !     INTEGER, PARAMETER :: Nmaxtime= 700    !: Maximum number of time step in data file
 
+      ! NATL60
+!     INTEGER, PARAMETER :: NXX     = 5422   !: X size for the data and plot
+!     INTEGER, PARAMETER :: NYY     = 3454   !: Y size for the data and plot
+!     INTEGER, PARAMETER :: NA      = 300    !: Z size for the data
+!     INTEGER, PARAMETER :: Nmaxtime= 700    !: Maximum number of time step in data file
+
 
       INTEGER, PARAMETER :: jp_txt=50 !: max number of -string '...'  options
 !     INTEGER, PARAMETER :: NOVERPTS=500000 !: Max number of overlay points

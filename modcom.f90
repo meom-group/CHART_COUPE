@@ -257,6 +257,7 @@ MODULE modcom
   REAL(KIND=4)       :: rvv_lwd                     !: vector Line WiDth
   REAL(KIND=4)       :: rvv_vlc                     !: Vector Low Cutoff 
   REAL(KIND=4)       :: rvv_vhc                     !: Vector High Cutoff
+  REAL(KIND=4)       :: rvv_vrm                     !: Vector Reference Maximum
   REAL(KIND=4)       :: rvv_vmd                     !: Vector Minimum Distance  ??? -vecvmd undocumented
   REAL(KIND=4)       :: rvv_mns, rvv_mxs            !: vector Text Bloc Character size min, max
   REAL(KIND=4)       :: rvv_mnx, rvv_mny            !: Coordinates of Minimum Vector Text bloc

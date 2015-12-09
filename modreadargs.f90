@@ -1039,6 +1039,9 @@ CONTAINS
        opt_ocean = 1
        cl_met = 1
 
+    CASE (                                                   '-vecfilled' )
+       opt_filled_arrow = 1
+
     CASE (                                                      '-veclim' )
        opt_vectlim=1
        nvv_met = 3
@@ -1226,6 +1229,10 @@ CONTAINS
     CASE (                                                      '-vecvhc' )
        opt_vecmax = 1
        CALL Get1real (ki, ktype, cd_arg, rvv_vhc)
+
+    CASE (                                                      '-vecvrm' )
+       opt_vecvrm = 1
+       CALL Get1real (ki, ktype, cd_arg, rvv_vrm)
 
     CASE (                                                      '-vecmnt' )
        CALL GetString (ki, ktype, cd_arg, cvv_mnt)
@@ -1538,12 +1545,14 @@ CONTAINS
     opt_vectZ    = 0
     opt_vecmin   = 0
     opt_vecmax   = 0
+    opt_vecvrm   = 0
     opt_veclout  = 0
     opt_vecpsi   = 0
     opt_vecnotr  = 0 
     opt_vecrot   = 0
     opt_cgrid    = 0
     opt_vecshade = 0
+    opt_filled_arrow = 0
 
     opt_overdata = 0
     opt_overmark = 0

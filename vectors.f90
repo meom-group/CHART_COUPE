@@ -353,6 +353,7 @@ CONTAINS
 
     IF (opt_vecmin == 1)  CALL vvsetr ('VLC - Vector Low Cutoff     ', rvv_vlc)
     IF (opt_vecmax == 1)  CALL vvsetr ('VHC - Vector High Cutoff    ', rvv_vhc)
+    IF (opt_vecvrm == 1)  CALL vvsetr ('VRM - Vector Ref. Magnitude ', rvv_vrm)
 
     ! text
     zvv_mnx1 = (rvv_mnx - zrl) / (zrr -zrl)    
@@ -371,6 +372,24 @@ CONTAINS
     CALL vvsetr ('MXY - MaX vector text block Y coord  ', zvv_mxy1)
     CALL vvseti ('MXP - MaX vector text block Pos. mode', nvv_mxp )
     CALL vvsetc ('MXT - MaX vector Text string         ', cvv_mxt )
+
+! TEST of differnt arrows
+    IF ( opt_filled_arrow == 1 ) THEN
+       CALL vvseti ('AST - Arrow STyle', 1 )
+       CALL vvseti ('CTV - Color Threshold Value', -1  )  ! -1 : color vector based on magnitude
+       CALL vvseti ('NLV - Number of LeVels     ', 1   )
+       CALL vvseti ('ACM - Arrow Color Mode     ', -2  )  ! control filling and edge of arrow
+       CALL vvseti ('PAI - Parameter Array Index', 1   )
+       CALL vvseti ('CLR - GKS Color Index      ', 1   )  ! 1 = foreground
+       CALL vvsetr ('TVL - Array of Threshold Val',10.  ) ! 10 m/s arbitrary
+       CALL vvsetr ('AFO - Arrow Interior Reference', 1 )
+       CALL vvsetr ('LWD - Vector Linewidth', 1.1 )
+       CALL vvsetr ('AWF - Arrow Width Fractional Minimum', 0.95 )
+       CALL vvsetr ('AWR', 0.05 )
+       CALL vvsetr ('AXF', 0. )
+       CALL vvsetr ('AYF', 0. )
+    ENDIF
+
 
 
     !      call vvsetr('LWD -- Vector Linewidth', 2.25)
