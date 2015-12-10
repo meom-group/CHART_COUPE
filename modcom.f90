@@ -270,6 +270,7 @@ MODULE modcom
   INTEGER(KIND=4)    :: nvv_vst = 0                 !: Vector Statistic flag  (no option associated !)
   INTEGER(KIND=4)    :: nvv_met                     !: Vector coloring method
   INTEGER(KIND=4)    :: nvv_vpo                     !: Vector POsitioning
+  INTEGER(KIND=4)    :: nvv_aclr                    !: Vector Filled arrow : Color index
 
 ! marks for palettes ...
   INTEGER(KIND=4)  :: marks(NCLRMARK)                   !: 

@@ -379,14 +379,14 @@ CONTAINS
 ! TEST of differnt arrows
     IF ( opt_filled_arrow == 1 ) THEN
        CALL vvseti ('AST - Arrow STyle', 1 )
-       CALL vvseti ('CTV - Color Threshold Value', -1  )  ! -1 : color vector based on magnitude
-       CALL vvseti ('NLV - Number of LeVels     ', 1   )
-       CALL vvseti ('ACM - Arrow Color Mode     ', -2  )  ! control filling and edge of arrow
-       CALL vvseti ('PAI - Parameter Array Index', 1   )
-       CALL vvseti ('CLR - GKS Color Index      ', 1   )  ! 1 = foreground
-       CALL vvsetr ('TVL - Array of Threshold Val',10.  ) ! 10 m/s arbitrary
-       CALL vvsetr ('AFO - Arrow Interior Reference', 1 )
-       CALL vvsetr ('LWD - Vector Linewidth', 1.1 )
+       CALL vvseti ('CTV - Color Threshold Value', -1       )  ! -1 : color vector based on magnitude
+       CALL vvseti ('NLV - Number of LeVels     ', 1        )
+       CALL vvseti ('ACM - Arrow Color Mode     ', -2       )  ! control filling and edge of arrow
+       CALL vvseti ('PAI - Parameter Array Index', 1        )
+       CALL vvseti ('CLR - GKS Color Index      ', nvv_aclr )  ! 1 = foreground
+       CALL vvsetr ('TVL - Array of Threshold Val',10.      ) ! 10 m/s arbitrary
+       CALL vvsetr ('AFO - Arrow Interior Reference', 1     )
+       CALL vvsetr ('LWD - Vector Linewidth', 1.1           )
        CALL vvsetr ('AWF - Arrow Width Fractional Minimum', 0.95 )
        CALL vvsetr ('AWR', 0.05 )
        CALL vvsetr ('AXF', 0. )

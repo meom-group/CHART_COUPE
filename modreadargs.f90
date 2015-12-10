@@ -201,7 +201,7 @@ CONTAINS
        opt_debug  = 1  ; lo_debug  = .TRUE.
        opt_debug2 = 0  ; lo_debug2 = .FALSE.
 
-    CASE (                                                       '-debug2' )
+    CASE (                                                      '-debug2' )
        opt_debug  = 1  ; lo_debug  = .TRUE.
        opt_debug2 = 1  ; lo_debug2 = .TRUE.
 
@@ -256,7 +256,7 @@ CONTAINS
        opt_spval=1
        CALL Get1real (ki, ktype, cd_arg, spval_new)
 
-     CASE (                                                     '-spback' )
+    CASE (                                                      '-spback' )
        opt_spback=1
 
     CASE (                                                       '-scale' )
@@ -376,7 +376,7 @@ CONTAINS
        opt_noproj = 1
        opt_map    = 0
 
-    CASE (                                                      '-pixel' )
+    CASE (                                                       '-pixel' )
        opt_pixel  = 1
        opt_ijgrid = 1
        opt_noproj = 1
@@ -1010,6 +1010,9 @@ CONTAINS
     CASE (                                                      '-vecclr' )
        opt_vectclr = 1
 
+    CASE (                                                     '-vecaclr' )
+       CALL Get1integer (ki, ktype, cd_arg, nvv_aclr)         
+
     CASE (                                                     '-vectorx' )
        opt_vectX=1
 
@@ -1392,7 +1395,7 @@ CONTAINS
           text(nstrcount)%icolor=0
        ENDIF
 
-    CASE (                                                     '-stringrc' )
+    CASE (                                                    '-stringrc' )
        opt_color = 1
        IF (ktype == jp_from_line) THEN
           nstrcountrc= nstrcountrc+ 1
@@ -1568,6 +1571,7 @@ CONTAINS
     cl_met       = 2
     nvv_met       = 2
     nvv_vpo       = 0
+    nvv_aclr      = 1
     cl_min       = 0
     cl_max       = 0
     ncl_dim       = 1
