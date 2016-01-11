@@ -339,9 +339,17 @@ CONTAINS
 !                      icra(ji,jj) = COLOR_SPVAL
                       icra(ji,jj) = ispvalcol
                    ELSE IF (pfld(iusr,jusr) <= plimit(1)     ) THEN
-                      icra(ji,jj) = COLOR_NRES
+                      IF ( opt_mskc == 1 ) THEN
+                         icra(ji,jj) = COLOR_CLRMSK_MIN
+                      ELSE
+                         icra(ji,jj) = COLOR_NRES
+                      ENDIF
                    ELSE IF (pfld(iusr,jusr) >= plimit(kncol) ) THEN
-                      icra(ji,jj) = kncol + COLOR_NRES -1
+                      IF ( opt_mskc == 1 ) THEN
+                         icra(ji,jj) = COLOR_CLRMSK_MAX
+                      ELSE
+                         icra(ji,jj) = kncol + COLOR_NRES -1
+                      ENDIF
                    ELSE
                       ioffset = 0
                       zptr = float(kncol)
@@ -379,31 +387,39 @@ CONTAINS
           !..........................................................
           DO ji=1,inx
              DO jj=1,iny
-                IF (pfld(ji,jj) == zspv) THEN 
-!                   icra(ji,jj) = COLOR_SPVAL
-                    icra(ji,jj) = ispvalcol
-                ELSE IF (pfld(ji,jj) < plimit(1)) THEN
-                   icra(ji,jj) = COLOR_NRES
-                ELSE IF (pfld(ji,jj) >= plimit(kncol)) THEN
-                   icra(ji,jj) = kncol + COLOR_NRES-1
-                ELSE
-                   ioffset = 0
-                   zptr = float(kncol)
+               IF      (pfld(ji,jj) == zspv          ) THEN 
+!                  icra(ji,jj) = COLOR_SPVAL
+                  icra(ji,jj) = ispvalcol
+               ELSE IF (pfld(ji,jj) <= plimit(1)     ) THEN
+                  IF ( opt_mskc == 1 ) THEN
+                     icra(ji,jj) = COLOR_CLRMSK_MIN
+                  ELSE
+                     icra(ji,jj) = COLOR_NRES
+                  ENDIF
+               ELSE IF (pfld(ji,jj) >= plimit(kncol) ) THEN
+                  IF ( opt_mskc == 1 ) THEN
+                     icra(ji,jj) = COLOR_CLRMSK_MAX
+                  ELSE
+                     icra(ji,jj) = kncol + COLOR_NRES -1
+                  ENDIF
+               ELSE
+                  ioffset = 0
+                  zptr = float(kncol)
 
-                   DO WHILE (zptr /= 1.0)
-                      zptr = zptr / 2.0
-                      icol = NINT(zptr)+ioffset
-                      IF (pfld(ji,jj) >= plimit(icol)) THEN
-                         IF (pfld(ji,jj) < plimit(icol+1)) THEN
-                            zptr = 1.0
-                         ENDIF
-                         ioffset = icol
-                      ENDIF
-                   ENDDO
+                  DO WHILE (zptr /= 1.0)
+                     zptr = zptr / 2.0
+                     icol = NINT(zptr)+ioffset
+                     IF (pfld(ji,jj) >= plimit(icol)) THEN
+                        IF (pfld(ji,jj) < plimit(icol+1)) THEN
+                           zptr = 1.0
+                        ENDIF
+                        ioffset = icol
+                     ENDIF
+                  ENDDO
 
-                   icra(ji,jj) = ioffset + COLOR_NRES-1
+                  icra(ji,jj) = ioffset + COLOR_NRES-1
 
-                ENDIF
+               ENDIF
              ENDDO
           ENDDO
 

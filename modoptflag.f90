@@ -51,7 +51,7 @@ MODULE modoptflag
   !       couleur
   INTEGER(KIND=2) :: opt_clrdata, opt_clrlim, opt_clrmask,  opt_clrgrid 
   INTEGER(KIND=2) :: opt_clrmark
-  INTEGER(KIND=2) :: opt_min,opt_max,opt_color, opt_noint, opt_msk 
+  INTEGER(KIND=2) :: opt_min,opt_max,opt_color, opt_noint, opt_msk, opt_mskc
   INTEGER(KIND=2) :: opt_print, opt_clrlout, opt_satur, opt_clrmod
   !       isocontours     
   INTEGER(KIND=2) :: opt_contdata, opt_cntint, opt_contmask,opt_contgrid

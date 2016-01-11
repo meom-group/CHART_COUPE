@@ -842,6 +842,9 @@ CONTAINS
     CASE (                                                      '-clrmsk' )
        opt_msk = 1
 
+    CASE (                                                     '-clrmskc' )
+       opt_mskc = 1
+
     CASE (                                                      '-clrdim' )
        CALL Get1integer (ki, ktype, cd_arg, ncl_dim)
 
@@ -1482,6 +1485,7 @@ CONTAINS
     opt_min      = 0
     opt_max      = 0
     opt_msk      = 0
+    opt_mskc     = 0
     opt_minc     = 0
     opt_maxc     = 0
     opt_clrmask  = 0
