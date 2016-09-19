@@ -1,5 +1,5 @@
 # CHART_COUPE
-  CHART_COUPE is a plotting package based on NCAR Graphics library, available in NCL distribution. It was formely developped in the early 1990's by E. Brown (MEOM), and has been maintained so far with major periodical rewriting. This plotting package aims at producing nice plots from geophysical model output.
+CHART_COUPE is a plotting package based on NCAR Graphics library, available in NCL distribution. It was formely developped in the early 1990's by E. Brown (MEOM), and has been maintained so far with major periodical rewriting. This plotting package aims at producing nice plots from geophysical model output.
 
 
 It is written in Fortran 90 and two programs are available once the package is compiled:
@@ -7,9 +7,9 @@ It is written in Fortran 90 and two programs are available once the package is c
  * chart : for horizontal views of model results.
  * coupe : for visualization of vertical slices.
 
- It is now available on GitHub under the CeCILL license (<http://www.cecill.info/licences/Licence_CeCILL_V2-en.html>).
+It is now available on GitHub under the CeCILL license (<http://www.cecill.info/licences/Licence_CeCILL_V2-en.html>).
 
-  CHART_COUPE is an open source package and contributions from other group are welcomed. The Git workflow policy is still to be defined.
+CHART_COUPE is an open source package and contributions from other group are welcomed. The Git workflow policy is still to be defined.
 
 ## Using CHART_COUPE
 
