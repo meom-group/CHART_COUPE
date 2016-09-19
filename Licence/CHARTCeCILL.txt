@@ -1,7 +1,7 @@
 The following licence information concerns ONLY the CHART/COUPE package
 =======================================================================
 
-Copyright © LEGI-MEOM (Jean-Marc.Molines@legi.grenoble-inp.fr )
+Copyright IGE-MEOM (Jean-Marc.Molines@univ-grenoble-alpes.fr )
 
 This software is a computer program for drawing chart and sections
 of data produced in the frame of the numerical simulation of the
