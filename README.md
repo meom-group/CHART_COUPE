@@ -19,9 +19,11 @@ To retrieve a copy of the CHART_COUPE source code and create a working directory
 ```> git clone https://github.com/meom-group/CHART_COUPE ```
 
 #### Compiling CHART_COUPE
-There is a Makefile for compiling the sources. The compiler/machines related definitions are supposed to be collected in a `make.macro` file. Some examples of `make.macro` are given in the Macrolib directory and can be used as template for a new compiler or new machine. Then the good practice is to make a link 
+All fortran sources are in src/ directory. There is a Makefile for compiling the sources. The compiler/machines related definitions are supposed to be collected in a `make.macro` file. Some examples of `make.macro` are given in the Macrolib directory and can be used as template for a new compiler or new machine. Then the good practice is to make a link 
 
-```>  ln -sf Macrolib/macro.MACHINE  make.macro ```
+```>  cd src/```
+
+```>  ln -sf ../Macrolib/macro.MACHINE  make.macro ```
 
 In the `make.macro` file, the PATH for the netcdf library is specified, as well as compiler name and used flags.  
 
