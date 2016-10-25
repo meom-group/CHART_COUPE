@@ -13,6 +13,8 @@ include make.macro
 
 BINDIR = ../bin
 
+VPATH = $(BINDIR)
+
 CHARTSRC= calcul.f90         cdf.f90       chart.F90  checkfiles.F90 modexternal.f90 \
   moddrawpalette.f90 isocontours.f90    modcolor.f90      modcom.f90    modeflim.f90 \
       modmapncar.f90    modparam.f90 modreadargs.f90 modvaltable.f90     overlay.f90 readbimg.f90 \
