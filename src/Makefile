@@ -11,6 +11,8 @@
 ##----------------------------------------------------------------------
 include make.macro
 
+BINDIR = ../bin
+
 CHARTSRC= calcul.f90         cdf.f90       chart.F90  checkfiles.F90 modexternal.f90 \
   moddrawpalette.f90 isocontours.f90    modcolor.f90      modcom.f90    modeflim.f90 \
       modmapncar.f90    modparam.f90 modreadargs.f90 modvaltable.f90     overlay.f90 readbimg.f90 \
@@ -33,10 +35,10 @@ COUPEOBJ= calcul.o           cdf.o        coupe.o  checkfiles.o  modexternal.o m
 all: chart coupe  vecrot_opa vecrot
 
 chart : $(CHARTOBJ)
-	$(LD) $(CHARTOBJ) -o chart $(FFLAGS)
+	$(LD) $(CHARTOBJ) -o $(BINDIR)/chart $(FFLAGS)
 
 coupe : $(COUPEOBJ)
-	$(LD) $(COUPEOBJ) -o coupe $(FFLAGS)
+	$(LD) $(COUPEOBJ) -o $(BINDIR)coupe $(FFLAGS)
 
 clean : 
 	\rm -f *.o *.mod *~
@@ -45,7 +47,7 @@ cleanall :  clean
 	\rm -f chart coupe
 
 install : all
-	mv chart coupe vecrot_opa vecrot $(INSTALL)
+	mv $(BINDIR)/chart $(BINDIR)/coupe $(BINDIR)/vecrot_opa $(BINDIR)/vecrot $(INSTALL)
 
 # dependence below
 
@@ -142,8 +144,8 @@ coupe.o : coupe.F90  modcom.o modcolor.o modeflim.o modcoupe.o sigma.o util.o \
 	$(FC) $(FFLAGS) -c $*.F90 
 
 vecrot_opa : vecrot_opa.f90
-	$(FC) $@.f90  -o $@ $(FFLAGS)
+	$(FC) $@.f90  -o $(BINDIR)/$@ $(FFLAGS)
 
 vecrot : vecrot.f90
-	$(FC) $@.f90  -o $@ $(FFLAGS)
+	$(FC) $@.f90  -o $(BINDIR)/$@ $(FFLAGS)
 
