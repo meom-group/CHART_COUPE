@@ -46,7 +46,7 @@ clean :
 	\rm -f *.o *.mod *~
 
 cleanall :  clean
-	\rm -f chart coupe
+	\rm -f $(BINDIR)/chart $(BINDIR)/coupe $(BINDIR)/vecrot_opa $(BINDIR)/vecrot
 
 install : all
 	mv $(BINDIR)/chart $(BINDIR)/coupe $(BINDIR)/vecrot_opa $(BINDIR)/vecrot $(INSTALL)
