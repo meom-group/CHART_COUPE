@@ -40,7 +40,7 @@ chart : $(CHARTOBJ)
 	$(LD) $(CHARTOBJ) -o $(BINDIR)/chart $(FFLAGS)
 
 coupe : $(COUPEOBJ)
-	$(LD) $(COUPEOBJ) -o $(BINDIR)coupe $(FFLAGS)
+	$(LD) $(COUPEOBJ) -o $(BINDIR)/coupe $(FFLAGS)
 
 clean : 
 	\rm -f *.o *.mod *~
