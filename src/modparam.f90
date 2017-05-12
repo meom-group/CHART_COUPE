@@ -64,7 +64,7 @@ MODULE modparam
 
       INTEGER, PARAMETER :: jp_txt=50 !: max number of -string '...'  options
 !     INTEGER, PARAMETER :: NOVERPTS=500000 !: Max number of overlay points
-      INTEGER, PARAMETER :: NOVERPTS=50000 !: Max number of overlay points
+      INTEGER, PARAMETER :: NOVERPTS=15000000 !: Max number of overlay points
       INTEGER, PARAMETER :: NCLRMARK=256 !: max number of colors in clrmark
 
       REAL(KIND=4), PARAMETER :: rp_defspval=999999999. !: default spval
