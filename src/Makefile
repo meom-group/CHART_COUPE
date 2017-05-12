@@ -105,7 +105,7 @@ isocontours.o : isocontours.f90 modcom.o modcolor.o modmapncar.o util.o val_tabl
 nclinfo.o : nclinfo.f90 
 	$(FC) $(FFLAGS) -c $*.f90 
 
-overlay.o : overlay.f90 modparam.o  modcom.o
+overlay.o : overlay.f90 modparam.o  modcom.o readbimg.o
 	$(FC) $(FFLAGS) -c $*.f90 
 
 readbimg.o : readbimg.f90 tracecol.o modcom.o  util.o cdf.o
