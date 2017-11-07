@@ -359,17 +359,20 @@ CONTAINS
     !!---------------------------------------------------------------------
     !!                  ***  ROUTINE JetPal  ***
     !!
-    !! ** Purpose :   Define a palette similar to matlab jetpal pallette
+    !! ** Purpose :   Define a palette similar to matlab jetpal palette
     !!
-    !! ** Method  :   
-    !!
+    !! ** Method  :   The MATLAB "Jet" colour palette is a standard palette 
+    !!                 used for scientific and mathematical data.
+    !!                It is defined as a linear ramp between the following 
+    !!                colours: "#00007F", "blue", "#007FFF", "cyan", 
+    !!                "#7FFF7F", "yellow", "#FF7F00", "red", "#7F0000"
     !!----------------------------------------------------------------------
     REAL(KIND=4), DIMENSION(:,:), INTENT(out) :: prgb  ! (3,NBOXMAX)
     INTEGER(KIND=4),               INTENT(in) :: kncol
 
     INTEGER(KIND=4)                  :: ji
-    INTEGER(KIND=4)                  :: ix, ix2
-    REAL(KIND=4), DIMENSION(NBOXMAX) :: zx, zy, ze
+    INTEGER(KIND=4)                  :: ix, ix2, ix3, ixd
+    REAL(KIND=4), DIMENSION(NBOXMAX) :: zx, zy, ze, zf
     !!----------------------------------------------------------------------
     IF ( kncol > NBOXMAX ) THEN
        PRINT *,'ERROR in JetPal : Too many colors.  Possible maxi is :',NBOXMAX
@@ -379,20 +382,28 @@ CONTAINS
     ix=NINT(kncol/4.)
 
     ix2=ix/2
+    ix3=kncol - ix2 -3*ix
+    IF ( ix3 /= ix2 ) THEN
+      ixd = 2*ix3
+    ELSE
+      ixd = ix
+    ENDIF
+
     ! initialisation of working arrays
     zx(1:ix ) = (/ (float(ji      )/ix, ji=1,ix ) /)
     zy(1:ix2) = (/ (float(ji+ix2-1)/ix, ji=1,ix2) /)
     ze(1:ix ) = (/ (  1.              , ji=1,ix ) /)
+    zf(1:ix3) = (/ (float(ji+ix3-1)/ixd, ji=1,ix3) /)
      
     ! Filling Red values
     prgb(1 , 1         :ix2+ix   ) = 0.
     prgb(1 , ix2+ix+1  :ix2+2*ix ) = zx (1  :ix               )
     prgb(1 , ix2+2*ix+1:ix2+3*ix ) = ze (1  :ix               )
-    prgb(1 , ix2+3*ix+1:kncol    ) = zy (ix2:kncol-ix2-3*ix:-1)
+    prgb(1 , ix2+3*ix+1:kncol    ) = zf (ix3:1             :-1)
 
     ! Filling Green values
     prgb(2 , 1         :ix2      ) = 0.
-    prgb(2 , ix2+1     :ix2+ix   ) = zx (1  : ix2             )
+    prgb(2 , ix2+1     :ix2+ix   ) = zx (1  : ix              )
     prgb(2 , ix2+ix+1  :ix2+2*ix ) = ze (1  : ix              )
     prgb(2 , ix2+2*ix+1:ix2+3*ix ) = zx (ix : 1            :-1)
     prgb(2 , ix2+3*ix+1:kncol    ) = 0.

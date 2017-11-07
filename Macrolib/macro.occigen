@@ -12,6 +12,7 @@ NCL = -L$(CAIRO_LIB_PATH) -L$(PNG_LIB_PATH) -L$(HOME)/lib  -L /opt/software/grap
 
 # To activate debuging uncomment the following line
 #DEBUGFLAG = -O -CB -g -traceback -fpe0  -ftrapuv
+#DEBUGFLAG = -O -CB -g -traceback 
 DEBUGFLAG =  -O3
 
 #FFLAGS = $(DEBUGFLAG) -static -assume byterecl -convert big_endian $(NCDF) $(NCL)
