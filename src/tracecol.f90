@@ -679,17 +679,7 @@ CONTAINS
     END SELECT
 
     IF (opt_clrmark  ==  1 ) THEN
-       IF ( opt_log /= 1  .AND. opt_clrlog /=1 .AND. opt_cntlog /=1 ) THEN
-         DO ji=1,nmark
-           IF (int_format == 1) THEN
-              WRITE(cllbs(ji),int_table(ICLR_PAL)%format)  NINT (vclrmark(ji)/(zcoef))
-              cllbs(ji) = ADJUSTL( cllbs(ji) )
-           ELSE
-              WRITE(cllbs(ji),int_table(ICLR_PAL)%format)       (vclrmark(ji)/(zcoef))
-              cllbs(ji) = ADJUSTL( cllbs(ji) )
-           ENDIF
-         ENDDO
-       ELSE
+       IF ( opt_log == 1  .OR. opt_clrlog ==1 .OR. opt_cntlog ==1 ) THEN
          DO ji=1,nmark
               zval= 10.**(vclrmark(ji)/(zcoef))
            IF (int_format == 1) THEN
@@ -697,6 +687,38 @@ CONTAINS
               cllbs(ji) = ADJUSTL( cllbs(ji) )
            ELSE
               WRITE(cllbs(ji),int_table(ICLR_PAL)%format)       (zval)
+              cllbs(ji) = ADJUSTL( cllbs(ji) )
+           ENDIF
+         ENDDO
+       ELSE IF ( opt_low == 1  .OR. opt_clrlow ==1 .OR. opt_cntlow ==1 ) THEN
+         DO ji=1,nmark
+              zval= (vclrmark(ji)**4/(zcoef))
+           IF (int_format == 1) THEN
+              WRITE(cllbs(ji),int_table(ICLR_PAL)%format)  NINT (zval)
+              cllbs(ji) = ADJUSTL( cllbs(ji) )
+           ELSE
+              WRITE(cllbs(ji),int_table(ICLR_PAL)%format)       (zval)
+              cllbs(ji) = ADJUSTL( cllbs(ji) )
+           ENDIF
+         ENDDO
+       ELSE IF ( opt_hig == 1  .OR. opt_clrhig ==1 .OR. opt_cnthig ==1 ) THEN
+         DO ji=1,nmark
+              zval= SQRT(SQRT((vclrmark(ji))))/(zcoef)
+           IF (int_format == 1) THEN
+              WRITE(cllbs(ji),int_table(ICLR_PAL)%format)  NINT (zval)
+              cllbs(ji) = ADJUSTL( cllbs(ji) )
+           ELSE
+              WRITE(cllbs(ji),int_table(ICLR_PAL)%format)       (zval)
+              cllbs(ji) = ADJUSTL( cllbs(ji) )
+           ENDIF
+         ENDDO
+       ELSE
+         DO ji=1,nmark
+           IF (int_format == 1) THEN
+              WRITE(cllbs(ji),int_table(ICLR_PAL)%format)  NINT (vclrmark(ji)/(zcoef))
+              cllbs(ji) = ADJUSTL( cllbs(ji) )
+           ELSE
+              WRITE(cllbs(ji),int_table(ICLR_PAL)%format)       (vclrmark(ji)/(zcoef))
               cllbs(ji) = ADJUSTL( cllbs(ji) )
            ENDIF
          ENDDO

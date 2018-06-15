@@ -548,6 +548,25 @@ CONTAINS
           ENDWHERE
        ENDIF
 
+       IF ( opt_low == 1 .OR. (opt_cntlow == 1 .AND. bdimg%lcnt ) .OR. (opt_clrlow == 1 .AND. bdimg%lclr) ) THEN
+          WHERE(  zlocal_data(nimin:nimax,njmin:njmax) /= bdimg%spval .AND.      &
+             &    zlocal_data(nimin:nimax,njmin:njmax) > 0.                 )
+             zlocal_data(nimin:nimax,njmin:njmax) = SQRT(SQRT( zlocal_data(nimin:nimax,njmin:njmax)))
+          ELSEWHERE
+             zlocal_data(nimin:nimax,njmin:njmax) =  bdimg%spval
+          ENDWHERE
+       ENDIF
+
+       IF ( opt_hig == 1 .OR. (opt_cnthig == 1 .AND. bdimg%lcnt ) .OR. (opt_clrhig == 1 .AND. bdimg%lclr) ) THEN
+          WHERE(  zlocal_data(nimin:nimax,njmin:njmax) /= bdimg%spval .AND.      &
+             &    zlocal_data(nimin:nimax,njmin:njmax) > 0.                 )
+             zlocal_data(nimin:nimax,njmin:njmax) =  zlocal_data(nimin:nimax,njmin:njmax)**4
+          ELSEWHERE
+             zlocal_data(nimin:nimax,njmin:njmax) =  bdimg%spval
+          ENDWHERE
+       ENDIF
+
+
        pdata_out(1:nimax-nimin+1 , 1:njmax-njmin+1 ) = zlocal_data (nimin:nimax ,njmin:njmax )
 
     ! Longitudes and latitudes inverted   ( coupe only  )

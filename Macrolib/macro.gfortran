@@ -16,4 +16,4 @@ DEBUGFLAG =  -O3
 
 FFLAGS = $(DEBUGFLAG) -fconvert=big-endian $(NCDF) $(NCL)  -ffpe-trap='invalid','zero','overflow' -fcheck='bounds' -g 
 
-INSTALL = $(HOME)/bin
+INSTALL = $(WORKDIR)/bin

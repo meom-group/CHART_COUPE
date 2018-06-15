@@ -36,6 +36,8 @@ MODULE modoptflag
   INTEGER(KIND=2) :: opt_scalecnt, opt_scaleclr, opt_meancnt, opt_meanclr
   INTEGER(KIND=2) :: opt_abs, opt_abscnt, opt_absclr
   INTEGER(KIND=2) :: opt_log, opt_clrlog, opt_cntlog
+  INTEGER(KIND=2) :: opt_low, opt_clrlow, opt_cntlow
+  INTEGER(KIND=2) :: opt_hig, opt_clrhig, opt_cnthig
 
   INTEGER(KIND=2) :: opt_nolat, opt_nolon, opt_xybat
 

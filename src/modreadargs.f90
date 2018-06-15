@@ -302,6 +302,26 @@ CONTAINS
     CASE (                                                    '-cntlog10' )
        opt_cntlog=1
 
+    CASE (                                                       '-low' )
+       opt_low=1
+
+    CASE (                                                    '-clrlow' )
+       opt_clrlow=1
+
+    CASE (                                                    '-cntlow' )
+       opt_cntlow=1
+
+    CASE (                                                       '-hig' )
+       opt_hig=1
+
+    CASE (                                                    '-clrhig' )
+       opt_clrhig=1
+
+    CASE (                                                    '-cnthig' )
+       opt_cnthig=1
+
+
+
     CASE (                                                           '-b' )
        opt_map=1
        CALL GetString (ki, ktype, cd_arg, cf_bathy)
@@ -1522,6 +1542,12 @@ CONTAINS
     opt_log      = 0
     opt_clrlog   = 0
     opt_cntlog   = 0
+    opt_low      = 0
+    opt_clrlow   = 0
+    opt_cntlow   = 0
+    opt_hig      = 0
+    opt_clrhig   = 0
+    opt_cnthig   = 0
     opt_map      = 1
     opt_high     = 0
     opt_ocean    = 0
