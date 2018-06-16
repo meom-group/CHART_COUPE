@@ -33,7 +33,7 @@ Then using `make` (or even `make -j n` if you can compile on n cores), you will 
 
 
 #### Running `chart` or `coupe`
- `chart` program uses online options which are documented in a french document <https://meom-group.github.io/CHART_COUPE_DOC>
+ `chart` program uses online options which are documented in a [french document](<https://meom-group.github.io/CHART_COUPE_DOC>)
 
 `coupe` uses almost the same  options, with few additional one dedicated to vertical slicing of the data.
 
