@@ -2,7 +2,7 @@
 
 ## General ideas:
 
- 1. prepare a script which produces a nice image, loop on time to produce a time series of images, in native NCL format ( cgm )
+ 1. prepare a script which produces a nice image, loop on time to produce a time series of images, in native NCL format (cgm )
  2. Transform cgm file into raster type file, using ctrans (NCL)  and convert (ImageMagick)
 
   Example:
@@ -54,17 +54,22 @@
   
     composite  file_transparent.gif file_background.gif composite.gif 
 
-  * gif image format does not support a gradual opacity. So in order to fully use opacity control, you need to transform your images in png format (for example), using convert:
+  * gif image format does not support a gradual opacity. So in order to fully use opacity control, you need to transform your images in png format (for example), using convert: 
+  
+  Example:
   
      convert image.gif image.png 
 
   * then the compsite tool can be use with specific opacity options (-dissolve) :
-    Example:
+  
+  Example:
     
     composite -dissolve 70% file_transparent.png file_background.png composite.png
 
- * you can come back to gif (for using gifsicle) just by convert again:
- 
+ * you can come back to gif (for using gifsicle) just by convert again
+
+  Example:
+  
     convert composite.png composite.gif
 
  * Of course when using transparency, you must take care in the image preparation so that no text or unwanted features (colorbar, label etc... )  interfere between superposed images.
