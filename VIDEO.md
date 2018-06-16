@@ -2,7 +2,7 @@
 
 ## General ideas:
 
- 1. prepare a script which produces a nice image, loop on time to produce a time series of images, in native NCL format (cgm )
+ 1. Prepare a script which produces a nice image :), loop on time to produce a time series of images, in native NCL format (cgm)
  2. Transform cgm file into raster type file, using ctrans (NCL)  and convert (ImageMagick)
 
   Example:
