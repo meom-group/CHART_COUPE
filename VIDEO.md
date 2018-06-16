@@ -32,7 +32,7 @@
 
    ImageMagick display tool is usefull for determining the crop windows (X1,Y1-X2-Y2) (in pixel).
 
-### Assemble images in a mosaic of images:
+### Assembling images in a mosaic of images:
    ImageMagick montage tool does the job : 
 
   Example:
@@ -41,7 +41,7 @@
 
   -tile define the layout of the mosaic. -geometry gives the dimension of each tile. 
 
-### Use transparency: 
+### Using transparency: 
   * In CHART use the -spback option to use the background color for the missing values.
   * Then once the resulting image is in gif, you can transform the backgroud color to be transparent, using gifsicle :
 
