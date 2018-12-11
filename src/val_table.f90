@@ -744,6 +744,7 @@ CONTAINS
       &              'September', ' October',' November',' December'/ 
     
     ijul = kjcnes + jp_Jan01_1950
+    IF ( ijul < 0 ) ijul=jp_Jan01_1950   ! dummy value
     CALL CalDat ( ijul, imon_c, iday_c, iyr_c )
 
     IF (opt_english == 1 ) THEN
