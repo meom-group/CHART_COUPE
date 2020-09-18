@@ -1,0 +1,25 @@
+#----------------------------------------------------------------------
+# CHART/COUPE 7.0 , MEOM 2010
+# $Id: macro.ifort 152 2011-04-26 16:28:36Z molines $
+# Copyright (c) 2010, J.-M. Molines.
+# Software governed by the CeCILL licence (Licence/CHARTCeCILL.txt)
+#----------------------------------------------------------------------
+FC = ifort
+# ncarg90jm is a copy od official ncargf90 with fc changed to gfortran
+#   I put it in $WORK/bin (in my PATH)
+LD = ncarg90jm
+#NCDF_ROOT=/gpfslocalsup/spack_soft/netcdf-fortran/4.5.2/intel-19.0.4-knfz4zgnj6ohnfqulsg2z55orygeb7we
+#NCDF = -L/gpfslocalsup/spack_soft/netcdf-c/4.7.3/intel-19.0.4-uph2v4whivfk25222l56sdg4fvwqalxp/lib -lnetcdf -lnetcdff
+NCDF = -lnetcdf -lnetcdff
+NCL = 
+
+# To activate debuging uncomment the following line
+DEBUGFLAG = -O -CB -g -traceback -fpe0
+#DEBUGFLAG =  -O3 
+
+#FFLAGS = $(DEBUGFLAG) -convert big_endian $(NCDF) $(NCL)
+FFLAGS = $(DEBUGFLAG) -convert little_endian $(NCDF) $(NCL)
+
+# -fpe0 -check bounds -g 
+
+INSTALL = $(WORKDIR)/bin
