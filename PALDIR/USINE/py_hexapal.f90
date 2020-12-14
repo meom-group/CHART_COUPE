@@ -92,10 +92,12 @@ PROGRAM py_hexapal
   print *, nlign, nbloc,nleft
   PRINT *,'cmap=['
 !  DO jc=1,ncol-1
-   PRINT '(10("''#",3z2.2,"'',"))', nint(rgb(:,1:nbloc)*255)
+!   PRINT '(10("''#",3z2.2,"'',"))', nint(rgb(:,1:nbloc)*255)
+   PRINT '(10("''#",3z2.2,"'',"))', nint(rgb(:,1:ncol)*255)
 !  ENDDO
-  PRINT '("''#",3z2.2,"'',")', nint(rgb(:,nbloc+1:ncol-1)*255)
-  PRINT '("''#",3z2.2,"'']")', nint(rgb(:,ncol)*255)
+! PRINT '("''#",3z2.2,"'',")', nint(rgb(:,nbloc+1:ncol-1)*255)
+! PRINT '("''#",3z2.2,"'']")', nint(rgb(:,ncol)*255)
+  print '("]")' 
 
 
 END PROGRAM py_hexapal
