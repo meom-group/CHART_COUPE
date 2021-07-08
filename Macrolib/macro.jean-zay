@@ -14,8 +14,8 @@ NCDF = -lnetcdf -lnetcdff
 NCL = 
 
 # To activate debuging uncomment the following line
-DEBUGFLAG = -O -CB -g -traceback -fpe0
-#DEBUGFLAG =  -O3 
+#DEBUGFLAG = -O -CB -g -traceback -fpe0
+DEBUGFLAG =  -O2 
 
 #FFLAGS = $(DEBUGFLAG) -convert big_endian $(NCDF) $(NCL)
 FFLAGS = $(DEBUGFLAG) -convert little_endian $(NCDF) $(NCL)
