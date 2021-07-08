@@ -1,3 +1,13 @@
 #!/bin/bash
+ if [ $# = 0 ] ; then
+   echo " USAGE:  concgm <cgm_produced_on_jean-zay>"
+   echo "   PURPOSE: "
+   echo "      CGM produced on jean-zay have a bad byte ordering, that make them"
+   echo "      unreadable by cgm concverter such as ctrans, ictrans or idt (NCL commands)"
+   echo "      This script changes the byte ordering of the input cgm file and produce "
+   echo "      a byte-swapped file with .sw extention added to the original name."
+   echo " "
+   exit
+fi
 
  hexdump -v -e '1/4 "%08x"' -e '"\n"' $1 | xxd -r -p > $1.sw
